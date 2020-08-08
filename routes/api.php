@@ -1,6 +1,5 @@
 <?php
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -18,6 +17,7 @@ use Illuminate\Support\Facades\Route;
 //    return $request->user();
 //});
 
+//AUTH
 Route::group([
     'middleware' => 'api',
     'prefix' => 'auth'
@@ -26,4 +26,16 @@ Route::group([
     Route::post('logout', 'AuthController@logout')->name('auth.logout');
     Route::post('refresh', 'AuthController@refresh')->name('auth.refresh');
     Route::get('profile', 'AuthController@profile')->name('auth.profile');
+});
+
+//USER
+Route::group([
+    'middleware' => 'api',
+    'prefix' => 'user'
+], function () {
+    Route::get('/', 'UserController@index')->name('user.index');
+    Route::get('{user}', 'UserController@show')->name('user.show');
+    Route::post('/', 'UserController@store')->name('user.store');
+    Route::put('/{user}', 'UserController@update')->name('user.update');
+    Route::delete('/{user}', 'UserController@destroy')->name('user.destroy');
 });

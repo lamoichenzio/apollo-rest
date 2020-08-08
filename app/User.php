@@ -2,7 +2,6 @@
 
 namespace App;
 
-use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Tymon\JWTAuth\Contracts\JWTSubject;
@@ -17,7 +16,11 @@ class User extends Authenticatable implements JWTSubject
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'username', 'email', 'password', 'firstname', 'lastname', 'pic'
+    ];
+
+    protected $guarded = [
+        'role_id'
     ];
 
     /**
@@ -26,17 +29,17 @@ class User extends Authenticatable implements JWTSubject
      * @var array
      */
     protected $hidden = [
-        'password', 'remember_token',
+        'password',
     ];
 
-    /**
-     * The attributes that should be cast to native types.
-     *
-     * @var array
-     */
-    protected $casts = [
-        'email_verified_at' => 'datetime',
-    ];
+//    /**
+//     * The attributes that should be cast to native types.
+//     *
+//     * @var array
+//     */
+//    protected $casts = [
+//        'email_verified_at' => 'datetime',
+//    ];
 
     public function getJWTIdentifier()
     {
@@ -49,6 +52,15 @@ class User extends Authenticatable implements JWTSubject
     }
 
     public function role(){
-        return $this->hasOne(Role::class);
+        return $this->belongsTo(Role::class);
     }
+
+    public function path(){
+        return route('user.show', $this);
+    }
+
+    public function isAdmin(){
+        return $this->role == Role::getAdminRole();
+    }
+
 }
