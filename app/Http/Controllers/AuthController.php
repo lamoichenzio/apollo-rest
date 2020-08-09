@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\UserResource;
 use Illuminate\Http\JsonResponse;
 
 class AuthController extends Controller
@@ -40,11 +41,11 @@ class AuthController extends Controller
     /**
      * Get the authenticated UserResource.
      *
-     * @return JsonResponse
+     * @return UserResource
      */
     public function profile()
     {
-        return response()->json(auth()->user());
+        return new UserResource(auth()->user());
     }
 
     /**

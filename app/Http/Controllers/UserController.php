@@ -38,7 +38,8 @@ class UserController extends Controller
         }
 
         if ($name = request('username')) {
-            return UserResource::collection(User::where(['username', $name]))->response();
+            $users = User::where('username', $name)->get();
+            return UserResource::collection($users)->response();
         }
 
         $links = User::all()->map(function ($user) {
