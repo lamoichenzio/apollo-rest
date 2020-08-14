@@ -5,10 +5,14 @@ namespace App;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Tymon\JWTAuth\Contracts\JWTSubject;
+use Jenssegers\Mongodb\Eloquent\HybridRelations;
 
 class User extends Authenticatable implements JWTSubject
 {
     use Notifiable;
+    use HybridRelations;
+
+    protected $connection='mysql';
 
     /**
      * The attributes that are mass assignable.
@@ -61,6 +65,10 @@ class User extends Authenticatable implements JWTSubject
 
     public function isAdmin(){
         return $this->role == Role::getAdminRole();
+    }
+
+    public function surveys(){
+        return $this->hasMany(Survey::class);
     }
 
 }

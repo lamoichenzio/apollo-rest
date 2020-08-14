@@ -21,8 +21,10 @@ class UserResource extends JsonResource
             'firstname' => $this->firstname,
             'lastname' => $this->lastname,
             'pic' => $this->pic,
-            'role'=>$this->role
-
+            'role' => $this->role,
+            'surveys' => $this->surveys()->map(function ($survey) {
+                $survey->path();
+            })
         ];
     }
 }

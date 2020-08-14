@@ -39,3 +39,15 @@ Route::group([
     Route::put('/{user}', 'UserController@update')->name('user.update');
     Route::delete('/{user}', 'UserController@destroy')->name('user.destroy');
 });
+
+//SURVEY
+Route::group([
+    'middleware' => 'api',
+    'prefix' => 'survey'
+], function () {
+    Route::get('/', 'SurveyController@index')->name('survey.index');
+    Route::get('{survey}', 'SurveyController@show')->name('survey.show');
+    Route::post('/', 'SurveyController@store')->name('survey.store');
+    Route::put('/{survey}', 'SurveyController@update')->name('survey.update');
+    Route::delete('/{survey}', 'SurveyController@destroy')->name('survey.destroy');
+});

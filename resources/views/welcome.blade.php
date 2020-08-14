@@ -74,7 +74,7 @@
     <h1>Apollo Endpoints (/rest...)</h1>
 </div>
 <div class="section">
-    <b>NB:</b> All endpoints except /auth/login requires AUTHENTICATION
+    <b>NB:</b> All endpoints except /auth/login requires Bearer Token AUTHENTICATION
 </div>
 <div class="section">
     <h2>Auth (/auth...)</h2>
