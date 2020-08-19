@@ -27,9 +27,9 @@ class UserCreationRequest extends FormRequest
             'username' => 'required|string|min:4',
             'password' => 'required|string|min:5',
             'email' => 'required|email|string|unique:mysql.users',
-            'file' => 'sometimes|required',
-            'file.name' => 'required_with:file|string',
-            'file.data' => 'required_with:file|image'
+            'pic' => 'sometimes|required',
+            'pic.name' => 'required_with:file|string',
+            'pic.data' => 'required_with:file|image'
         ];
     }
 }

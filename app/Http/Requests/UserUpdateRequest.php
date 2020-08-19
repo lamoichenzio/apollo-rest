@@ -29,9 +29,9 @@ class UserUpdateRequest extends FormRequest
             'password' => 'sometimes|required|min:5',
             'old_password' => 'required_with:password|password',
             'email' => 'sometimes|required|email|unique:users',
-            'file' => 'sometimes|required',
-            'file.name' => 'sometimes|required_with:file|required_unless:file,delete|string',
-            'file.data' => 'sometimes|required_with:file|required_unless:file,delete|image'
+            'pic' => 'sometimes|required',
+            'pic.name' => 'sometimes|required_with:file|required_unless:file,delete|string',
+            'pic.data' => 'sometimes|required_with:file|required_unless:file,delete|image'
         ];
     }
 }
