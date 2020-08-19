@@ -104,11 +104,19 @@ class UserController extends Controller
         if ($password = $request['password']) {
             $request['password'] = Hash::make($password);
         }
-        if ($request['file'] == 'delete' && $user->pic) {
-            ImageFile::destroy($user->pic);
-            $user->pic = null;
+
+        //File update
+        if ($request['pic'] != 'delete') {
+            if ($user->pic) {
+                $icon = ImageFile::find($user->pic);
+                $icon->update($request->get('pic'));
+            } else {
+                $icon = ImageFile::create($request->get('pic'));
+                $user->pic = $icon->id;
+            }
         }
-        $user->update($request->all());
+
+        $this->userService->updateUser($request, $user, $request['file'] == 'delete');
         return response()->json("", 204);
     }
 

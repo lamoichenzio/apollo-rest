@@ -17,6 +17,3 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::options('/{path}', function () {
-    return '';
-})->where('path', '.*');
