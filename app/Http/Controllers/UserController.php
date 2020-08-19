@@ -2,20 +2,24 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\UserCreationRequest;
+use App\Http\Requests\UserUpdateRequest;
 use App\Http\Resources\UserResource;
-use App\Role;
+use App\ImageFile;
+use App\Services\UserService;
 use App\User;
 use Exception;
-use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
 
-    public function __construct()
+    protected $userService;
+
+    public function __construct(UserService $userService)
     {
+        $this->userService = $userService;
         $this->middleware('auth:api', ['except' => ['store']]);
     }
 
@@ -26,11 +30,14 @@ class UserController extends Controller
      */
     public function index()
     {
+
+        request()->validate([
+            'pagSize' => 'numeric',
+            'username' => 'string|alpha_dash'
+        ]);
+
         //If request is paginated
         if ($pagSize = request('pagSize')) {
-            request()->validate([
-                'pagSize' => 'numeric'
-            ]);
             if ($username = \request('username')) {
                 return UserResource::collection(User::where('username', $username)->paginate($pagSize))->response();
             }
@@ -51,27 +58,25 @@ class UserController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param Request $request
+     * @param UserCreationRequest $request
      * @return JsonResponse
      */
-    public function store(Request $request)
+    public function store(UserCreationRequest $request)
     {
-        $request->validate([
-            'username' => 'required|min:4',
-            'password' => 'required|min:5',
-            'email' => 'required|email|unique:users'
-        ]);
-
         $user = new User([
             'username' => $request['username'],
             'password' => Hash::make($request['password']),
             'email' => $request['email'],
             'firstname' => $request['firstname'],
             'lastname' => $request['lastname'],
-            'pic' => $request['pic']
         ]);
-        $user->role_id = Role::getStandardRole()->id;
-        $user->save();
+
+        if ($fileData = $request['pic']) {
+            $file = new ImageFile(['name' => $fileData['name'], 'data' => $fileData['data']]);
+            $this->userService->createStandardUserWithIcon($user, $file);
+        } else {
+            $this->userService->createStandardUser($user);
+        }
 
         return response()->json(['self' => $user->path()], 201, ["Location" => $user->path()]);
     }
@@ -90,28 +95,21 @@ class UserController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param Request $request
+     * @param UserUpdateRequest $request
      * @param User $user
      * @return JsonResponse
-     * @throws AuthorizationException
      */
-    public function update(Request $request, User $user)
+    public function update(UserUpdateRequest $request, User $user)
     {
-        $this->authorize('update', $user);
-
-        $request->validate([
-            'username' => 'sometimes|required|min:4',
-            'password' => 'sometimes|required|min:5',
-            'old_password' => 'required_with:password|password',
-            'email' => 'sometimes|required|email|unique:users',
-        ]);
-
-        if($password = $request['password']){
-            $request['password']=Hash::make($password);
+        if ($password = $request['password']) {
+            $request['password'] = Hash::make($password);
         }
-
+        if ($request['file'] == 'delete' && $user->pic) {
+            ImageFile::destroy($user->pic);
+            $user->pic = null;
+        }
         $user->update($request->all());
-        return response()->json("",204);
+        return response()->json("", 204);
     }
 
     /**
@@ -124,7 +122,7 @@ class UserController extends Controller
     public function destroy(User $user)
     {
         $this->authorize('delete', $user);
-        $user->delete();
-        return response()->json("",204);
+        $this->userService->deleteUser($user);
+        return response()->json("", 204);
     }
 }

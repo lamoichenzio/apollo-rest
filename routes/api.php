@@ -40,6 +40,14 @@ Route::group([
     Route::delete('/{user}', 'UserController@destroy')->name('user.destroy');
 });
 
+//IMAGE FILE
+Route::group([
+    'middleware' => 'api',
+    'prefix' => 'file'
+], function () {
+    Route::get('/{image}', 'ImageFileController@show')->name('image.show');
+});
+
 //SURVEY
 Route::group([
     'middleware' => 'api',

@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Role extends Model
 {
 
+    protected $connection = 'mysql';
     protected $hidden = ['id'];
 
     public static function getStandardRole()

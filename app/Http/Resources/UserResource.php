@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use App\ImageFile;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class UserResource extends JsonResource
@@ -14,17 +15,18 @@ class UserResource extends JsonResource
      */
     public function toArray($request)
     {
+        if ($image = ImageFile::find($this->pic)) {
+            $image = $image->path();
+        }
         return [
             'id' => $this->id,
             'username' => $this->username,
             'email' => $this->email,
             'firstname' => $this->firstname,
             'lastname' => $this->lastname,
-            'pic' => $this->pic,
+            'pic' => $image,
             'role' => $this->role,
-            'surveys' => $this->surveys()->map(function ($survey) {
-                $survey->path();
-            })
+            'surveys' => $this->surveys
         ];
     }
 }

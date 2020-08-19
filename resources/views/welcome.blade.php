@@ -245,7 +245,7 @@
                                 "email": &lt;email&gt;,
                                 "firstname": &lt;firstname&gt;,
                                 "lastname": &lt;lastname&gt;,
-                                "pic": &lt;pic&gt;,
+                                "pic":  &lt;path_to_file&gt;,
                                   "role": {
                                     "name": &lt;name&gt;
                                     "description": &lt;description&gt;
@@ -274,7 +274,7 @@
                                 "email": &lt;email&gt;,
                                 "firstname": &lt;firstname&gt;,
                                 "lastname": &lt;lastname&gt;,
-                                "pic": &lt;pic&gt;,
+                                "pic": &lt;path_to_file&gt;,
                                 "role": {
                                     "name": &lt;name&gt;
                                     "description": &lt;description&gt;
@@ -303,7 +303,7 @@
                             "email": &lt;email&gt;,
                             "firstname": &lt;firstname&gt;,
                             "lastname": &lt;lastname&gt;,
-                            "pic": &lt;pic&gt;,
+                            "pic": &lt;path_to_file&gt;,
                             "role": {
                                 "name": &lt;name&gt;
                                 "description": &lt;description&gt;
@@ -329,7 +329,10 @@
                         "email"(required): &lt;email&gt;,
                         "firstname": &lt;firstname&gt;,
                         "lastname": &lt;lastname&gt;,
-                        "pic": &lt;pic&gt;
+                        "pic": {
+                            "name": &lt;filename&gt;,
+                            "data": &lt;filedata&gt;
+                        }
                       }
                     </code>
                 </pre>
@@ -367,7 +370,7 @@
                         "email"(not_blank_if_present): &lt;email&gt;,
                         "firstname": &lt;firstname&gt;,
                         "lastname": &lt;lastname&gt;,
-                        "pic": &lt;pic&gt;
+                        "pic": &lt;new object representing the file or "delete" to only delete the current icon&gt;
                       }
                     </code>
                 </pre>
