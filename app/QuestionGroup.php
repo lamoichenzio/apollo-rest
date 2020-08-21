@@ -14,4 +14,9 @@ class QuestionGroup extends Model
         return $this->belongsTo(Survey::class);
     }
 
+    public function path()
+    {
+        return route('questionGroup.show', $this);
+    }
+
 }

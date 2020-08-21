@@ -208,7 +208,7 @@
                 <h4>Request Params:</h4>
                 <ul>
                     <li>
-                        <pre>pagSize</pre>
+                        <pre>pag_size</pre>
                         <div>
                             Paginates the result with the defined number of users per page
                         </div>
@@ -233,7 +233,7 @@
                     }
                     </code>
                 </pre>
-                If the request has the pagSize param:
+                If the request has the pag_size param:
                 <pre>
                     <code>
                       {

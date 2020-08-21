@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\DataHelper;
 use App\Http\Requests\UserCreationRequest;
 use App\Http\Requests\UserUpdateRequest;
 use App\Http\Resources\UserResource;
-use App\ImageFile;
+use App\Services\ImageFileService;
 use App\Services\UserService;
 use App\User;
 use Exception;
@@ -30,30 +31,25 @@ class UserController extends Controller
      */
     public function index()
     {
-
-        request()->validate([
-            'pagSize' => 'numeric',
+        $params = request()->validate([
+            'pag_size' => 'numeric',
             'username' => 'string|alpha_dash'
         ]);
 
-        //If request is paginated
-        if ($pagSize = request('pagSize')) {
-            if ($username = \request('username')) {
-                return UserResource::collection(User::where('username', $username)->paginate($pagSize))->response();
+        if (count($params) > 0) {
+            //If request is paginated
+            if ($pagSize = request('pag_size')) {
+                unset($params['pag_size']);
+                return UserResource::collection(User::where($params)->paginate($pagSize))->response();
             }
-            return UserResource::collection(User::paginate($pagSize))->response();
-        }
-
-        //If request has username search
-        if ($name = request('username')) {
-            $users = User::where('username', $name)->get();
+            $users = User::where($params)->get();
             return UserResource::collection($users)->response();
         }
 
         $links = User::all()->map(function ($user) {
             return $user->path();
         });
-        return response()->json(['data' => $links]);
+        return response()->json(DataHelper::listDataResponse($links));
     }
 
     /**
@@ -62,20 +58,22 @@ class UserController extends Controller
      * @param UserCreationRequest $request
      * @return JsonResponse
      */
-    public function store(UserCreationRequest $request)
+    public
+    function store(UserCreationRequest $request)
     {
         $request['password'] = Hash::make($request['password']);
 
         $user = new User($request->all());
 
         if ($fileData = $request['pic']) {
-            $file = new ImageFile(['name' => $fileData['name'], 'data' => $fileData['data']]);
+            $file = ImageFileService::createImageFile($fileData);
             $this->userService->createStandardUserWithIcon($user, $file);
         } else {
             $this->userService->createStandardUser($user);
         }
 
-        return response()->json(['self' => $user->path()], 201, ["Location" => $user->path()]);
+        return response()->json(
+            DataHelper::creationDataResponse($user), 201, ["Location" => $user->path()]);
     }
 
     /**
@@ -84,7 +82,8 @@ class UserController extends Controller
      * @param User $user
      * @return JsonResponse
      */
-    public function show(User $user)
+    public
+    function show(User $user)
     {
         return response()->json(new UserResource($user));
     }
@@ -96,24 +95,20 @@ class UserController extends Controller
      * @param User $user
      * @return JsonResponse
      */
-    public function update(UserUpdateRequest $request, User $user)
+    public
+    function update(UserUpdateRequest $request, User $user)
     {
         if ($password = $request['password']) {
             $request['password'] = Hash::make($password);
         }
 
         //File update
-        if ($request['pic'] != 'delete') {
-            if ($user->avatar) {
-                $icon = ImageFile::find($user->avatar);
-                $icon->update($request->get('pic'));
-            } else {
-                $icon = ImageFile::create($request->get('pic'));
-                $user->avatar = $icon->id;
-            }
+        if ($request['pic'] && $request['pic'] != 'delete') {
+            $image = ImageFileService::updateImageFile($user->avatar, $request['pic']);
+            $user->avatar = $image->id;
         }
 
-        $this->userService->updateUser($request, $user, $request['file'] == 'delete');
+        $this->userService->updateUser($request, $user, $request['pic'] == 'delete');
         return response()->json("", 204);
     }
 
@@ -124,7 +119,8 @@ class UserController extends Controller
      * @return JsonResponse
      * @throws Exception
      */
-    public function destroy(User $user)
+    public
+    function destroy(User $user)
     {
         $this->authorize('delete', $user);
         $this->userService->deleteUser($user);

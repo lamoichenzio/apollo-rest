@@ -28,8 +28,8 @@ class UserCreationRequest extends FormRequest
             'password' => 'required|string|min:5',
             'email' => 'required|email|string|unique:mysql.users',
             'pic' => 'sometimes|required',
-            'pic.name' => 'required_with:file|string',
-            'pic.data' => 'required_with:file|base64image|base64max:5000'
+            'pic.name' => 'required_with:pic|string',
+            'pic.data' => 'required_with:pic|base64image|base64max:5000'
         ];
     }
 }
