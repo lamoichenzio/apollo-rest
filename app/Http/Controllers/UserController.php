@@ -33,7 +33,7 @@ class UserController extends Controller
     {
         $params = request()->validate([
             'pag_size' => 'numeric',
-            'username' => 'string|alpha_dash'
+            'username' => 'string'
         ]);
 
         if (count($params) > 0) {
@@ -65,7 +65,7 @@ class UserController extends Controller
 
         $user = new User($request->all());
 
-        if ($fileData = $request['pic']) {
+        if ($fileData = $request['avatar']) {
             $file = ImageFileService::createImageFile($fileData);
             $this->userService->createStandardUserWithIcon($user, $file);
         } else {
@@ -85,7 +85,7 @@ class UserController extends Controller
     public
     function show(User $user)
     {
-        return response()->json(new UserResource($user));
+        return UserResource::make($user)->response();
     }
 
     /**
@@ -103,12 +103,12 @@ class UserController extends Controller
         }
 
         //File update
-        if ($request['pic'] && $request['pic'] != 'delete') {
-            $image = ImageFileService::updateImageFile($user->avatar, $request['pic']);
+        if ($request['avatar'] && $request['avatar'] != 'delete') {
+            $image = ImageFileService::updateImageFile($user->avatar, $request['avatar']);
             $user->avatar = $image->id;
         }
 
-        $this->userService->updateUser($request, $user, $request['pic'] == 'delete');
+        $this->userService->updateUser($request, $user, $request['avatar'] == 'delete');
         return response()->json("", 204);
     }
 

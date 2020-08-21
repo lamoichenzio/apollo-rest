@@ -177,16 +177,23 @@
                     <code>
                       {
                         "data": {
-                            "id": &lt;id&gt;,
-                            "username": &lt;username&gt;,
-                            "email": &lt;email&gt;,
-                            "firstname": &lt;firstname&gt;,
-                            "lastname": &lt;lastname&gt;,
-                            "pic": &lt;pic&gt;,
+                            "id": 2,
+                            "username": "aliza.schumm",
+                            "email": "junior00@example.org",
+                            "firstname": "Bennett",
+                            "lastname": "Homenick",
+                            "avatar": "http://apollo.test/rest/file/5f4020549c1a0000f10017f1",
                             "role": {
-                                "name": &lt;role_name&gt;,
-                                "description": &lt;role_description&gt;
-                            }
+                                "name": "STANDARD",
+                                "description": "Standard Role",
+                                "created_at": "2020-08-21T11:09:17.000000Z",
+                                "updated_at": "2020-08-21T11:09:17.000000Z"
+                            },
+                            "surveys": [
+                                "http://apollo.test/rest/survey/3",
+                                "http://apollo.test/rest/survey/11",
+                                "http://apollo.test/rest/survey/12"
+                            ]
                         }
                     }
                     </code>
@@ -201,7 +208,7 @@
     <ul>
         <li>
             <h3><b>GET:</b>
-                <pre>/?&lt;pagSize=num&username=name&gt;</pre>
+                <pre>/?&lt;pag_size=num&username=name&gt;</pre>
             </h3>
             <p>Returns a list of all the users optionally paginated and filtered</p>
             <div>
@@ -224,11 +231,12 @@
                 If the request has no params:
                 <pre>
                     <code>
-                      {
+                    {
                         "data": [
-                            ...
-                            &lt;path link to the user&gt;
-                            ...
+                            "http://apollo.test/rest/user/1",
+                            "http://apollo.test/rest/user/2",
+                            "http://apollo.test/rest/user/3",
+                            "http://apollo.test/rest/user/4"
                         ]
                     }
                     </code>
@@ -238,26 +246,65 @@
                     <code>
                       {
                         "data": [
-                            ...
                             {
-                                "id": &lt;id&gt;,
-                                "username": &lt;username&gt;,
-                                "email": &lt;email&gt;,
-                                "firstname": &lt;firstname&gt;,
-                                "lastname": &lt;lastname&gt;,
-                                "pic":  &lt;path_to_file&gt;,
-                                  "role": {
-                                    "name": &lt;name&gt;
-                                    "description": &lt;description&gt;
-                                }
+                                "id": 1,
+                                "username": "admin",
+                                "email": "admin@admin.it",
+                                "firstname": null,
+                                "lastname": null,
+                                "avatar": null,
+                                "role": {
+                                    "name": "ADMIN",
+                                    "description": "Admin Role",
+                                    "created_at": "2020-08-21T11:09:17.000000Z",
+                                    "updated_at": "2020-08-21T11:09:17.000000Z"
+                                },
+                                "surveys": [
+                                    "http://apollo.test/rest/survey/1",
+                                    "http://apollo.test/rest/survey/2",
+                                    "http://apollo.test/rest/survey/4",
+                                    "http://apollo.test/rest/survey/5",
+                                    "http://apollo.test/rest/survey/6",
+                                    "http://apollo.test/rest/survey/7",
+                                    "http://apollo.test/rest/survey/8",
+                                    "http://apollo.test/rest/survey/9",
+                                    "http://apollo.test/rest/survey/10"
+                                ]
+                            },
+                            {
+                                "id": 2,
+                                "username": "aliza.schumm",
+                                "email": "junior00@example.org",
+                                "firstname": "Bennett",
+                                "lastname": "Homenick",
+                                "avatar": "http://apollo.test/rest/file/5f4020549c1a0000f10017f1",
+                                "role": {
+                                    "name": "STANDARD",
+                                    "description": "Standard Role",
+                                    "created_at": "2020-08-21T11:09:17.000000Z",
+                                    "updated_at": "2020-08-21T11:09:17.000000Z"
+                                },
+                                "surveys": [
+                                    "http://apollo.test/rest/survey/3",
+                                    "http://apollo.test/rest/survey/11",
+                                    "http://apollo.test/rest/survey/12"
+                                ]
                             }
-                            ...
                         ],
                         "links": {
-                            &lt;links to move through the pages&gt;
+                            "first": "http://apollo.test/rest/user?page=1",
+                            "last": "http://apollo.test/rest/user?page=2",
+                            "prev": null,
+                            "next": "http://apollo.test/rest/user?page=2"
                         },
                         "meta": {
-                            &lt;meta information about the pages&gt;
+                            "current_page": 1,
+                            "from": 1,
+                            "last_page": 2,
+                            "path": "http://apollo.test/rest/user",
+                            "per_page": "2",
+                            "to": 2,
+                            "total": 4
                         }
                     }
                     </code>
@@ -267,20 +314,25 @@
                     <code>
                       {
                         "data": [
-                            ...
                             {
-                                "id": &lt;id&gt;,
-                                "username": &lt;username&gt;,
-                                "email": &lt;email&gt;,
-                                "firstname": &lt;firstname&gt;,
-                                "lastname": &lt;lastname&gt;,
-                                "pic": &lt;path_to_file&gt;,
+                                "id": 2,
+                                "username": "aliza.schumm",
+                                "email": "junior00@example.org",
+                                "firstname": "Bennett",
+                                "lastname": "Homenick",
+                                "avatar": "http://apollo.test/rest/file/5f4020549c1a0000f10017f1",
                                 "role": {
-                                    "name": &lt;name&gt;
-                                    "description": &lt;description&gt;
-                                }
+                                    "name": "STANDARD",
+                                    "description": "Standard Role",
+                                    "created_at": "2020-08-21T11:09:17.000000Z",
+                                    "updated_at": "2020-08-21T11:09:17.000000Z"
+                                },
+                                "surveys": [
+                                    "http://apollo.test/rest/survey/3",
+                                    "http://apollo.test/rest/survey/11",
+                                    "http://apollo.test/rest/survey/12"
+                                ]
                             }
-                            ...
                         ]
                     }
                     </code>
@@ -298,18 +350,25 @@
                     <code>
                       {
                         "data": {
-                            "id": &lt;id&gt;,
-                            "username": &lt;username&gt;,
-                            "email": &lt;email&gt;,
-                            "firstname": &lt;firstname&gt;,
-                            "lastname": &lt;lastname&gt;,
-                            "pic": &lt;path_to_file&gt;,
+                            "id": 2,
+                            "username": "aliza.schumm",
+                            "email": "junior00@example.org",
+                            "firstname": "Bennett",
+                            "lastname": "Homenick",
+                            "avatar": "http://apollo.test/rest/file/5f4020549c1a0000f10017f1",
                             "role": {
-                                "name": &lt;name&gt;
-                                "description": &lt;description&gt;
-                            }
+                                "name": "STANDARD",
+                                "description": "Standard Role",
+                                "created_at": "2020-08-21T11:09:17.000000Z",
+                                "updated_at": "2020-08-21T11:09:17.000000Z"
+                            },
+                            "surveys": [
+                                "http://apollo.test/rest/survey/3",
+                                "http://apollo.test/rest/survey/11",
+                                "http://apollo.test/rest/survey/12"
+                            ]
                         }
-                    }
+                      }
                     </code>
                 </pre>
             </div>
@@ -318,7 +377,7 @@
             <h3><b>POST:</b>
                 <pre>/</pre>
             </h3>
-            <p>Creates a new user</p>
+            <p>Creates a new user. Don't need authorization.</p>
             <div>
                 <h4>Request body:</h4>
                 <pre>
@@ -329,7 +388,7 @@
                         "email"(required): &lt;email&gt;,
                         "firstname": &lt;firstname&gt;,
                         "lastname": &lt;lastname&gt;,
-                        "pic": {
+                        "avatar": {
                             "name": &lt;filename&gt;,
                             "data": &lt;filedata&gt;
                         }
@@ -370,7 +429,7 @@
                         "email"(not_blank_if_present): &lt;email&gt;,
                         "firstname": &lt;firstname&gt;,
                         "lastname": &lt;lastname&gt;,
-                        "pic": &lt;new object representing the file or "delete" to only delete the current icon&gt;
+                        "avatar": &lt;new object representing the file or "delete" to only delete the current icon&gt;
                       }
                     </code>
                 </pre>
@@ -396,6 +455,222 @@
                     </code>
                 </pre>
             </div>
+        </li>
+    </ul>
+</div>
+<div class="section">
+    <h2>Survey (../survey)</h2>
+    <ul>
+        <li>
+            <h3>
+                <b>GET:</b>
+                <pre>/?user_id=&lt;user_id&gt;&pag_size=&lt;pag_size&gt;&name=&lt;name&gt;&start_date=&lt;start_date&gt;&end_date=&lt;end_date&gt;</pre>
+            </h3>
+            Returns the list of surveys eventually filtered and paginated.
+            <h4>Request Params</h4>
+            <ul>
+                <li>
+                    <pre>pag_size</pre>
+                    <div>
+                        Paginates the results with the defined number of surveys per page
+                    </div>
+                </li>
+                <li>
+                    <pre>user_id</pre>
+                    <div>
+                        Filters the surveys by the user creator
+                    </div>
+                </li>
+                <li>
+                    <pre>name</pre>
+                    <div>
+                        Filters the surveys by their name
+                    </div>
+                </li>
+                <li>
+                    <pre>start_date</pre>
+                    <div>
+                        Filters the survey by start_date field
+                    </div>
+                </li>
+                <li>
+                    <pre>end_date</pre>
+                    <div>
+                        Filters the survey by end_date field
+                    </div>
+                </li>
+            </ul>
+            <h4>Response body</h4>
+            <p>If request has no params:</p>
+            <pre>
+                <code>
+                    {
+                        "data": [
+                            "http://apollo.test/rest/survey/1",
+                            "http://apollo.test/rest/survey/2",
+                            "http://apollo.test/rest/survey/3",
+                            "http://apollo.test/rest/survey/4",
+                            "http://apollo.test/rest/survey/5",
+                            "http://apollo.test/rest/survey/6",
+                            "http://apollo.test/rest/survey/7",
+                            "http://apollo.test/rest/survey/8",
+                            "http://apollo.test/rest/survey/9",
+                            "http://apollo.test/rest/survey/10",
+                            "http://apollo.test/rest/survey/11",
+                            "http://apollo.test/rest/survey/12"
+                        ]
+                    }
+                </code>
+            </pre>
+            <p>If request has the pag_size attribute:</p>
+            <pre>
+                <code>
+                    {
+                        "data": [
+                            {
+                                "id": 1,
+                                "name": "eligendi",
+                                "description": "Voluptas atque vel fuga.",
+                                "icon": null,
+                                "secret": 0,
+                                "active": 1,
+                                "start_date": "2016-07-31T00:00:00.000000Z",
+                                "end_date": "1981-01-24T00:00:00.000000Z",
+                                "url_id": "http://schneider.com/sint-eum-numquam-doloremque-eaque-numquam-in-debitis.html",
+                                "user": "http://apollo.test/rest/user/1",
+                                "question_groups": [
+                                    "http://apollo.test/rest/questionGroup/1",
+                                    "http://apollo.test/rest/questionGroup/2"
+                                ]
+                            },
+                            {
+                                "id": 2,
+                                "name": "eius",
+                                "description": "Dolore aut aut magnam.",
+                                "icon": null,
+                                "secret": 0,
+                                "active": 1,
+                                "start_date": "2009-12-01T00:00:00.000000Z",
+                                "end_date": "2006-09-26T00:00:00.000000Z",
+                                "url_id": "http://www.koch.org/",
+                                "user": "http://apollo.test/rest/user/1",
+                                "question_groups": [
+                                    "http://apollo.test/rest/questionGroup/3",
+                                    "http://apollo.test/rest/questionGroup/4"
+                                ]
+                            }
+                        ],
+                        "links": {
+                            "first": "http://apollo.test/rest/survey?page=1",
+                            "last": "http://apollo.test/rest/survey?page=6",
+                            "prev": null,
+                            "next": "http://apollo.test/rest/survey?page=2"
+                        },
+                        "meta": {
+                            "current_page": 1,
+                            "from": 1,
+                            "last_page": 6,
+                            "path": "http://apollo.test/rest/survey",
+                            "per_page": "2",
+                            "to": 2,
+                            "total": 12
+                        }
+                    }
+                </code>
+            </pre>
+            <p>If request has one of the query attributes different from pag_size:</p>
+            <pre>
+                <code>
+                    {
+                        "data": [
+                            {
+                                "id": 3,
+                                "name": "excepturi",
+                                "description": "Qui vel et qui sapiente et et.",
+                                "icon": null,
+                                "secret": 0,
+                                "active": 1,
+                                "start_date": "2005-09-03T00:00:00.000000Z",
+                                "end_date": "1970-05-29T00:00:00.000000Z",
+                                "url_id": "http://www.batz.com/et-itaque-hic-sunt-autem-praesentium-magni",
+                                "user": "http://apollo.test/rest/user/2",
+                                "question_groups": []
+                            },
+                            {
+                                "id": 11,
+                                "name": "test",
+                                "description": "adadasdasdasd",
+                                "icon": "http://apollo.test/rest/file/5f401e009c1a0000f10017ef",
+                                "secret": 0,
+                                "active": 0,
+                                "start_date": null,
+                                "end_date": null,
+                                "url_id": null,
+                                "user": "http://apollo.test/rest/user/2",
+                                "question_groups": []
+                            },
+                            {
+                                "id": 12,
+                                "name": "prova",
+                                "description": null,
+                                "icon": "http://apollo.test/rest/file/5f401e059c1a0000f10017f0",
+                                "secret": 1,
+                                "active": 0,
+                                "start_date": "2020-06-20T00:00:00.000000Z",
+                                "end_date": null,
+                                "url_id": null,
+                                "user": "http://apollo.test/rest/user/2",
+                                "question_groups": []
+                            }
+                        ]
+                    }
+                </code>
+            </pre>
+        </li>
+        <li>
+            <h3>
+                <b>GET</b>
+                <pre>/{survey_id}</pre>
+            </h3>
+            <p>Returns information for a specific survey:</p>
+            <h4>Response Body</h4>
+            <pre>
+                <code>
+                    {
+                        "data": {
+                            "id": 1,
+                            "name": "eligendi",
+                            "description": "Voluptas atque vel fuga.",
+                            "icon": null,
+                            "secret": 0,
+                            "active": 1,
+                            "start_date": "2016-07-31T00:00:00.000000Z",
+                            "end_date": "1981-01-24T00:00:00.000000Z",
+                            "url_id": "http://schneider.com/sint-eum-numquam-doloremque-eaque-numquam-in-debitis.html",
+                            "user": "http://apollo.test/rest/user/1",
+                            "question_groups": [
+                                "http://apollo.test/rest/questionGroup/1",
+                                "http://apollo.test/rest/questionGroup/2"
+                            ]
+                        }
+                    }
+                </code>
+            </pre>
+        </li>
+        <li>
+            <h3>
+                <b>POST</b>
+                <pre>/</pre>
+            </h3>
+            <p>
+                Creates a new survey
+            </p>
+            <h4>Request Body</h4>
+            <pre>
+                <code>
+
+                </code>
+            </pre>
         </li>
     </ul>
 </div>

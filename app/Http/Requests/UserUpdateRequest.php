@@ -29,9 +29,9 @@ class UserUpdateRequest extends FormRequest
             'password' => 'sometimes|required|min:5',
             'old_password' => 'required_with:password|password',
             'email' => 'sometimes|required|email|unique:users',
-            'pic' => 'sometimes|required',
-            'pic.name' => 'sometimes|required_with:pic|required_unless:pic,delete|string',
-            'pic.data' => 'sometimes|required_with:pic|required_unless:pic,delete|base64image|base64max:5000'
+            'avatar' => 'sometimes|required',
+            'avatar.name' => 'sometimes|required_with:avatar|required_unless:avatar,delete|string',
+            'avatar.data' => 'sometimes|required_with:avatar|required_unless:avatar,delete|base64image|base64max:5000'
         ];
     }
 }
