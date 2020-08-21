@@ -20,19 +20,19 @@ class CreateUsersTable extends Migration
             $table->string('email')->unique();
             $table->string('firstname')->nullable();
             $table->string('lastname')->nullable();
-            $table->binary('pic')->nullable();
+            $table->binary('avatar')->nullable();
             $table->unsignedBigInteger('role_id');
             $table->timestamps();
         });
 
-        Schema::create('roles', function(Blueprint $table){
-           $table->id();
-           $table->string('name');
-           $table->string('description');
-           $table->timestamps();
+        Schema::create('roles', function (Blueprint $table) {
+            $table->id();
+            $table->string('name');
+            $table->string('description');
+            $table->timestamps();
         });
 
-        Schema::table('users', function (Blueprint $table){
+        Schema::table('users', function (Blueprint $table) {
             $table->foreign('role_id')
                 ->references('id')
                 ->on('roles')

@@ -66,7 +66,7 @@ class User extends Authenticatable implements JWTSubject
         return $this->hasMany(Survey::class);
     }
 
-    public function icon()
+    public function avatar()
     {
         return $this->hasOne(ImageFile::class);
     }

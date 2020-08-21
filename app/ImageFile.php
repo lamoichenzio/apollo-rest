@@ -15,4 +15,9 @@ class ImageFile extends Model
         return route('image.show', $this);
     }
 
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
 }

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "f0bf2f4ecccdfe05ac87d1ad42de176f",
+    "content-hash": "cff962e54e46f23030b51c923d1221a7",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -178,6 +178,60 @@
                 }
             ],
             "time": "2020-08-13T12:55:41+00:00"
+        },
+        {
+            "name": "crazybooot/base64-validation",
+            "version": "1.0.5",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/crazybooot/base64-validation.git",
+                "reference": "c5d00aac597acf0e15e4c1238f476f5a72a4110d"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/crazybooot/base64-validation/zipball/c5d00aac597acf0e15e4c1238f476f5a72a4110d",
+                "reference": "c5d00aac597acf0e15e4c1238f476f5a72a4110d",
+                "shasum": ""
+            },
+            "require": {
+                "laravel/framework": "^5.5|^6.0|^7.0",
+                "php": "^7.1"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Crazybooot\\Base64Validation\\Providers\\ServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "App\\": "app/",
+                    "Crazybooot\\Base64Validation\\": "/src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "crazybooot",
+                    "email": "crazybooot@gmail.com"
+                }
+            ],
+            "description": "Laravel validators for base64 encoded files",
+            "keywords": [
+                "base64",
+                "download",
+                "encoded",
+                "files",
+                "images",
+                "laravel",
+                "validation"
+            ],
+            "time": "2020-03-04T14:52:34+00:00"
         },
         {
             "name": "dnoegel/php-xdg-base-dir",

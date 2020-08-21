@@ -14,29 +14,29 @@ class UserService
     public function createStandardUserWithIcon(User $user, ImageFile $imageFile)
     {
         $imageFile->save();
-        $user->pic = $imageFile->id;
+        $user->avatar = $imageFile->id;
         $this->createStandardUser($user);
     }
 
     public function createStandardUser(User $user)
     {
-        $user->role_id = Role::getStandardRole()->id;
+        $user->role()->associate(Role::getStandardRole());
         $user->save();
     }
 
     public function updateUser(Request $request, User $user, bool $deleteFile)
     {
-        if ($deleteFile && $user->pic) {
-            ImageFile::destroy($user->pic);
-            $user->pic = null;
+        if ($deleteFile && $user->avatar) {
+            ImageFile::destroy($user->avatar);
+            $user->avatar = null;
         }
         $user->update($request->all());
     }
 
     public function deleteUser(User $user)
     {
-        if ($user->pic) {
-            ImageFile::destroy($user->pic);
+        if ($user->avatar) {
+            ImageFile::destroy($user->avatar);
         }
         $user->delete();
     }

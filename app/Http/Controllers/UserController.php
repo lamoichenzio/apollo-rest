@@ -44,6 +44,7 @@ class UserController extends Controller
             return UserResource::collection(User::paginate($pagSize))->response();
         }
 
+        //If request has username search
         if ($name = request('username')) {
             $users = User::where('username', $name)->get();
             return UserResource::collection($users)->response();
@@ -107,12 +108,12 @@ class UserController extends Controller
 
         //File update
         if ($request['pic'] != 'delete') {
-            if ($user->pic) {
-                $icon = ImageFile::find($user->pic);
+            if ($user->avatar) {
+                $icon = ImageFile::find($user->avatar);
                 $icon->update($request->get('pic'));
             } else {
                 $icon = ImageFile::create($request->get('pic'));
-                $user->pic = $icon->id;
+                $user->avatar = $icon->id;
             }
         }
 
