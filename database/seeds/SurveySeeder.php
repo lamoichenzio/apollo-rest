@@ -11,10 +11,8 @@ class SurveySeeder extends Seeder
      */
     public function run()
     {
-        factory(App\Survey::class,2)->make()->each(function ($survey){
-            $survey-> user_id = App\User::find(2)->id;
-            $survey-> save();
-        });
+        factory(\App\Survey::class, 2)->create();
+        factory(\App\Survey::class)->create(['user_id' => 2]);
 
     }
 }

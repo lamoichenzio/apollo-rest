@@ -64,13 +64,9 @@ class UserController extends Controller
      */
     public function store(UserCreationRequest $request)
     {
-        $user = new User([
-            'username' => $request['username'],
-            'password' => Hash::make($request['password']),
-            'email' => $request['email'],
-            'firstname' => $request['firstname'],
-            'lastname' => $request['lastname'],
-        ]);
+        $request['password'] = Hash::make($request['password']);
+
+        $user = new User($request->all());
 
         if ($fileData = $request['pic']) {
             $file = new ImageFile(['name' => $fileData['name'], 'data' => $fileData['data']]);

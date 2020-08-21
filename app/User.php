@@ -12,8 +12,6 @@ class User extends Authenticatable implements JWTSubject
     use Notifiable;
     use HybridRelations;
 
-    protected $connection = 'mysql';
-
     /**
      * The attributes that are mass assignable.
      *
@@ -21,10 +19,6 @@ class User extends Authenticatable implements JWTSubject
      */
     protected $fillable = [
         'username', 'email', 'password', 'firstname', 'lastname'
-    ];
-
-    protected $guarded = [
-        'role_id'
     ];
 
     /**
@@ -70,5 +64,6 @@ class User extends Authenticatable implements JWTSubject
     {
         return $this->hasOne(ImageFile::class);
     }
+
 
 }

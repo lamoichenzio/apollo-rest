@@ -58,4 +58,6 @@ Route::group([
     Route::post('/', 'SurveyController@store')->name('survey.store');
     Route::put('/{survey}', 'SurveyController@update')->name('survey.update');
     Route::delete('/{survey}', 'SurveyController@destroy')->name('survey.destroy');
+    Route::post('/count_all', 'SurveyController@countAll')->name('survey.countAll');
+    Route::post('/count_active', 'SurveyController@countActive')->name('survey.countActive');
 });
