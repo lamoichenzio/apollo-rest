@@ -4,6 +4,7 @@
 namespace App\Services;
 
 
+use App\Helpers\DataHelper;
 use App\ImageFile;
 use App\Role;
 use App\User;
@@ -15,13 +16,14 @@ class UserService
     {
         $imageFile->save();
         $user->avatar = $imageFile->id;
-        $this->createStandardUser($user);
+        return $this->createStandardUser($user);
     }
 
     public function createStandardUser(User $user)
     {
         $user->role()->associate(Role::getStandardRole());
         $user->save();
+        return DataHelper::creationDataResponse($user);
     }
 
     public function updateUser(Request $request, User $user, bool $deleteFile)
@@ -39,6 +41,27 @@ class UserService
             ImageFile::destroy($user->avatar);
         }
         $user->delete();
+    }
+
+    public function getUsers(int $pag_size = null, string $username = null)
+    {
+        $params = [];
+        if ($username) {
+            array_push($params, ['username', 'like', '%' . $username . '%']);
+        }
+        $query = User::where($params);
+        if ($pag_size) {
+            return $query->paginate($pag_size);
+        }
+        return $query->get();
+    }
+
+    public function getUserLinks()
+    {
+        $data = User::all()->map(function ($user) {
+            return $user->path();
+        });
+        return DataHelper::listDataResponse($data);
     }
 
 }

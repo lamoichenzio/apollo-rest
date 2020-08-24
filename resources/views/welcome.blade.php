@@ -67,6 +67,13 @@
         .section {
             margin: 30px;
         }
+
+        .nav-menu a {
+            text-decoration: #636B6F;
+            font-size: large;
+            font-weight: bold;
+        }
+
     </style>
 </head>
 <body>
@@ -76,17 +83,27 @@
 <div class="section">
     <b>NB:</b> All endpoints except /auth/login requires Bearer Token AUTHENTICATION
 </div>
-<div class="section">
-    <h2>Auth (/auth...)</h2>
+
+<nav class="nav-menu">
     <ul>
-        <li>
-            <h3><b>POST:</b>
-                <pre>/login</pre>
-            </h3>
-            <p>Logs in a new user</p>
-            <div>
-                <b>Request Body:</b>
-                <pre>
+        <li><a href="#auth">Auth</a></li>
+        <li><a href="#user">User</a></li>
+        <li><a href="#survey">Survey</a></li>
+    </ul>
+</nav>
+
+<section id="auth">
+    <div class="section">
+        <h2>Auth (/auth...)</h2>
+        <ul>
+            <li>
+                <h3><b>POST:</b>
+                    <pre>/login</pre>
+                </h3>
+                <p>Logs in a new user</p>
+                <div>
+                    <b>Request Body:</b>
+                    <pre>
                     <code class="json">
                     {
                         "email": &lt;email&gt;,
@@ -94,8 +111,8 @@
                     }
                     </code>
                 </pre>
-                <b>Response Body:</b>
-                <pre>
+                    <b>Response Body:</b>
+                    <pre>
                     <code>
                     {
                         "access_token": &lt;token&gt;,
@@ -105,48 +122,48 @@
                     }
                     </code>
                 </pre>
-            </div>
-        </li>
-        <li>
-            <h3><b>POST:</b>
-                <pre>/logout</pre>
-            </h3>
-            <p>Logout a user based on the token sent</p>
-            <div>
-                <b>Request Header:</b>
-                <pre>
+                </div>
+            </li>
+            <li>
+                <h3><b>POST:</b>
+                    <pre>/logout</pre>
+                </h3>
+                <p>Logout a user based on the token sent</p>
+                <div>
+                    <b>Request Header:</b>
+                    <pre>
                     <code class="json">
                     {
                         "Authorization": "Bearer" &lt;token&gt;
                     }
                     </code>
                 </pre>
-                <b>Response Body:</b>
-                <pre>
+                    <b>Response Body:</b>
+                    <pre>
                     <code>
                     {
                         "message": "Successfully logged out"
                     }
                     </code>
                 </pre>
-            </div>
-        </li>
-        <li>
-            <h3><b>POST:</b>
-                <pre>/refresh</pre>
-            </h3>
-            <p>Creates a new token for the current user</p>
-            <div>
-                <b>Request Header:</b>
-                <pre>
+                </div>
+            </li>
+            <li>
+                <h3><b>POST:</b>
+                    <pre>/refresh</pre>
+                </h3>
+                <p>Creates a new token for the current user</p>
+                <div>
+                    <b>Request Header:</b>
+                    <pre>
                     <code class="json">
                     {
                         "Authorization": "Bearer" &lt;token&gt;
                     }
                     </code>
                 </pre>
-                <b>Response Body:</b>
-                <pre>
+                    <b>Response Body:</b>
+                    <pre>
                     <code>
                       {
                         "access_token": &lt;token&gt;,
@@ -156,24 +173,24 @@
                     }
                     </code>
                 </pre>
-            </div>
-        </li>
-        <li>
-            <h3><b>GET:</b>
-                <pre>/profile</pre>
-            </h3>
-            <p>Gets information about the current user</p>
-            <div>
-                <b>Request Header:</b>
-                <pre>
+                </div>
+            </li>
+            <li>
+                <h3><b>GET:</b>
+                    <pre>/profile</pre>
+                </h3>
+                <p>Gets information about the current user</p>
+                <div>
+                    <b>Request Header:</b>
+                    <pre>
                     <code class="json">
                     {
                         "Authorization": "Bearer" &lt;token&gt;
                     }
                     </code>
                 </pre>
-                <b>Response Body:</b>
-                <pre>
+                    <b>Response Body:</b>
+                    <pre>
                     <code>
                       {
                         "data": {
@@ -198,38 +215,39 @@
                     }
                     </code>
                 </pre>
-            </div>
-        </li>
-    </ul>
-</div>
-
-<div class="section">
-    <h2>User (.../user)</h2>
-    <ul>
-        <li>
-            <h3><b>GET:</b>
-                <pre>/?&lt;pag_size=num&username=name&gt;</pre>
-            </h3>
-            <p>Returns a list of all the users optionally paginated and filtered</p>
-            <div>
-                <h4>Request Params:</h4>
-                <ul>
-                    <li>
-                        <pre>pag_size</pre>
-                        <div>
-                            Paginates the result with the defined number of users per page
-                        </div>
-                    </li>
-                    <li>
-                        <pre>username</pre>
-                        <div>
-                            Returns only the users with the given username
-                        </div>
-                    </li>
-                </ul>
-                <h4>Response Body:</h4>
-                If the request has no params:
-                <pre>
+                </div>
+            </li>
+        </ul>
+    </div>
+</section>
+<section id="user">
+    <div class="section">
+        <h2>User (.../users)</h2>
+        <ul>
+            <li>
+                <h3><b>GET:</b>
+                    <pre>/?pag_size=&lt;num&gt;&username=&lt;name&gt;</pre>
+                </h3>
+                <p>Returns a list of all the users optionally paginated and filtered</p>
+                <div>
+                    <h4>Request Params:</h4>
+                    <ul>
+                        <li>
+                            <pre>pag_size</pre>
+                            <div>
+                                Paginates the result with the defined number of users per page
+                            </div>
+                        </li>
+                        <li>
+                            <pre>username</pre>
+                            <div>
+                                Returns only the users with the given username
+                            </div>
+                        </li>
+                    </ul>
+                    <h4>Response Body:</h4>
+                    If the request has no params:
+                    <pre>
                     <code>
                     {
                         "data": [
@@ -241,8 +259,8 @@
                     }
                     </code>
                 </pre>
-                If the request has the pag_size param:
-                <pre>
+                    If the request has the pag_size param:
+                    <pre>
                     <code>
                       {
                         "data": [
@@ -309,8 +327,8 @@
                     }
                     </code>
                 </pre>
-                If the request has only the username param:
-                <pre>
+                    If the request has only the username param:
+                    <pre>
                     <code>
                       {
                         "data": [
@@ -337,16 +355,16 @@
                     }
                     </code>
                 </pre>
-            </div>
-        </li>
-        <li>
-            <h3><b>GET:</b>
-                <pre>/{user_id}</pre>
-            </h3>
-            <p>Gets information about a specific user</p>
-            <div>
-                <b>Response Body:</b>
-                <pre>
+                </div>
+            </li>
+            <li>
+                <h3><b>GET:</b>
+                    <pre>/{user_id}</pre>
+                </h3>
+                <p>Gets information about a specific user</p>
+                <div>
+                    <b>Response Body:</b>
+                    <pre>
                     <code>
                       {
                         "data": {
@@ -371,16 +389,16 @@
                       }
                     </code>
                 </pre>
-            </div>
-        </li>
-        <li>
-            <h3><b>POST:</b>
-                <pre>/</pre>
-            </h3>
-            <p>Creates a new user. Don't need authorization.</p>
-            <div>
-                <h4>Request body:</h4>
-                <pre>
+                </div>
+            </li>
+            <li>
+                <h3><b>POST:</b>
+                    <pre>/</pre>
+                </h3>
+                <p>Creates a new user. Don't need authorization.</p>
+                <div>
+                    <h4>Request body:</h4>
+                    <pre>
                     <code>
                       {
                         "username" (required|min:4): &lt;username&gt;,
@@ -395,8 +413,8 @@
                       }
                     </code>
                 </pre>
-                <h4>Response Body:</h4>
-                <pre>
+                    <h4>Response Body:</h4>
+                    <pre>
                     <code>
 
                         HTTP STATUS: 201
@@ -407,20 +425,21 @@
 
                     </code>
                 </pre>
-            </div>
-        </li>
-        <li>
-            <h3><b>PUT:</b>
-                <pre>/{user_id}</pre>
-            </h3>
-            <p>Updates an existing user</p>
-            <p><b>NB:</b> A user can only be updated by himself or an admin user</p>
-            <div>
-                <h4>Request body:</h4>
-                All the attributes are not required. Only the attributes send with the request will be updated for the
-                user,
-                the others not sent will still be the same.
-                <pre>
+                </div>
+            </li>
+            <li>
+                <h3><b>PUT:</b>
+                    <pre>/{user_id}</pre>
+                </h3>
+                <p>Updates an existing user</p>
+                <p><b>NB:</b> A user can only be updated by himself or an admin user</p>
+                <div>
+                    <h4>Request body:</h4>
+                    All the attributes are not required. Only the attributes send with the request will be updated for
+                    the
+                    user,
+                    the others not sent will still be the same.
+                    <pre>
                     <code>
                       {
                         "username" (not blank if present|min:4): &lt;username&gt;,
@@ -433,76 +452,66 @@
                       }
                     </code>
                 </pre>
-                <h4>Response:</h4>
-                <pre>
+                    <h4>Response:</h4>
+                    <pre>
                     <code>
                         HTTP STATUS: 204
                     </code>
                 </pre>
-            </div>
-        </li>
-        <li>
-            <h3><b>DELETE:</b>
-                <pre>/{user_id}</pre>
-            </h3>
-            <p>Deletes an existing user</p>
-            <p><b>NB:</b> A user can only be deleted by himself or an admin user</p>
-            <div>
-                <h4>Response:</h4>
-                <pre>
+                </div>
+            </li>
+            <li>
+                <h3><b>DELETE:</b>
+                    <pre>/{user_id}</pre>
+                </h3>
+                <p>Deletes an existing user</p>
+                <p><b>NB:</b> A user can only be deleted by himself or an admin user</p>
+                <div>
+                    <h4>Response:</h4>
+                    <pre>
                     <code>
                         HTTP STATUS: 204
                     </code>
                 </pre>
-            </div>
-        </li>
-    </ul>
-</div>
-<div class="section">
-    <h2>Survey (../survey)</h2>
-    <ul>
-        <li>
-            <h3>
-                <b>GET:</b>
-                <pre>/?user_id=&lt;user_id&gt;&pag_size=&lt;pag_size&gt;&name=&lt;name&gt;&start_date=&lt;start_date&gt;&end_date=&lt;end_date&gt;</pre>
-            </h3>
-            Returns the list of surveys eventually filtered and paginated.
-            <h4>Request Params</h4>
-            <ul>
-                <li>
-                    <pre>pag_size</pre>
-                    <div>
-                        Paginates the results with the defined number of surveys per page
-                    </div>
-                </li>
-                <li>
-                    <pre>user_id</pre>
-                    <div>
-                        Filters the surveys by the user creator
-                    </div>
-                </li>
-                <li>
-                    <pre>name</pre>
-                    <div>
-                        Filters the surveys by their name
-                    </div>
-                </li>
-                <li>
-                    <pre>start_date</pre>
-                    <div>
-                        Filters the survey by start_date field
-                    </div>
-                </li>
-                <li>
-                    <pre>end_date</pre>
-                    <div>
-                        Filters the survey by end_date field
-                    </div>
-                </li>
-            </ul>
-            <h4>Response body</h4>
-            <p>If request has no params:</p>
-            <pre>
+                </div>
+            </li>
+        </ul>
+    </div>
+</section>
+<section id="survey">
+    <div class="section">
+        <h2>Survey (../surveys)</h2>
+        <ul>
+            <li>
+                <h3>
+                    <b>GET:</b>
+                    <pre>/?user_id=&lt;user_id&gt;&pag_size=&lt;pag_size&gt;&name=&lt;name&gt;</pre>
+                </h3>
+                Returns the list of surveys eventually filtered and paginated.
+                <h4>Request Params</h4>
+                <ul>
+                    <li>
+                        <pre>pag_size</pre>
+                        <div>
+                            Paginates the results with the defined number of surveys per page
+                        </div>
+                    </li>
+                    <li>
+                        <pre>user_id</pre>
+                        <div>
+                            Filters the surveys by the user creator
+                        </div>
+                    </li>
+                    <li>
+                        <pre>name</pre>
+                        <div>
+                            Filters the surveys with a name LIKE the parameter. It's not an exact query.
+                        </div>
+                    </li>
+                </ul>
+                <h4>Response body</h4>
+                <p>If request has no params:</p>
+                <pre>
                 <code>
                     {
                         "data": [
@@ -522,8 +531,8 @@
                     }
                 </code>
             </pre>
-            <p>If request has the pag_size attribute:</p>
-            <pre>
+                <p>If request has the pag_size attribute:</p>
+                <pre>
                 <code>
                     {
                         "data": [
@@ -578,8 +587,8 @@
                     }
                 </code>
             </pre>
-            <p>If request has one of the query attributes different from pag_size:</p>
-            <pre>
+                <p>If request has one of the query attributes different from pag_size:</p>
+                <pre>
                 <code>
                     {
                         "data": [
@@ -626,15 +635,15 @@
                     }
                 </code>
             </pre>
-        </li>
-        <li>
-            <h3>
-                <b>GET</b>
-                <pre>/{survey_id}</pre>
-            </h3>
-            <p>Returns information for a specific survey:</p>
-            <h4>Response Body</h4>
-            <pre>
+            </li>
+            <li>
+                <h3>
+                    <b>GET</b>
+                    <pre>/{survey_id}</pre>
+                </h3>
+                <p>Returns information for a specific survey:</p>
+                <h4>Response Body</h4>
+                <pre>
                 <code>
                     {
                         "data": {
@@ -656,24 +665,120 @@
                     }
                 </code>
             </pre>
-        </li>
-        <li>
-            <h3>
-                <b>POST</b>
-                <pre>/</pre>
-            </h3>
-            <p>
-                Creates a new survey
-            </p>
-            <h4>Request Body</h4>
-            <pre>
+            </li>
+            <li>
+                <h3>
+                    <b>POST</b>
+                    <pre>/</pre>
+                </h3>
+                <p>
+                    Creates a new survey
+                </p>
+                <h4>Request Body</h4>
+                Here is an example of a request body with some validation requirements:
+                <pre>
                 <code>
-
+                    {
+                        "name" &lt;required&gt; : "prova",
+                        "description": "blablabla",
+                        "secret" &lt;boolean&gt; : false,
+                        "active" &lt;boolean&gt; : true,
+                        "icon": {
+                            "name" &lt;required with icon&gt;: "icon",
+                            "data" &lt;required with icon&gt;: &lt;Base64 encoded file&gt;
+                        },
+                        "start_date" &lt;must be greater than the actual date&gt; : "25-08-2020",
+                        "end_date" &lt;must be greater than start_date&gt; : "26-08-2020",
+                        "url_id" &lt;must be present if the active field is true&gt; : "http://apollo.test/asdds"
+                    }
                 </code>
             </pre>
-        </li>
-    </ul>
-</div>
+                <h4>Response</h4>
+                <pre>
+                <code>
+                    HTTP STATUS: 201
+
+                    {
+                        "self": "http://apollo.test/rest/surveys/8"
+                    }
+                </code>
+            </pre>
+            </li>
+            <li>
+                <h3>
+                    <b>PUT</b>
+                    <pre>/{survey_id}</pre>
+                </h3>
+                <p>
+                    Updates a specific survey.
+                    <br>
+                    <b>NB:</b> A survey can be updated only by an admin or his creator.
+                </p>
+                <h4>Request Body</h4>
+                <p>
+                    The request body is the same as the create with the only difference of the "icon" attribute that can
+                    be:
+                </p>
+                <ul>
+                    <li>A new object representing a file</li>
+                    <li>"delete" to only delete the current file</li>
+                </ul>
+                <p>
+                    All the attributes are not mandatory, only the ones sent will be updated for the survey.
+                </p>
+                <h4>Response</h4>
+                <pre>
+                <code>
+                    HTTP STATUS: 204
+                </code>
+            </pre>
+            </li>
+            <li>
+                <h3>
+                    <b>DELETE</b>
+                    <pre>/{survey_id}</pre>
+                </h3>
+                <p>
+                    Deletes a survey.
+                    <br>
+                    <b>NB:</b> A survey can be deleted only by his creator or by an admin
+                </p>
+                <h3>Response</h3>
+                <pre>
+                <code>
+                    HTTP STATUS: 204
+                </code>
+            </pre>
+            </li>
+            <li>
+                <h3>
+                    <b>POST</b>
+                    <pre>/count</pre>
+                </h3>
+                <p>
+                    Returns the number of surveys eventually filtered by some parameters.
+                </p>
+                <h4>Request Body</h4>
+                <pre>
+                <code>
+                    {
+                        "active" &lt;boolean&gt;:true,
+                        "user_id" :"2"
+                    }
+                </code>
+            </pre>
+                <h4>Response Body</h4>
+                <pre>
+                <code>
+                    {
+                        "count": 4
+                    }
+                </code>
+            </pre>
+            </li>
+        </ul>
+    </div>
+</section>
 <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.2/highlight.min.js"></script>
 <script>hljs.initHighlightingOnLoad();</script>
 </body>
