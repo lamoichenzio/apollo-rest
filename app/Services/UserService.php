@@ -51,7 +51,7 @@ class UserService
         }
         $query = User::where($params);
         if ($pag_size) {
-            return $query->paginate($pag_size);
+            return $query->paginate($pag_size)->withQueryString();
         }
         return $query->get();
     }

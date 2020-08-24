@@ -66,7 +66,7 @@ class SurveyService
         }
         $query = Survey::where($params);
         if ($pagSize) {
-            return $query->paginate($pagSize);
+            return $query->paginate($pagSize)->withQueryString();
         }
         return $query->get();
     }
