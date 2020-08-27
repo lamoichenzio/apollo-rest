@@ -32,7 +32,8 @@ class SurveyUpdateRequest extends FormRequest
             'end_date' => 'date|after:start_date',
             'icon' => 'sometimes|required',
             'icon.name' => 'sometimes|required_with:icon|required_unless:icon,delete|string',
-            'icon.data' => 'sometimes|required_with:icon|required_unless:icon,delete|base64image|base64max:5000'
+            'icon.data' => 'sometimes|required_with:icon|required_unless:icon,delete|base64image|base64max:5000',
+            'url_id' => 'required_if:active,true|url'
         ];
     }
 }

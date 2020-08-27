@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Helpers\DataHelper;
 use App\Http\Requests\UserCreationRequest;
 use App\Http\Requests\UserUpdateRequest;
 use App\Http\Resources\UserResource;
@@ -37,19 +36,12 @@ class UserController extends Controller
         ]);
 
         if (count($params) > 0) {
-            //If request is paginated
-            if ($pagSize = request('pag_size')) {
-                unset($params['pag_size']);
-                return UserResource::collection(User::where($params)->paginate($pagSize))->response();
-            }
-            $users = User::where($params)->get();
-            return UserResource::collection($users)->response();
+            return UserResource::collection(
+                $this->userService->getUsers(request('pag_size'), request('username'))
+            )->response();
         }
 
-        $links = User::all()->map(function ($user) {
-            return $user->path();
-        });
-        return response()->json(DataHelper::listDataResponse($links));
+        return response()->json($this->userService->getUserLinks());
     }
 
     /**
@@ -67,13 +59,13 @@ class UserController extends Controller
 
         if ($fileData = $request['avatar']) {
             $file = ImageFileService::createImageFile($fileData);
-            $this->userService->createStandardUserWithIcon($user, $file);
+            $data = $this->userService->createStandardUserWithIcon($user, $file);
         } else {
-            $this->userService->createStandardUser($user);
+            $data = $this->userService->createStandardUser($user);
         }
 
         return response()->json(
-            DataHelper::creationDataResponse($user), 201, ["Location" => $user->path()]);
+            $data, 201, ["Location" => $user->path()]);
     }
 
     /**

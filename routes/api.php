@@ -31,7 +31,7 @@ Route::group([
 //USER
 Route::group([
     'middleware' => 'api',
-    'prefix' => 'user'
+    'prefix' => 'users'
 ], function () {
     Route::get('/', 'UserController@index')->name('user.index');
     Route::get('{user}', 'UserController@show')->name('user.show');
@@ -43,7 +43,7 @@ Route::group([
 //IMAGE FILE
 Route::group([
     'middleware' => 'api',
-    'prefix' => 'file'
+    'prefix' => 'files'
 ], function () {
     Route::get('/{image}', 'ImageFileController@show')->name('image.show');
 });
@@ -51,7 +51,7 @@ Route::group([
 //SURVEY
 Route::group([
     'middleware' => 'api',
-    'prefix' => 'survey'
+    'prefix' => 'surveys'
 ], function () {
     Route::get('/', 'SurveyController@index')->name('survey.index');
     Route::get('{survey}', 'SurveyController@show')->name('survey.show');

@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Helpers\DataHelper;
 use App\Http\Requests\SurveyCreationRequest;
 use App\Http\Requests\SurveyUpdateRequest;
 use App\Http\Resources\SurveyResource;
@@ -37,17 +36,11 @@ class SurveyController extends Controller
         ]);
 
         if (count($params) == 0) {
-            $links = Survey::all()->map(function ($survey) {
-                return $survey->path();
-            });
-            return response()->json(DataHelper::listDataResponse($links));
+            return response()->json($this->surveyService->getSurveyLinks());
         }
 
-        if ($pagSize = \request('pag_size')) {
-            unset($params['pag_size']);
-            return SurveyResource::collection(Survey::where($params)->paginate($pagSize))->response();
-        }
-        return SurveyResource::collection(Survey::where($params)->get())->response();
+        return SurveyResource::collection($this->surveyService->getSurveys(
+            request('pag_size'), request('user_id'), request('name')))->response();
 
     }
 
@@ -60,14 +53,16 @@ class SurveyController extends Controller
     public function store(SurveyCreationRequest $request)
     {
         $survey = new Survey($request->all());
+
+        //Create icon
         if ($icon = $request['icon']) {
             $icon = ImageFileService::createImageFile($icon);
-            $this->surveyService->createSurveyWithIcon($survey, $icon);
+            $data = $this->surveyService->createSurveyWithIcon($survey, $icon);
         } else {
-            $this->surveyService->createSurvey($survey);
+            $data = $this->surveyService->createSurvey($survey);
         }
         return response()->json(
-            DataHelper::creationDataResponse($survey), 201, ['Location' => $survey->path()]
+            $data, 201, ['Location' => $survey->path()]
         );
     }
 
@@ -114,10 +109,13 @@ class SurveyController extends Controller
     public function count()
     {
         $params = \request()->validate([
-            'user' => 'string',
+            'user_id' => 'string',
             'active' => 'boolean'
         ]);
-        return Survey::where($params)->count();
+
+        return response()->json(
+            $this->surveyService->count($params)
+        );
     }
 
 }
