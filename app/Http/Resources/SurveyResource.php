@@ -29,7 +29,8 @@ class SurveyResource extends JsonResource
             'user' => $this->user->path(),
             'questionGroups' => $this->questionGroups->map(function ($questionGroup) {
                 return $questionGroup->path();
-            })
+            }),
+            'createDate' => $this->created_at,
         ];
     }
 }

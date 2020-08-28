@@ -26,7 +26,8 @@ class UserResource extends JsonResource
             'role' => $this->role,
             'surveys' => $this->surveys->map(function ($survey) {
                 return $survey->path();
-            })
+            }),
+            'createDate' => $this->created_at,
         ];
     }
 }

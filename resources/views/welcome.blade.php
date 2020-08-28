@@ -683,9 +683,9 @@
                         "description": "blablabla",
                         "secret" &lt;boolean&gt; : false,
                         "active" &lt;boolean&gt; : true,
-                        "icon": {
-                            "name" &lt;required with icon&gt;: "icon",
-                            "data" &lt;required with icon&gt;: &lt;Base64 encoded file&gt;
+                        "icon" &lt;not empty if present&gt;: {
+                            "name" &lt;required if icon is present&gt;: "icon",
+                            "data" &lt;required if icon is present&gt;: &lt;Base64 encoded file&gt;
                         },
                         "start_date" &lt;must be greater than the actual date&gt; : "25-08-2020",
                         "end_date" &lt;must be greater than start_date&gt; : "26-08-2020",
