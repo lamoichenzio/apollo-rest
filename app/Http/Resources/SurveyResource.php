@@ -23,11 +23,11 @@ class SurveyResource extends JsonResource
             'icon' => $image,
             'secret' => $this->secret,
             'active' => $this->active,
-            'start_date' => $this->start_date,
-            'end_date' => $this->end_date,
-            'url_id' => $this->url_id,
+            'startDate' => $this->start_date,
+            'endDate' => $this->end_date,
+            'urlId' => $this->url_id,
             'user' => $this->user->path(),
-            'question_groups' => $this->questionGroups->map(function ($questionGroup) {
+            'questionGroups' => $this->questionGroups->map(function ($questionGroup) {
                 return $questionGroup->path();
             })
         ];
