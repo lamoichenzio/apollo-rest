@@ -43,13 +43,17 @@ class UserService
         $user->delete();
     }
 
-    public function getUsers(int $pag_size = null, string $username = null)
+    public function getUsers(int $pag_size = null, string $username = null,
+                             string $order = null, string $orderDir = null)
     {
         $params = [];
         if ($username) {
             array_push($params, ['username', 'like', '%' . $username . '%']);
         }
         $query = User::where($params);
+        if ($order != null && $orderDir != null) {
+            $query = $query->orderBy($order, $orderDir);
+        }
         if ($pag_size) {
             return $query->paginate($pag_size)->withQueryString();
         }

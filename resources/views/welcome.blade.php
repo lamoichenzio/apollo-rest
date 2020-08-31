@@ -226,7 +226,7 @@
         <ul>
             <li>
                 <h3><b>GET:</b>
-                    <pre>/?pag_size=&lt;num&gt;&username=&lt;name&gt;</pre>
+                    <pre>/?pag_size=&lt;num&gt;&username=&lt;name&gt;&order=&lt;orderCol&gt;&order_dir=&lt;asc or desc&gt;</pre>
                 </h3>
                 <p>Returns a list of all the users optionally paginated and filtered</p>
                 <div>
@@ -242,6 +242,14 @@
                             <pre>username</pre>
                             <div>
                                 Returns only the users with the given username
+                            </div>
+                        </li>
+                        <li>
+                            <pre>order & order_dir</pre>
+                            <div>
+                                Order the results with the given column.
+                                <br>
+                                <b>NB:</b> order_dir must be asc or desc.
                             </div>
                         </li>
                     </ul>
@@ -485,7 +493,7 @@
             <li>
                 <h3>
                     <b>GET:</b>
-                    <pre>/?user_id=&lt;user_id&gt;&pag_size=&lt;pag_size&gt;&name=&lt;name&gt;</pre>
+                    <pre>/?user_id=&lt;user_id&gt;&pag_size=&lt;pag_size&gt;&name=&lt;name&gt;&order=&lt;orderCol&gt;&order_dir=&lt;asc or desc&gt;</pre>
                 </h3>
                 Returns the list of surveys eventually filtered and paginated.
                 <h4>Request Params</h4>
@@ -506,6 +514,14 @@
                         <pre>name</pre>
                         <div>
                             Filters the surveys with a name LIKE the parameter. It's not an exact query.
+                        </div>
+                    </li>
+                    <li>
+                        <pre>order & order_dir</pre>
+                        <div>
+                            Order the results with the given column.
+                            <br>
+                            <b>NB:</b> order_dir must be asc or desc.
                         </div>
                     </li>
                 </ul>

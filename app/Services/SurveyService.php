@@ -55,7 +55,8 @@ class SurveyService
         return DataHelper::listDataResponse($links);
     }
 
-    public function getSurveys(int $pagSize = null, string $user_id = null, string $name = null)
+    public function getSurveys(int $pagSize = null, string $user_id = null, string $name = null,
+                               string $order = null, string $orderDir = null)
     {
         $params = [];
         if ($user_id != null) {
@@ -65,6 +66,9 @@ class SurveyService
             array_push($params, ['name', 'like', '%' . $name . '%']);
         }
         $query = Survey::where($params);
+        if ($order != null && $orderDir != null) {
+            $query = $query->orderBy($order, $orderDir);
+        }
         if ($pagSize) {
             return $query->paginate($pagSize)->withQueryString();
         }

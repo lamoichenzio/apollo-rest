@@ -11,6 +11,8 @@ use App\User;
 use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Schema;
+use Illuminate\Validation\Rule;
 
 class UserController extends Controller
 {
@@ -32,12 +34,15 @@ class UserController extends Controller
     {
         $params = request()->validate([
             'pag_size' => 'numeric',
-            'username' => 'string'
+            'username' => 'string',
+            'order' => Rule::in(Schema::getColumnListing((new User)->getTable())),
+            'order_dir' => Rule::in(['asc', 'desc'])
         ]);
 
         if (count($params) > 0) {
             return UserResource::collection(
-                $this->userService->getUsers(request('pag_size'), request('username'))
+                $this->userService->getUsers(request('pag_size'), request('username'),
+                    request('order'), request('order_dir'))
             )->response();
         }
 

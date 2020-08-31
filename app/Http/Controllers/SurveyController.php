@@ -9,6 +9,8 @@ use App\Services\ImageFileService;
 use App\Services\SurveyService;
 use App\Survey;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\Schema;
+use Illuminate\Validation\Rule;
 
 class SurveyController extends Controller
 {
@@ -32,7 +34,9 @@ class SurveyController extends Controller
             'user_id' => 'string',
             'name' => 'string',
             'start_date' => 'date',
-            'end_date' => 'date'
+            'end_date' => 'date',
+            'order' => Rule::in(Schema::getColumnListing((new Survey)->getTable())),
+            'order_dir' => Rule::in(['asc', 'desc'])
         ]);
 
         if (count($params) == 0) {
@@ -40,8 +44,8 @@ class SurveyController extends Controller
         }
 
         return SurveyResource::collection($this->surveyService->getSurveys(
-            request('pag_size'), request('user_id'), request('name')))->response();
-
+            request('pag_size'), request('user_id'), request('name'),
+            request('order'), request('order_dir')))->response();
     }
 
     /**
