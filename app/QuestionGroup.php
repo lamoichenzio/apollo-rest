@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class QuestionGroup extends Model
 {
-    protected $guarded = [];
+    protected $fillable = ['title', 'description'];
 
     public function survey()
     {
@@ -16,7 +16,7 @@ class QuestionGroup extends Model
 
     public function path()
     {
-        return route('questionGroup.show', $this);
+        return route('questionGroup.show', [$this->survey, $this]);
     }
 
 }

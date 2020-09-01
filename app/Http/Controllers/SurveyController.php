@@ -103,9 +103,11 @@ class SurveyController extends Controller
      *
      * @param Survey $survey
      * @return JsonResponse
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function destroy(Survey $survey)
     {
+        $this->authorize('delete', $survey);
         $this->surveyService->deleteSurvey($survey);
         return response()->json("", 204);
     }

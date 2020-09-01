@@ -64,7 +64,7 @@ Route::group([
 //QUESTION GROUP
 Route::group([
     'middleware' => 'api',
-    'prefix' => 'questionGroup'
+    'prefix' => 'surveys/{survey}/question_groups'
 ], function () {
     Route::get('/', 'QuestionGroupController@index')->name('questionGroup.index');
     Route::get('{questionGroup}', 'QuestionGroupController@show')->name('questionGroup.show');

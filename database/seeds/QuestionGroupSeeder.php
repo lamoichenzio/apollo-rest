@@ -11,7 +11,7 @@ class QuestionGroupSeeder extends Seeder
      */
     public function run()
     {
-        factory(\App\QuestionGroup::class, 2)->create(['survey_id' => 1]);
-        factory(\App\QuestionGroup::class, 2)->create(['survey_id' => 2]);
+        factory(\App\QuestionGroup::class, 2)->create(['survey_id' => 5]);
+        factory(\App\QuestionGroup::class, 2)->create(['survey_id' => 6]);
     }
 }

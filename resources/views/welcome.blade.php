@@ -87,8 +87,9 @@
 <nav class="nav-menu">
     <ul>
         <li><a href="#auth">Auth</a></li>
-        <li><a href="#user">User</a></li>
-        <li><a href="#survey">Survey</a></li>
+        <li><a href="#user">Users</a></li>
+        <li><a href="#survey">Surveys</a></li>
+        <li><a href="#question_group">Question Groups</a></li>
     </ul>
 </nav>
 
@@ -792,6 +793,139 @@
                 </code>
             </pre>
             </li>
+        </ul>
+    </div>
+</section>
+<section id="question_group">
+    <div class="section">
+        <h2>Question Groups (.../surveys/{survey_id}/question_groups/)</h2>
+        <ul>
+            <li>
+                <h3>
+                    <b>GET:</b>
+                    <pre>/?pag_size=&lt;pag_size&gt;&title=&lt;title&gt;&order=&lt;orderCol&gt;&order_dir=&lt;asc or desc&gt;</pre>
+                </h3>
+                Returns the list of question groups eventually filtered and paginated for the specific survey.
+                <h4>Request Params</h4>
+                <ul>
+                    <li>
+                        <pre>pag_size</pre>
+                        <div>
+                            Paginates the results with the defined number of surveys per page
+                        </div>
+                    </li>
+                    <li>
+                        <pre>title</pre>
+                        <div>
+                            Filters the question groups with a title LIKE the parameter. It's not an exact query.
+                        </div>
+                    </li>
+                    <li>
+                        <pre>order & order_dir</pre>
+                        <div>
+                            Order the results with the given column.
+                            <br>
+                            <b>NB:</b> order_dir must be asc or desc.
+                        </div>
+                    </li>
+                </ul>
+                <h3>Response Body</h3>
+                <p>If request has no params:</p>
+                <pre>
+                <code>
+                    {
+                        "data": [
+                            "http://apollo.test/rest/surveys/5/question_groups/6",
+                            "http://apollo.test/rest/surveys/5/question_groups/7"
+                        ]
+                    }
+                </code>
+            </pre>
+                <p>If request has the pag_size attribute:</p>
+                <pre>
+                <code>
+                    {
+                        "data": [
+                            {
+                                "id": 6,
+                                "title": "sed",
+                                "description": "Enim provident vel non omnis maiores rem labore ipsum. Quos nulla corrupti consequatur maiores est vitae. Quos minima voluptates enim optio. Ut ut facere ab reprehenderit fuga.",
+                                "createDate": "2020-09-01T20:11:08.000000Z",
+                                "survey": "http://apollo.test/rest/surveys/5"
+                            },
+                            {
+                                "id": 7,
+                                "title": "eum",
+                                "description": "Hic voluptas et voluptatum. Hic similique quibusdam quibusdam.",
+                                "createDate": "2020-09-01T20:11:08.000000Z",
+                                "survey": "http://apollo.test/rest/surveys/5"
+                            }
+                        ],
+                        "links": {
+                            "first": "http://apollo.test/rest/surveys/5/question_groups?pag_size=2&page=1",
+                            "last": "http://apollo.test/rest/surveys/5/question_groups?pag_size=2&page=1",
+                            "prev": null,
+                            "next": null
+                        },
+                        "meta": {
+                            "current_page": 1,
+                            "from": 1,
+                            "last_page": 1,
+                            "path": "http://apollo.test/rest/surveys/5/question_groups",
+                            "per_page": 2,
+                            "to": 2,
+                            "total": 2
+                        }
+                    }
+                </code>
+            </pre>
+                <p>If request has one of the query attributes different from pag_size:</p>
+                <pre>
+                <code>
+                    {
+                        "data": [
+                            {
+                                "id": 6,
+                                "title": "sed",
+                                "description": "Enim provident vel non omnis maiores rem labore ipsum. Quos nulla corrupti consequatur maiores est vitae. Quos minima voluptates enim optio. Ut ut facere ab reprehenderit fuga.",
+                                "createDate": "2020-09-01T20:11:08.000000Z",
+                                "survey": "http://apollo.test/rest/surveys/5"
+                            },
+                            {
+                                "id": 7,
+                                "title": "eum",
+                                "description": "Hic voluptas et voluptatum. Hic similique quibusdam quibusdam.",
+                                "createDate": "2020-09-01T20:11:08.000000Z",
+                                "survey": "http://apollo.test/rest/surveys/5"
+                            }
+                        ]
+                    }
+                </code>
+            </pre>
+            </li>
+            <li>
+            <li>
+                <h3>
+                    <b>GET</b>
+                    <pre>/{question_group_id}</pre>
+                </h3>
+                <p>Returns information for a specific question group:</p>
+                <h4>Response Body</h4>
+                <pre>
+                <code>
+                    {
+                        "data": {
+                            "id": 6,
+                            "title": "sed",
+                            "description": "Enim provident vel non omnis maiores rem labore ipsum. Quos nulla corrupti consequatur maiores est vitae. Quos minima voluptates enim optio. Ut ut facere ab reprehenderit fuga.",
+                            "createDate": "2020-09-01T20:11:08.000000Z",
+                            "survey": "http://apollo.test/rest/surveys/5"
+                        }
+                    }
+                </code>
+            </pre>
+            </li>
+            
         </ul>
     </div>
 </section>
