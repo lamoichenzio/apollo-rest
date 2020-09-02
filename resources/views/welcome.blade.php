@@ -925,7 +925,84 @@
                 </code>
             </pre>
             </li>
-            
+            <li>
+                <h3>
+                    <b>POST</b>
+                    <pre>/</pre>
+                </h3>
+                <p>
+                    Creates a new Question Group
+                </p>
+                <p>
+                    <b>NB:</b> a question group can be created only by the creator of the related survey.
+                </p>
+                <h4>Request Body</h4>
+                Here is an example of a request body with some validation requirements:
+                <pre>
+                <code>
+                    {
+                        "title" &lt;required&gt; : "prova",
+                        "description": "blablabla"
+                    }
+                </code>
+            </pre>
+                <h4>Response</h4>
+                <pre>
+                <code>
+                    HTTP STATUS: 201
+                    {
+                        "self": "http://apollo.test/rest/surveys/13/question_groups/12"
+                    }
+                </code>
+            </pre>
+            </li>
+            <li>
+                <h3>
+                    <b>PUT</b>
+                    <pre>/{question_group_id}</pre>
+                </h3>
+                <p>
+                    Updates a question group.
+                </p>
+                <p>
+                    <b>NB:</b> a question group can be updated only by an admin or his creator and must be present in
+                    the related survey.
+                </p>
+                <h4>Request Body</h4>
+                <pre>
+                    <code>
+                        {
+                            "title": &lt;not null if present&gt;
+                            "description":
+                        }
+                    </code>
+                </pre>
+                <h4>Response Status</h4>
+                <pre>
+                    <code>
+                        204
+                    </code>
+                </pre>
+            </li>
+            <li>
+                <h3>
+                    <b>DELETE</b>
+                    <pre>/{question_group_id}</pre>
+                </h3>
+                <p>
+                    Deletes a question group.
+                </p>
+                <p>
+                    <b>NB:</b> a question group can be deleted only by an admin or his creator and must be present in
+                    the related survey.
+                </p>
+                <h4>Response Status</h4>
+                <pre>
+                    <code>
+                        204
+                    </code>
+                </pre>
+            </li>
         </ul>
     </div>
 </section>
