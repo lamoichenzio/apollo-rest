@@ -8,6 +8,7 @@ use App\Http\Resources\QuestionGroupResource;
 use App\QuestionGroup;
 use App\Services\QuestionGroupService;
 use App\Survey;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Validation\Rule;
 
@@ -30,15 +31,13 @@ class QuestionGroupController extends Controller
      */
     public function index(Survey $survey)
     {
-        $params = \request()->validate([
+        \request()->validate([
             'pag_size' => 'numeric',
             'title' => 'string',
             'order' => Rule::in(Schema::getColumnListing((new QuestionGroup)->getTable())),
             'order_dir' => Rule::in(['asc', 'desc'])
         ]);
-        if (count($params) == 0) {
-            return response()->json($this->questionGroupService->getQuestionGroupLinks($survey));
-        }
+
         return QuestionGroupResource::collection($this->questionGroupService->getQuestionGroups(
             $survey, request('pag_size'), request('title'),
             request('order'), request('orderDir'))
@@ -82,6 +81,12 @@ class QuestionGroupController extends Controller
      */
     public function update(QuestionGroupUpdateRequest $request, Survey $survey, QuestionGroup $questionGroup)
     {
+        if ($questionGroup->survey->id !== $survey->id) {
+            return response()->json(
+                ["message" => "Question Group not belonging to survey"],
+                Response::HTTP_UNPROCESSABLE_ENTITY);
+        }
+
         $this->questionGroupService->update($questionGroup, $request->all());
         return response()->json("", 204);
     }
@@ -96,7 +101,14 @@ class QuestionGroupController extends Controller
      */
     public function destroy(Survey $survey, QuestionGroup $questionGroup)
     {
-        $this->authorize('delete', [$survey, $questionGroup]);
+        $this->authorize('delete', $questionGroup);
+
+        if ($questionGroup->survey->id !== $survey->id) {
+            return response()->json(
+                ["message" => "Question Group not belonging to survey"],
+                Response::HTTP_UNPROCESSABLE_ENTITY);
+        }
+
         $this->questionGroupService->delete($questionGroup);
         return response()->json("", 204);
     }

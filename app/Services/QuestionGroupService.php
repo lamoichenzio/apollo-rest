@@ -39,18 +39,18 @@ class QuestionGroupService
         $questionGroup->delete();
     }
 
-    /**
-     * @param Survey $survey
-     * @return array
-     */
-    public function getQuestionGroupLinks(Survey $survey)
-    {
-
-        $link = QuestionGroup::where('survey_id', $survey->id)->get()->map(function ($questionGroup) {
-            return $questionGroup->path();
-        });
-        return DataHelper::listDataResponse($link);
-    }
+//    /**
+//     * @param Survey $survey
+//     * @return array
+//     */
+//    public function getQuestionGroupLinks(Survey $survey)
+//    {
+//
+//        $link = QuestionGroup::where('survey_id', $survey->id)->get()->map(function ($questionGroup) {
+//            return $questionGroup->path();
+//        });
+//        return DataHelper::listDataResponse($link);
+//    }
 
     /**
      * @param Survey $survey
