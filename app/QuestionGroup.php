@@ -3,6 +3,7 @@
 namespace App;
 
 
+use App\questions\InputQuestion;
 use Illuminate\Database\Eloquent\Model;
 
 class QuestionGroup extends Model
@@ -19,4 +20,8 @@ class QuestionGroup extends Model
         return route('questionGroup.show', [$this->survey, $this]);
     }
 
+    public function inputQuestions()
+    {
+        return $this->hasMany(InputQuestion::class);
+    }
 }
