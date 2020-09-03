@@ -830,17 +830,6 @@
                     </li>
                 </ul>
                 <h3>Response Body</h3>
-                <p>If request has no params:</p>
-                <pre>
-                <code>
-                    {
-                        "data": [
-                            "http://apollo.test/rest/surveys/5/question_groups/6",
-                            "http://apollo.test/rest/surveys/5/question_groups/7"
-                        ]
-                    }
-                </code>
-            </pre>
                 <p>If request has the pag_size attribute:</p>
                 <pre>
                 <code>
@@ -879,7 +868,7 @@
                     }
                 </code>
             </pre>
-                <p>If request has one of the query attributes different from pag_size:</p>
+                <p>If request doesn't have pag_size attribute:</p>
                 <pre>
                 <code>
                     {
