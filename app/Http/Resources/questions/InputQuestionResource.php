@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources\questions;
 
+use App\Services\ImageFileService;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class InputQuestionResource extends JsonResource
@@ -9,11 +10,22 @@ class InputQuestionResource extends JsonResource
     /**
      * Transform the resource into an array.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return array
      */
     public function toArray($request)
     {
-        return parent::toArray($request);
+        $image = ImageFileService::getImageFilePath($this->icon);
+        return [
+            'id' => $this->id,
+            'title' => $this->title,
+            'description' => $this->description,
+            'mandatory' => $this->mandatory,
+            'icon' => $image,
+            'type' => $this->type,
+            'createDate' => $this->created_at,
+            'questionGroup' => $this->questionGroup->path(),
+            'survey' => $this->questionGroup->survey->path()
+        ];
     }
 }

@@ -16,11 +16,20 @@ class ImageFileService
         return null;
     }
 
+    /**
+     * @param $fileData array of image properties
+     * @return ImageFile
+     */
     public static function createImageFile($fileData)
     {
         return new ImageFile($fileData);
     }
 
+    /**
+     * @param $fileReference
+     * @param $fileData
+     * @return mixed The updated file
+     */
     public static function updateImageFile($fileReference, $fileData)
     {
         if ($fileReference) {

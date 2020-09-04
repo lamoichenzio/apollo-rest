@@ -2,7 +2,10 @@
 
 namespace App\Http\Requests\questions;
 
+use App\Enums\InputQuestionType;
+use App\InputQuestion;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class InputQuestionCreationRequest extends FormRequest
 {
@@ -13,7 +16,7 @@ class InputQuestionCreationRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return $this->user()->can('create', InputQuestion::class);
     }
 
     /**
@@ -24,7 +27,12 @@ class InputQuestionCreationRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'title' => 'required|max:255',
+            'mandatory' => 'boolean',
+            'icon' => 'sometimes|required',
+            'icon.name' => 'required_with:icon|string',
+            'icon.data' => 'required_with:icon|base64image|base64max:5000',
+            'type' => 'required|' . Rule::in(InputQuestionType::types())
         ];
     }
 }

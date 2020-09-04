@@ -86,7 +86,6 @@ class QuestionGroupController extends Controller
                 ["message" => "Question Group not belonging to survey"],
                 Response::HTTP_UNPROCESSABLE_ENTITY);
         }
-
         $this->questionGroupService->update($questionGroup, $request->all());
         return response()->json("", 204);
     }
@@ -102,14 +101,17 @@ class QuestionGroupController extends Controller
     public function destroy(Survey $survey, QuestionGroup $questionGroup)
     {
         $this->authorize('delete', $questionGroup);
-
         if ($questionGroup->survey->id !== $survey->id) {
             return response()->json(
                 ["message" => "Question Group not belonging to survey"],
                 Response::HTTP_UNPROCESSABLE_ENTITY);
         }
-
         $this->questionGroupService->delete($questionGroup);
         return response()->json("", 204);
+    }
+
+    public function listQuestions(QuestionGroup $questionGroup)
+    {
+        return \response()->json($questionGroup->questions());
     }
 }

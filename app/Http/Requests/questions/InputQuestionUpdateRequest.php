@@ -2,7 +2,9 @@
 
 namespace App\Http\Requests\questions;
 
+use App\Enums\InputQuestionType;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class InputQuestionUpdateRequest extends FormRequest
 {
@@ -13,7 +15,8 @@ class InputQuestionUpdateRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        $question = $this->route('question');
+        return $question && $this->user()->can('update', $question);
     }
 
     /**
@@ -24,7 +27,12 @@ class InputQuestionUpdateRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'title' => 'sometimes|required|max:255',
+            'mandatory' => 'boolean',
+            'icon' => 'sometimes|required',
+            'icon.name' => 'sometimes|required_with:icon|required_unless:icon,delete|string',
+            'icon.data' => 'sometimes|required_with:icon|required_unless:icon,delete|base64image|base64max:5000',
+            'type' => 'sometimes|required|' . Rule::in(InputQuestionType::types())
         ];
     }
 }
