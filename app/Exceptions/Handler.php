@@ -64,11 +64,6 @@ class Handler extends ExceptionHandler
             ], 403);
         }
 
-        if ($exception instanceof \ErrorException) {
-            return response()->json([
-                'error' => 'Resource not found'
-            ], 404);
-        }
         return parent::render($request, $exception);
     }
 }

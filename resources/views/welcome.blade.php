@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -10,10 +11,10 @@
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
 
     <!-- Styles -->
-    <link rel="stylesheet"
-          href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.2/styles/atom-one-dark.min.css">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.2/styles/atom-one-dark.min.css">
     <style>
-        html, body {
+        html,
+        body {
             background-color: #fff;
             color: #636b6f;
             font-family: 'Nunito', sans-serif;
@@ -73,9 +74,9 @@
             font-size: large;
             font-weight: bold;
         }
-
     </style>
 </head>
+
 <body>
 <div class="content-center">
     <h1>Apollo Endpoints (/rest...)</h1>
@@ -90,6 +91,12 @@
         <li><a href="#user">Users</a></li>
         <li><a href="#survey">Surveys</a></li>
         <li><a href="#question_group">Question Groups</a></li>
+        <li>
+            Questions:
+            <ul>
+                <li><a href="#input_questions">Input Questions</a></li>
+            </ul>
+        </li>
     </ul>
 </nav>
 
@@ -444,7 +451,8 @@
                 <p><b>NB:</b> A user can only be updated by himself or an admin user</p>
                 <div>
                     <h4>Request body:</h4>
-                    All the attributes are not required. Only the attributes send with the request will be updated for
+                    All the attributes are not required. Only the attributes send with the request will be updated
+                    for
                     the
                     user,
                     the others not sent will still be the same.
@@ -733,7 +741,8 @@
                 </p>
                 <h4>Request Body</h4>
                 <p>
-                    The request body is the same as the create with the only difference of the "icon" attribute that can
+                    The request body is the same as the create with the only difference of the "icon" attribute that
+                    can
                     be:
                 </p>
                 <ul>
@@ -954,7 +963,8 @@
                     Updates a question group.
                 </p>
                 <p>
-                    <b>NB:</b> a question group can be updated only by an admin or his creator and must be present in
+                    <b>NB:</b> a question group can be updated only by an admin or his creator and must be present
+                    in
                     the related survey.
                 </p>
                 <h4>Request Body</h4>
@@ -982,7 +992,8 @@
                     Deletes a question group.
                 </p>
                 <p>
-                    <b>NB:</b> a question group can be deleted only by an admin or his creator and must be present in
+                    <b>NB:</b> a question group can be deleted only by an admin or his creator and must be present
+                    in
                     the related survey.
                 </p>
                 <h4>Response Status</h4>
@@ -995,7 +1006,129 @@
         </ul>
     </div>
 </section>
+<section id="input_questions">
+    <div class="section">
+        <h2>Input Questions (../surveys/{survey_id}/questions_groups/{question_group_id}/input_questions)</h2>
+        <ul>
+            <li>
+                <h3>GET
+                    <pre>/{question_id}</pre>
+                </h3>
+                <p>
+                    Returns informations of a specific question of the selected survey
+                </p>
+                <h4>Response Body</h4>
+                <pre>
+                        <code>
+                        {
+                            "data": {
+                                "id": 1,
+                                "title": "Qui placeat sequi inventore debitis. Delectus illum similique et eligendi facilis. Cumque sequi est aut magni iusto quia et. In vel veniam quam tempore tempore.",
+                                "description": "Et accusantium aliquid et velit. Eum dolorum exercitationem ut voluptate. Eos est voluptate aperiam rem. Quas vel harum sed est pariatur magnam voluptatibus id.",
+                                "mandatory": 1,
+                                "icon": null,
+                                "type": "TEXTAREA",
+                                "createDate": "2020-09-03T19:50:00.000000Z",
+                                "questionGroup": "http://apollo.test/rest/surveys/1/question_groups/1",
+                                "survey": "http://apollo.test/rest/surveys/1"
+                            }
+                        }
+                        </code>
+                    </pre>
+            </li>
+            <li>
+                <h3>
+                    POST
+                    <pre>/</pre>
+                </h3>
+                <p>Creates a new Input Question</p>
+                <p>
+                    <strong>NB:</strong> A question can be created only by the user that created the
+                    question group and the survey or by an admin.
+                </p>
+                <h4>Request Body</h4>
+                <pre>
+                        <code>
+                            {
+                                "title" &lt;required & max:255&gt;
+                                "description"
+                                "mandatory" &lt;true or false&gt;
+                                "type" &lt;required and must be one of ('TEXT', 'TEXTAREA', 'NUMBER', 'DATE')&gt;
+                                "icon" &lt;not null if present&gt;:{
+                                    "name" &lt;required with icon&gt;
+                                    "data" &lt;required with icon (base64 encoded image)&gt;
+                                }
+                            }
+                        </code>
+                    </pre>
+                <h4>Response Body</h4>
+                <pre>
+                        <code>
+                            {
+                                "self": "http://apollo.test/rest/surveys/3/question_groups/5/input_questions/14"
+                            }
+                        </code>
+                    </pre>
+            </li>
+            <li>
+                <h3>
+                    PUT
+                    <pre>/{question_id}</pre>
+                </h3>
+                <p>Update an existing Input Question. Only the sent parameters will be updated for the selected
+                    question.</p>
+                <p>
+                    <strong>NB:</strong> A question can be updated only by the user that created the question by an
+                    admin.
+                </p>
+                <h4>Request Body</h4>
+                <pre>
+                        <code>
+                            {
+                                "title" &lt;not null if present & max:255&gt;
+                                "description"
+                                "mandatory" &lt;not null if present & true or false&gt;
+                                "type" &lt;not null if present and must be one of ('TEXT', 'TEXTAREA', 'NUMBER', 'DATE')&gt;
+                                "icon" &lt;not null if present&gt;:{
+                                    "name" &lt;required with icon != delete&gt;
+                                    "data" &lt;required with icon (base64 encoded image) != delete&gt;
+                                } &lt;or "delete" to delete the existing icon if present&gt;
+                            }
+                        </code>
+                    </pre>
+                <h4>Response Body</h4>
+                <pre>
+                        <code>
+                            HTTP STATUS: 204
+                        </code>
+                    </pre>
+            </li>
+            <li>
+                <h3>DELETE
+                    <pre>/{question_id}</pre>
+                </h3>
+                <p>
+                    Delete a question.
+                </p>
+                <p>
+                    <strong>NB:</strong> A question can be deleted only by the user that created the question or by an
+                    admin.
+                </p>
+                <h4>Response Body</h4>
+                <pre>
+                    <code>
+                        HTTP STATUS: 204
+                    </code>
+                </pre>
+            </li>
+        </ul>
+    </div>
+
+</section>
 <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.2/highlight.min.js"></script>
-<script>hljs.initHighlightingOnLoad();</script>
+<script>
+    hljs.initHighlightingOnLoad();
+</script>
 </body>
+
 </html>

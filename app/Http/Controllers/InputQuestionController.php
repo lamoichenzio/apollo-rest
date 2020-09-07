@@ -69,27 +69,37 @@ class InputQuestionController extends Controller
      * @param Survey $survey
      * @param QuestionGroup $questionGroup
      * @param InputQuestion $question
+     * @return JsonResponse
      */
     public function update(InputQuestionUpdateRequest $request, Survey $survey, QuestionGroup $questionGroup, InputQuestion $question)
     {
         $question = $survey->questionGroups->find($questionGroup)->inputQuestions->find($question);
-        if ($icon = $request['icon'] && $request['icon'] != 'delete') {
-            $icon = ImageFileService::updateImageFile($question->icon, $icon);
-            $question->icon = $icon->id;
+        if ($question) {
+            if ($icon = $request['icon'] && $request['icon'] != 'delete') {
+                $icon = ImageFileService::updateImageFile($question->icon, $icon);
+                $question->icon = $icon->id;
+            }
+            $this->questionService->update($question, $request->all(), $request['icon'] == 'delete');
+            return response()->json("", 204);
         }
-        $this->questionService->update($question, $request->all(), $request['icon'] == 'delete');
+        return response()->json(["error" => "Question not found"], 404);
     }
 
     /**
      * @param Survey $survey
      * @param QuestionGroup $questionGroup
      * @param InputQuestion $question
+     * @return JsonResponse
      * @throws \Exception
      */
     public function delete(Survey $survey, QuestionGroup $questionGroup, InputQuestion $question)
     {
         $this->authorize('delete', $question);
         $question = $survey->questionGroups->find($questionGroup)->inputQuestions->find($question);
-        $this->questionService->delete($question);
+        if ($question) {
+            $this->questionService->delete($question);
+            return response()->json("", 204);
+        }
+        return response()->json(["error" => "Question not found"], 404);
     }
 }
