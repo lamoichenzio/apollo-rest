@@ -32,7 +32,8 @@ class InputQuestionUpdateRequest extends FormRequest
             'icon' => 'sometimes|required',
             'icon.name' => 'sometimes|required_with:icon|required_unless:icon,delete|string',
             'icon.data' => 'sometimes|required_with:icon|required_unless:icon,delete|base64image|base64max:5000',
-            'type' => 'sometimes|required|' . Rule::in(InputQuestionType::types())
+            'type' => 'sometimes|required|' . Rule::in(InputQuestionType::types()),
+            'position' => 'sometimes|required|numeric'
         ];
     }
 }

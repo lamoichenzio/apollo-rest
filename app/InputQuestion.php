@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class InputQuestion extends Model
 {
-    protected $fillable = ['title', 'description', 'mandatory', 'type'];
+    protected $fillable = ['title', 'description', 'mandatory', 'type', 'position'];
 
     public function questionGroup()
     {

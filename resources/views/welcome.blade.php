@@ -1015,7 +1015,7 @@
                     <pre>/{question_id}</pre>
                 </h3>
                 <p>
-                    Returns informations of a specific question of the selected survey
+                    Returns information about a specific question of the selected survey.
                 </p>
                 <h4>Response Body</h4>
                 <pre>
@@ -1023,12 +1023,13 @@
                         {
                             "data": {
                                 "id": 1,
-                                "title": "Qui placeat sequi inventore debitis. Delectus illum similique et eligendi facilis. Cumque sequi est aut magni iusto quia et. In vel veniam quam tempore tempore.",
-                                "description": "Et accusantium aliquid et velit. Eum dolorum exercitationem ut voluptate. Eos est voluptate aperiam rem. Quas vel harum sed est pariatur magnam voluptatibus id.",
-                                "mandatory": 1,
+                                "title": "Autem doloribus nihil pariatur dolores aliquam non itaque. Corrupti magni consequatur quaerat quae quasi molestiae.",
+                                "description": "Aut dignissimos nihil et est sunt recusandae. Dolore ad voluptatum maxime deleniti asperiores. Commodi beatae error ipsam tempore. Minus qui minus aliquam exercitationem qui.",
+                                "position": 2,
+                                "mandatory": 0,
                                 "icon": null,
                                 "type": "TEXTAREA",
-                                "createDate": "2020-09-03T19:50:00.000000Z",
+                                "createDate": "2020-09-07T15:49:18.000000Z",
                                 "questionGroup": "http://apollo.test/rest/surveys/1/question_groups/1",
                                 "survey": "http://apollo.test/rest/surveys/1"
                             }
@@ -1050,10 +1051,11 @@
                 <pre>
                         <code>
                             {
-                                "title" &lt;required & max:255&gt;
-                                "description"
-                                "mandatory" &lt;true or false&gt;
-                                "type" &lt;required and must be one of ('TEXT', 'TEXTAREA', 'NUMBER', 'DATE')&gt;
+                                "title" &lt;required & max:255&gt;,
+                                "description",
+                                "mandatory" &lt;true or false&gt;,
+                                "position" &lt;required & integer number&gt;,
+                                "type" &lt;required and must be one of ('TEXT', 'TEXTAREA', 'NUMBER', 'DATE')&gt;,
                                 "icon" &lt;not null if present&gt;:{
                                     "name" &lt;required with icon&gt;
                                     "data" &lt;required with icon (base64 encoded image)&gt;
@@ -1085,9 +1087,10 @@
                 <pre>
                         <code>
                             {
-                                "title" &lt;not null if present & max:255&gt;
-                                "description"
-                                "mandatory" &lt;not null if present & true or false&gt;
+                                "title" &lt;not null if present & max:255&gt;,
+                                "description",
+                                "mandatory" &lt;not null if present & true or false&gt;,
+                                "position" &lt;not null if present & integer number&gt;,
                                 "type" &lt;not null if present and must be one of ('TEXT', 'TEXTAREA', 'NUMBER', 'DATE')&gt;
                                 "icon" &lt;not null if present&gt;:{
                                     "name" &lt;required with icon != delete&gt;
