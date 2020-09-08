@@ -15,5 +15,6 @@ class DatabaseSeeder extends Seeder
         $this->call(SurveySeeder::class);
         $this->call(QuestionGroupSeeder::class);
         $this->call(InputQuestionSeeder::class);
+        $this->call(MultiQuestionSeeder::class);
     }
 }

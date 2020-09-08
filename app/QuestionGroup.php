@@ -22,12 +22,17 @@ class QuestionGroup extends Model
 
     public function questions()
     {
-        $questions = collect([$this->inputQuestions(),]);
-        return DataHelper::listDataResponse($questions->sortBy('id'));
+        $questions = collect([$this->inputQuestions, $this->multiQuestions]);
+        return DataHelper::listDataResponse($questions->sortBy('position')->all());
     }
 
     public function inputQuestions()
     {
         return $this->hasMany(InputQuestion::class);
+    }
+
+    public function multiQuestions()
+    {
+        return $this->hasMany(MultiQuestion::class);
     }
 }

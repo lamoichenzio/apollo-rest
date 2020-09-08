@@ -8,6 +8,10 @@ use App\ImageFile;
 
 class ImageFileService
 {
+    /**
+     * @param $id
+     * @return string|null
+     */
     public static function getImageFilePath($id)
     {
         if ($image = ImageFile::find($id)) {
