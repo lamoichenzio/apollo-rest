@@ -4,6 +4,7 @@ namespace App\Http\Requests\questions;
 
 use App\Enums\MultiQuestionTypes;
 use App\MultiQuestion;
+use App\Rules\QuestionOtherRule;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
@@ -34,7 +35,7 @@ class MultiQuestionCreationRequest extends FormRequest
             'icon.data' => 'required_with:icon|base64image|base64max:5000',
             'type' => 'required|' . Rule::in(MultiQuestionTypes::types()),
             'position' => 'required|numeric',
-            'other' => 'boolean',
+            'other' => ['boolean', new QuestionOtherRule()],
             'options' => 'required|array|min:2'
         ];
     }

@@ -3,6 +3,7 @@
 namespace App\Http\Requests\questions;
 
 use App\Enums\MultiQuestionTypes;
+use App\Rules\QuestionOtherRule;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
@@ -34,7 +35,7 @@ class MultiQuestionUpdateRequest extends FormRequest
             'icon.data' => 'sometimes|required_with:icon|required_unless:icon,delete|base64image|base64max:5000',
             'type' => 'sometimes|required|' . Rule::in(MultiQuestionTypes::types()),
             'position' => 'sometimes|required|numeric',
-            'other' => 'boolean',
+            'other' => ['boolean', new QuestionOtherRule()],
             'options' => 'sometimes|required|array|min:2'
         ];
     }
