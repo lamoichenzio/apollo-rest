@@ -1260,7 +1260,106 @@
             </li>
         </ul>
     </div>
-
+    <div class="section">
+        <h3>Options Apis ../multi_questions/{id}/options</h3>
+        <ul>
+            <li>
+                <h3>GET
+                    <pre>/</pre>
+                </h3>
+                <p>
+                    Returns all the options for a given question.
+                </p>
+                <h4>Response Body</h4>
+                <pre>
+                        <code>
+                           {
+                                "options": [
+                                    "update",
+                                    "aut",
+                                    "neque",
+                                    "dadsad",
+                                    "dadsad"
+                                ]
+                            }
+                        </code>
+                    </pre>
+            </li>
+            <li>
+                <h3>
+                    POST
+                    <pre>/</pre>
+                </h3>
+                <p>Creates a new option for the given question.</p>
+                <p>
+                    <strong>NB:</strong> An option can be created only by the user that created the question or by an
+                    admin.
+                </p>
+                <h4>Request Body</h4>
+                <pre>
+                        <code>
+                            {
+                                "option" &lt;required&gt;: ...
+                            }
+                        </code>
+                    </pre>
+                <h4>Response Body</h4>
+                <p>
+                    Returns the id of the updated question.
+                </p>
+                <pre>
+                        <code>
+                            {
+                                "self": "http://apollo.test/rest/surveys/3/question_groups/5/multi_questions/3"
+                            }
+                        </code>
+                    </pre>
+            </li>
+            <li>
+                <h3>
+                    PUT
+                    <pre>/{option_id}</pre>
+                </h3>
+                <p>Update an existing option.</p>
+                <p>
+                    <strong>NB:</strong> An option can be updated only by the user that created the question by an
+                    admin.
+                </p>
+                <h4>Request Body</h4>
+                <pre>
+                        <code>
+                            {
+                                "option" &lt;required&gt;,
+                            }
+                        </code>
+                    </pre>
+                <h4>Response Body</h4>
+                <pre>
+                        <code>
+                            HTTP STATUS: 204
+                        </code>
+                    </pre>
+            </li>
+            <li>
+                <h3>DELETE
+                    <pre>/{option_id}</pre>
+                </h3>
+                <p>
+                    Delete an option.
+                </p>
+                <p>
+                    <strong>NB:</strong> An option can be deleted only by the user that created the question or by an
+                    admin.
+                </p>
+                <h4>Response Body</h4>
+                <pre>
+                    <code>
+                        HTTP STATUS: 204
+                    </code>
+                </pre>
+            </li>
+        </ul>
+    </div>
 </section>
 <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.2/highlight.min.js"></script>
 <script>
