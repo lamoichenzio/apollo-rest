@@ -24,7 +24,9 @@ class MultiQuestionResource extends JsonResource
             'icon' => $icon,
             'type' => $this->type,
             'other' => $this->other,
-            'options' => $this->options
+            'options' => $this->options->map(function ($option) {
+                return $option->option;
+            })
         ];
     }
 }

@@ -61,10 +61,9 @@ class SurveyController extends Controller
         //Create icon
         if ($icon = $request['icon']) {
             $icon = ImageFileService::createImageFile($icon);
-            $data = $this->surveyService->createSurveyWithIcon($survey, $icon);
-        } else {
-            $data = $this->surveyService->createSurvey($survey);
+            $survey->icon = $icon->id;
         }
+        $data = $this->surveyService->createSurvey($survey);
         return response()->json(
             $data, 201, ['Location' => $survey->path()]
         );

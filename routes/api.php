@@ -63,35 +63,35 @@ Route::group([
 
 //QUESTION GROUP
 Route::group([
-    'middleware' => 'api',
+    'middleware' => ['api', 'survey.questions'],
     'prefix' => 'surveys/{survey}/question_groups'
 ], function () {
-    Route::get('/', 'QuestionGroupController@index')->name('questionGroup.index');
+    Route::get('/', 'QuestionGroupController@index');
     Route::get('{questionGroup}', 'QuestionGroupController@show')->name('questionGroup.show');
-    Route::post('/', 'QuestionGroupController@store')->name('questionGroup.store');
-    Route::put('/{questionGroup}', 'QuestionGroupController@update')->name('questionGroup.update')->middleware('survey.questions');
-    Route::delete('/{questionGroup}', 'QuestionGroupController@destroy')->name('questionGroup.destroy')->middleware('survey.questions');
-    Route::get('/{questionGroup}/questions', 'QuestionGroupController@listQuestions')->name('questionGroup.listQuestions')->middleware('survey.questions');
+    Route::post('/', 'QuestionGroupController@store');
+    Route::put('/{questionGroup}', 'QuestionGroupController@update');
+    Route::delete('/{questionGroup}', 'QuestionGroupController@destroy');
+    Route::get('/{questionGroup}/questions', 'QuestionGroupController@listQuestions');
 });
 
 //INPUT QUESTION
 Route::group([
-    'middleware' => 'api',
+    'middleware' => ['api', 'survey.questions'],
     'prefix' => 'surveys/{survey}/question_groups/{question_group}/input_questions'
 ], function () {
     Route::get('/{question}', 'InputQuestionController@show')->name('inputQuestion.show');
-    Route::post('/', 'InputQuestionController@create')->name('inputQuestion.create')->middleware('survey.questions');
-    Route::put('/{question}', 'InputQuestionController@update')->name('inputQuestion.update')->middleware('survey.questions');
-    Route::delete('/{question}', 'InputQuestionController@delete')->name('inputQuestion.delete')->middleware('survey.questions');
+    Route::post('/', 'InputQuestionController@create')->name('inputQuestion.create');
+    Route::put('/{question}', 'InputQuestionController@update')->name('inputQuestion.update');
+    Route::delete('/{question}', 'InputQuestionController@delete')->name('inputQuestion.delete');
 });
 
 //MULTI QUESTION
 Route::group([
-    'middleware' => 'api',
+    'middleware' => ['api', 'survey.questions'],
     'prefix' => 'surveys/{survey}/question_groups/{question_group}/multi_questions'
 ], function () {
-    Route::get('/{question}', 'MultiQuestionController@show')->name('multiQuestion.show');
-    Route::post('/', 'MultiQuestionController@create')->middleware('survey.questions');
-    Route::put('/{question}', 'MultiQuestionController@update')->middleware('survey.questions');
-    Route::delete('/{question}', 'MultiQuestionController@delete')->middleware('survey.questions');
+    Route::get('/{multiQuestion}', 'MultiQuestionController@show')->name('multiQuestion.show');
+    Route::post('/', 'MultiQuestionController@store');
+    Route::put('/{multiQuestion}', 'MultiQuestionController@update');
+    Route::delete('/{multiQuestion}', 'MultiQuestionController@destroy');
 });

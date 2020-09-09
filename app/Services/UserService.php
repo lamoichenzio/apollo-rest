@@ -12,12 +12,6 @@ use Illuminate\Http\Request;
 
 class UserService
 {
-    public function createStandardUserWithIcon(User $user, ImageFile $imageFile)
-    {
-        $imageFile->save();
-        $user->avatar = $imageFile->id;
-        return $this->createStandardUser($user);
-    }
 
     public function createStandardUser(User $user)
     {

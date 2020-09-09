@@ -17,11 +17,8 @@ class CreateQuestionOptionsTable extends Migration
             $table->id();
             $table->text('option');
             $table->timestamps();
-            $table->foreignId('question_id')
-                ->references('id')
-                ->on('multi_questions')
-                ->cascadeOnDelete()
-                ->cascadeOnUpdate();
+            $table->unsignedBigInteger('question_id');
+            $table->text('question_type');
         });
     }
 

@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 class MultiQuestion extends Model
 {
@@ -22,7 +23,7 @@ class MultiQuestion extends Model
 
     public function options()
     {
-        return $this->hasMany(QuestionOption::class);
+        return $this->morphMany(QuestionOption::class, 'question');
     }
 
     public function path()
@@ -33,5 +34,18 @@ class MultiQuestion extends Model
                 $this->questionGroup,
                 $this
             ]);
+    }
+
+    public function delete()
+    {
+        DB::transaction(function () {
+            $del = parent::delete();
+            if ($del) {
+                QuestionOption::where([
+                    ['question_id', $this->id],
+                    ['question_type', MultiQuestion::class]
+                ])->delete();
+            }
+        });
     }
 }

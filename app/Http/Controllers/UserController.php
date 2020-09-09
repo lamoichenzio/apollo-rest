@@ -59,16 +59,12 @@ class UserController extends Controller
     function store(UserCreationRequest $request)
     {
         $request['password'] = Hash::make($request['password']);
-
         $user = new User($request->all());
-
         if ($fileData = $request['avatar']) {
             $file = ImageFileService::createImageFile($fileData);
-            $data = $this->userService->createStandardUserWithIcon($user, $file);
-        } else {
-            $data = $this->userService->createStandardUser($user);
+            $user->id = $file->id;
         }
-
+        $data = $this->userService->createStandardUser($user);
         return response()->json(
             $data, 201, ["Location" => $user->path()]);
     }

@@ -13,5 +13,6 @@ $factory->define(MultiQuestion::class, function (Faker $faker) {
         'mandatory' => $faker->boolean,
         'type' => $faker->randomElement(\App\Enums\MultiQuestionTypes::types()),
         'other' => $faker->boolean,
+        'question_group_id' => factory(\App\QuestionGroup::class)
     ];
 });

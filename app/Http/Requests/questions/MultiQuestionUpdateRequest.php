@@ -15,7 +15,7 @@ class MultiQuestionUpdateRequest extends FormRequest
      */
     public function authorize()
     {
-        $multiQuestion = $this->route('question');
+        $multiQuestion = $this->route('multiQuestion');
         return $this->user()->can('update', $multiQuestion);
     }
 
@@ -35,7 +35,7 @@ class MultiQuestionUpdateRequest extends FormRequest
             'type' => 'sometimes|required|' . Rule::in(MultiQuestionTypes::types()),
             'position' => 'sometimes|required|numeric',
             'other' => 'boolean',
-            'options' => 'sometimes|required|array|size|min:2'
+            'options' => 'sometimes|required|array|min:2'
         ];
     }
 }

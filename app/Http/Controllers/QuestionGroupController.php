@@ -68,7 +68,11 @@ class QuestionGroupController extends Controller
      */
     public function show(Survey $survey, QuestionGroup $questionGroup)
     {
-        return QuestionGroupResource::make($survey->questionGroups->find($questionGroup))->response();
+        $questionGroup = $survey->questionGroups->find($questionGroup);
+        if ($questionGroup) {
+            return QuestionGroupResource::make($questionGroup)->response();
+        }
+        return \response()->json(['error' => 'Question Group not in Survey'], 422);
     }
 
     /**

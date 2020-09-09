@@ -11,20 +11,20 @@ class MultiQuestionSeeder extends Seeder
      */
     public function run()
     {
-        $question = factory(\App\MultiQuestion::class)->create(['question_group_id' => 1]);
-        factory(\App\QuestionOption::class)->create(['question_id' => $question->id]);
-        factory(\App\QuestionOption::class)->create(['question_id' => $question->id]);
-        factory(\App\QuestionOption::class)->create(['question_id' => $question->id]);
+        factory(\App\MultiQuestion::class, 2)->create(['question_group_id' => 1])
+            ->each(function ($question) {
+                factory(\App\QuestionOption::class, 3)->create([
+                    'question_id' => $question->id,
+                    'question_type' => \App\MultiQuestion::class
+                ]);
+            });
 
-
-        $question = factory(\App\MultiQuestion::class)->create(['question_group_id' => 2]);
-        factory(\App\QuestionOption::class)->create(['question_id' => $question->id]);
-        factory(\App\QuestionOption::class)->create(['question_id' => $question->id]);
-        factory(\App\QuestionOption::class)->create(['question_id' => $question->id]);
-
-        $question = factory(\App\MultiQuestion::class)->create(['question_group_id' => 2]);
-        factory(\App\QuestionOption::class)->create(['question_id' => $question->id]);
-        factory(\App\QuestionOption::class)->create(['question_id' => $question->id]);
-        factory(\App\QuestionOption::class)->create(['question_id' => $question->id]);
+        factory(\App\MultiQuestion::class, 2)->create(['question_group_id' => 3])
+            ->each(function ($question) {
+                factory(\App\QuestionOption::class, 3)->create([
+                    'question_id' => $question->id,
+                    'question_type' => \App\MultiQuestion::class
+                ]);
+            });
     }
 }

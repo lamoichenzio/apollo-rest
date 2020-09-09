@@ -24,9 +24,9 @@ class ImageFileService
      * @param $fileData array of image properties
      * @return ImageFile
      */
-    public static function createImageFile($fileData)
+    public static function createImageFile(array $fileData)
     {
-        return new ImageFile($fileData);
+        return ImageFile::create($fileData);
     }
 
     /**

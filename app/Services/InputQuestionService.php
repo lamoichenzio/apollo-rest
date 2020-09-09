@@ -15,19 +15,6 @@ class InputQuestionService
     /**
      * @param QuestionGroup $group
      * @param InputQuestion $question
-     * @param ImageFile $file
-     * @return array
-     */
-    public function createWithIcon(QuestionGroup $group, InputQuestion $question, ImageFile $file)
-    {
-        $file->save();
-        $question->icon = $file->id;
-        return $this->create($group, $question);
-    }
-
-    /**
-     * @param QuestionGroup $group
-     * @param InputQuestion $question
      * @return array
      */
     public function create(QuestionGroup $group, InputQuestion $question)

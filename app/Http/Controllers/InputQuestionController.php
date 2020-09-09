@@ -38,8 +38,11 @@ class InputQuestionController extends Controller
      */
     public function show(Survey $survey, QuestionGroup $questionGroup, InputQuestion $question)
     {
-        return InputQuestionResource::make(
-            $survey->questionGroups->find($questionGroup)->inputQuestions->find($question))->response();
+        $question = $survey->questionGroups->find($questionGroup)->inputQuestions->find($question);
+        if ($question) {
+            return InputQuestionResource::make($question)->response();
+        }
+        return response()->json(['error' => 'Question not in Question Group'], 404);
     }
 
     /**
@@ -55,11 +58,10 @@ class InputQuestionController extends Controller
 
         if ($image = $request['icon']) {
             $image = ImageFileService::createImageFile($image);
-            $data = $this->questionService->createWithIcon($questionGroup, $question, $image);
-        } else {
-            $data = $this->questionService->create($questionGroup, $question);
+            $question->icon = $image->id;
         }
 
+        $data = $this->questionService->create($questionGroup, $question);
         return response()->json($data, 201, ['Location' => $question->path()]);
 
     }

@@ -10,12 +10,6 @@ use App\Survey;
 
 class SurveyService
 {
-    public function createSurveyWithIcon(Survey $survey, ImageFile $file)
-    {
-        $file->save();
-        $survey->icon = $file->id;
-        return $this->createSurvey($survey);
-    }
 
     public function createSurvey(Survey $survey)
     {

@@ -35,7 +35,7 @@ class MultiQuestionCreationRequest extends FormRequest
             'type' => 'required|' . Rule::in(MultiQuestionTypes::types()),
             'position' => 'required|numeric',
             'other' => 'boolean',
-            'options' => 'required|array|size|min:2'
+            'options' => 'required|array|min:2'
         ];
     }
 }
