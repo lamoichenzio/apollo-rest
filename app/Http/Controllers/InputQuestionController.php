@@ -39,10 +39,7 @@ class InputQuestionController extends Controller
     public function show(Survey $survey, QuestionGroup $questionGroup, InputQuestion $question)
     {
         $question = $survey->questionGroups->find($questionGroup)->inputQuestions->find($question);
-        if ($question) {
-            return InputQuestionResource::make($question)->response();
-        }
-        return response()->json(['error' => 'Question not in Question Group'], 404);
+        return InputQuestionResource::make($question)->response();
     }
 
     /**
@@ -76,15 +73,12 @@ class InputQuestionController extends Controller
     public function update(InputQuestionUpdateRequest $request, Survey $survey, QuestionGroup $questionGroup, InputQuestion $question)
     {
         $question = $survey->questionGroups->find($questionGroup)->inputQuestions->find($question);
-        if ($question) {
-            if ($icon = $request['icon'] && $request['icon'] != 'delete') {
-                $icon = ImageFileService::updateImageFile($question->icon, $icon);
-                $question->icon = $icon->id;
-            }
-            $this->questionService->update($question, $request->all(), $request['icon'] == 'delete');
-            return response()->json("", 204);
+        if ($icon = $request['icon'] && $request['icon'] != 'delete') {
+            $icon = ImageFileService::updateImageFile($question->icon, $icon);
+            $question->icon = $icon->id;
         }
-        return response()->json(["error" => "Question not found"], 404);
+        $this->questionService->update($question, $request->all(), $request['icon'] == 'delete');
+        return response()->json("", 204);
     }
 
     /**
@@ -98,10 +92,7 @@ class InputQuestionController extends Controller
     {
         $this->authorize('delete', $question);
         $question = $survey->questionGroups->find($questionGroup)->inputQuestions->find($question);
-        if ($question) {
-            $this->questionService->delete($question);
-            return response()->json("", 204);
-        }
-        return response()->json(["error" => "Question not found"], 404);
+        $this->questionService->delete($question);
+        return response()->json("", 204);
     }
 }

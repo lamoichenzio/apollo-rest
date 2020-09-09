@@ -4,7 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 
-class SurveyQuestionMiddleware
+class InputQuestionMiddleware
 {
     /**
      * Handle an incoming request.
@@ -13,15 +13,14 @@ class SurveyQuestionMiddleware
      * @param \Closure $next
      * @return mixed
      */
-    public function handle(\Illuminate\Http\Request $request, Closure $next)
+    public function handle($request, Closure $next)
     {
         $survey = $request->route('survey');
         $questionGroup = $request->route('question_group');
-        if ($survey && $questionGroup && $survey->id != $questionGroup->survey_id) {
-            return response()->json(['error' => 'Question Group not in Survey'],
-                \Illuminate\Http\Response::HTTP_UNPROCESSABLE_ENTITY);
+        $question = $request->route('question');
+        if (!$survey->questionGroups->find($questionGroup)->inputQuestions->find($question)) {
+            return response()->json(['error' => 'Question not in Question Group'], 422);
         }
-
         return $next($request);
     }
 }

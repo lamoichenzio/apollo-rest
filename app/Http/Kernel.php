@@ -2,6 +2,9 @@
 
 namespace App\Http;
 
+use App\Http\Middleware\InputQuestionMiddleware;
+use App\Http\Middleware\MultiQuestionMiddleware;
+use App\Http\Middleware\OptionInMultiQuestionMiddleware;
 use App\Http\Middleware\SurveyQuestionMiddleware;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
@@ -65,6 +68,9 @@ class Kernel extends HttpKernel
         'signed' => \Illuminate\Routing\Middleware\ValidateSignature::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
-        'survey.questions' => SurveyQuestionMiddleware::class,
+        'qg.in.survey' => SurveyQuestionMiddleware::class,
+        'inputquestion.in.qg' => InputQuestionMiddleware::class,
+        'multiquestion.in.qg' => MultiQuestionMiddleware::class,
+        'option.in.question' => OptionInMultiQuestionMiddleware::class
     ];
 }

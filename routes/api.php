@@ -13,10 +13,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-//Route::middleware('auth:api')->get('/user', function (Request $request) {
-//    return $request->user();
-//});
-
 //AUTH
 Route::group([
     'middleware' => 'api',
@@ -63,7 +59,7 @@ Route::group([
 
 //QUESTION GROUP
 Route::group([
-    'middleware' => ['api', 'survey.questions'],
+    'middleware' => ['api', 'qg.in.survey'],
     'prefix' => 'surveys/{survey}/question_groups'
 ], function () {
     Route::get('/', 'QuestionGroupController@index');
@@ -76,22 +72,39 @@ Route::group([
 
 //INPUT QUESTION
 Route::group([
-    'middleware' => ['api', 'survey.questions'],
+    'middleware' => ['api', 'qg.in.survey'],
     'prefix' => 'surveys/{survey}/question_groups/{question_group}/input_questions'
 ], function () {
-    Route::get('/{question}', 'InputQuestionController@show')->name('inputQuestion.show');
+    Route::get('/{question}', 'InputQuestionController@show')->name('inputQuestion.show')
+        ->middleware('inputquestion.in.qg');
     Route::post('/', 'InputQuestionController@create')->name('inputQuestion.create');
-    Route::put('/{question}', 'InputQuestionController@update')->name('inputQuestion.update');
-    Route::delete('/{question}', 'InputQuestionController@delete')->name('inputQuestion.delete');
+    Route::put('/{question}', 'InputQuestionController@update')->name('inputQuestion.update')
+        ->middleware('inputquestion.in.qg');
+    Route::delete('/{question}', 'InputQuestionController@delete')->name('inputQuestion.delete')
+        ->middleware('inputquestion.in.qg');
 });
 
 //MULTI QUESTION
 Route::group([
-    'middleware' => ['api', 'survey.questions'],
+    'middleware' => ['api', 'qg.in.survey'],
     'prefix' => 'surveys/{survey}/question_groups/{question_group}/multi_questions'
 ], function () {
-    Route::get('/{multiQuestion}', 'MultiQuestionController@show')->name('multiQuestion.show');
+    Route::get('/{multiQuestion}', 'MultiQuestionController@show')
+        ->name('multiQuestion.show')
+        ->middleware('multiquestion.in.qg');
     Route::post('/', 'MultiQuestionController@store');
-    Route::put('/{multiQuestion}', 'MultiQuestionController@update');
-    Route::delete('/{multiQuestion}', 'MultiQuestionController@destroy');
+    Route::put('/{multiQuestion}', 'MultiQuestionController@update')
+        ->middleware('multiquestion.in.qg');
+    Route::delete('/{multiQuestion}', 'MultiQuestionController@destroy')
+        ->middleware('multiquestion.in.qg');
+
+    //OPTIONS
+    Route::get('/{multiQuestion}/options', 'MultiQuestionController@listOptions')
+        ->middleware('multiquestion.in.qg');
+    Route::post('/{multiQuestion}/options', 'MultiQuestionController@storeOption')
+        ->middleware('multiquestion.in.qg');
+    Route::put('/{multiQuestion}/options/{option}', 'MultiQuestionController@updateOption')
+        ->middleware('multiquestion.in.qg', "option.in.question");
+    Route::delete('/{multiQuestion}/options/{option}', 'MultiQuestionController@destroyOption')
+        ->middleware('multiquestion.in.qg', "option.in.question");
 });
