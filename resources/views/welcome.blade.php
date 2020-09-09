@@ -1261,7 +1261,7 @@
         </ul>
     </div>
     <div class="section">
-        <h3>Options Apis ../multi_questions/{id}/options</h3>
+        <h3>OPTIONS ../multi_questions/{id}/options</h3>
         <ul>
             <li>
                 <h3>GET
