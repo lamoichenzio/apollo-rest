@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateInputQuestionsTable extends Migration
+class CreateMatrixQuestionsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,22 +13,20 @@ class CreateInputQuestionsTable extends Migration
      */
     public function up()
     {
-        Schema::create('input_questions', function (Blueprint $table) {
-
+        Schema::create('matrix_questions', function (Blueprint $table) {
             $table->id();
             $table->text('title');
             $table->text('description')->nullable();
             $table->integer('position');
             $table->boolean('mandatory')->default(false);
             $table->binary('icon')->nullable();
-            $table->enum('type', \App\Enums\InputQuestionTypes::types());
-            $table->timestamps();
-
+            $table->enum('type', \App\Enums\MatrixQuestionTypes::types());
             $table->foreignId('question_group_id')
                 ->references('id')
                 ->on('question_groups')
-                ->cascadeOnDelete()
-                ->cascadeOnUpdate();
+                ->cascadeOnUpdate()
+                ->cascadeOnDelete();
+            $table->timestamps();
         });
     }
 
@@ -39,6 +37,6 @@ class CreateInputQuestionsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('input_questions');
+        Schema::dropIfExists('matrix_questions');
     }
 }

@@ -51,13 +51,10 @@ class InputQuestionController extends Controller
     public function create(Survey $survey, QuestionGroup $questionGroup, InputQuestionCreationRequest $request)
     {
         $question = new InputQuestion($request->all());
-        $questionGroup = $survey->questionGroups->find($questionGroup);
-
         if ($image = $request['icon']) {
             $image = ImageFileService::createImageFile($image);
             $question->icon = $image->id;
         }
-
         $data = $this->questionService->create($questionGroup, $question);
         return response()->json($data, 201, ['Location' => $question->path()]);
 
@@ -72,7 +69,6 @@ class InputQuestionController extends Controller
      */
     public function update(InputQuestionUpdateRequest $request, Survey $survey, QuestionGroup $questionGroup, InputQuestion $question)
     {
-        $question = $survey->questionGroups->find($questionGroup)->inputQuestions->find($question);
         if ($icon = $request['icon'] && $request['icon'] != 'delete') {
             $icon = ImageFileService::updateImageFile($question->icon, $icon);
             $question->icon = $icon->id;
@@ -91,7 +87,6 @@ class InputQuestionController extends Controller
     public function delete(Survey $survey, QuestionGroup $questionGroup, InputQuestion $question)
     {
         $this->authorize('delete', $question);
-        $question = $survey->questionGroups->find($questionGroup)->inputQuestions->find($question);
         $this->questionService->delete($question);
         return response()->json("", 204);
     }

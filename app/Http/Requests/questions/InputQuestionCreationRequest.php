@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests\questions;
 
-use App\Enums\InputQuestionType;
+use App\Enums\InputQuestionTypes;
 use App\InputQuestion;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
@@ -32,7 +32,7 @@ class InputQuestionCreationRequest extends FormRequest
             'icon' => 'sometimes|required',
             'icon.name' => 'required_with:icon|string',
             'icon.data' => 'required_with:icon|base64image|base64max:5000',
-            'type' => 'required|' . Rule::in(InputQuestionType::types()),
+            'type' => 'required|' . Rule::in(InputQuestionTypes::types()),
             'position' => 'required|numeric'
         ];
     }

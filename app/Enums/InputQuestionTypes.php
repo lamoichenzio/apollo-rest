@@ -4,7 +4,7 @@
 namespace App\Enums;
 
 
-class InputQuestionType
+class InputQuestionTypes
 {
 
     public static $TEXT = 'TEXT';
