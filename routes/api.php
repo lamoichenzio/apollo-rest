@@ -63,11 +63,11 @@ Route::group([
     'prefix' => 'surveys/{survey}/question_groups'
 ], function () {
     Route::get('/', 'QuestionGroupController@index');
-    Route::get('{questionGroup}', 'QuestionGroupController@show')->name('questionGroup.show');
+    Route::get('{question_group}', 'QuestionGroupController@show')->name('questionGroup.show');
     Route::post('/', 'QuestionGroupController@store');
-    Route::put('/{questionGroup}', 'QuestionGroupController@update');
-    Route::delete('/{questionGroup}', 'QuestionGroupController@destroy');
-    Route::get('/{questionGroup}/questions', 'QuestionGroupController@listQuestions');
+    Route::put('/{question_group}', 'QuestionGroupController@update');
+    Route::delete('/{question_group}', 'QuestionGroupController@destroy');
+    Route::get('/{question_group}/questions', 'QuestionGroupController@listQuestions');
 });
 
 //INPUT QUESTION

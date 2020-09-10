@@ -8,7 +8,7 @@ class DataHelper
 {
 
     /**
-     * @param $data list of objects
+     * @param $data
      * @return array response message
      */
     public static function listDataResponse($data)

@@ -8,7 +8,6 @@ use App\Http\Resources\QuestionGroupResource;
 use App\QuestionGroup;
 use App\Services\QuestionGroupService;
 use App\Survey;
-use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Validation\Rule;
 
@@ -69,10 +68,7 @@ class QuestionGroupController extends Controller
     public function show(Survey $survey, QuestionGroup $questionGroup)
     {
         $questionGroup = $survey->questionGroups->find($questionGroup);
-        if ($questionGroup) {
-            return QuestionGroupResource::make($questionGroup)->response();
-        }
-        return \response()->json(['error' => 'Question Group not in Survey'], 422);
+        return QuestionGroupResource::make($questionGroup)->response();
     }
 
     /**
@@ -85,11 +81,6 @@ class QuestionGroupController extends Controller
      */
     public function update(QuestionGroupUpdateRequest $request, Survey $survey, QuestionGroup $questionGroup)
     {
-        if ($questionGroup->survey->id !== $survey->id) {
-            return response()->json(
-                ["message" => "Question Group not belonging to survey"],
-                Response::HTTP_UNPROCESSABLE_ENTITY);
-        }
         $this->questionGroupService->update($questionGroup, $request->all());
         return response()->json("", 204);
     }
@@ -105,16 +96,11 @@ class QuestionGroupController extends Controller
     public function destroy(Survey $survey, QuestionGroup $questionGroup)
     {
         $this->authorize('delete', $questionGroup);
-        if ($questionGroup->survey->id !== $survey->id) {
-            return response()->json(
-                ["message" => "Question Group not belonging to survey"],
-                Response::HTTP_UNPROCESSABLE_ENTITY);
-        }
         $this->questionGroupService->delete($questionGroup);
         return response()->json("", 204);
     }
 
-    public function listQuestions(QuestionGroup $questionGroup)
+    public function listQuestions(Survey $survey, QuestionGroup $questionGroup)
     {
         return \response()->json($questionGroup->questions());
     }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources\questions;
 
+use App\InputQuestion;
 use App\Services\ImageFileService;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -23,6 +24,7 @@ class InputQuestionResource extends JsonResource
             'position' => $this->position,
             'mandatory' => $this->mandatory,
             'icon' => $image,
+            'questionType' => InputQuestion::class,
             'type' => $this->type,
             'createDate' => $this->created_at,
             'questionGroup' => $this->questionGroup->path(),

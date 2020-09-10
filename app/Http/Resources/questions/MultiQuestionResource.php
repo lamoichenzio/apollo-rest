@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources\questions;
 
+use App\MultiQuestion;
 use App\Services\ImageFileService;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -23,6 +24,7 @@ class MultiQuestionResource extends JsonResource
             'position' => $this->position,
             'mandatory' => $this->mandatory,
             'icon' => $icon,
+            'questionType' => MultiQuestion::class,
             'type' => $this->type,
             'other' => $this->other,
             'options' => $this->options->map(function ($option) {

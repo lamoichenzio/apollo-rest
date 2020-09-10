@@ -4,6 +4,8 @@ namespace App;
 
 
 use App\Helpers\DataHelper;
+use App\Http\Resources\questions\InputQuestionResource;
+use App\Http\Resources\questions\MultiQuestionResource;
 use Illuminate\Database\Eloquent\Model;
 
 class QuestionGroup extends Model
@@ -22,8 +24,10 @@ class QuestionGroup extends Model
 
     public function questions()
     {
-        $questions = collect([$this->inputQuestions, $this->multiQuestions]);
-        return DataHelper::listDataResponse($questions->sortBy('position')->all());
+        $inputQuestions = InputQuestionResource::collection($this->inputQuestions)->collection;
+        $multiQuestions = MultiQuestionResource::collection($this->multiQuestions)->collection;
+        $questions = collect([$inputQuestions, $multiQuestions]);
+        return DataHelper::listDataResponse($questions->collapse()->sortBy('position')->all());
     }
 
     public function inputQuestions()

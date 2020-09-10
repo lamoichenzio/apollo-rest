@@ -903,7 +903,6 @@
             </pre>
             </li>
             <li>
-            <li>
                 <h3>
                     <b>GET</b>
                     <pre>/{question_group_id}</pre>
@@ -923,6 +922,188 @@
                     }
                 </code>
             </pre>
+            </li>
+            <li>
+                <h3>
+                    <b>GET</b>
+                    <pre>/{question_group_id}/questions</pre>
+                </h3>
+                <p>
+                    Get all the questions of the group ordered by the position attribute
+                </p>
+                <h4>Response</h4>
+                <pre>
+                    <code>
+                        {
+                            "data": {
+                                "0": {
+                                    "id": 5,
+                                    "title": "prova",
+                                    "description": "asdadad",
+                                    "position": 1,
+                                    "mandatory": 0,
+                                    "icon": "http://apollo.test/rest/files/5f57aeaebf5b000060007cb2",
+                                    "questionType": "App\\InputQuestion",
+                                    "type": "TEXT",
+                                    "createDate": "2020-09-08T16:17:50.000000Z",
+                                    "questionGroup": "http://apollo.test/rest/surveys/3/question_groups/3",
+                                    "survey": "http://apollo.test/rest/surveys/3"
+                                },
+                                "3": {
+                                    "id": 3,
+                                    "title": "Ad omnis numquam eum dolor facere nam est. Ut sit rem sapiente tenetur quia omnis atque consequatur. Ea quos corporis itaque. Itaque quas fugit facere enim illo asperiores voluptatem.",
+                                    "description": "Aut unde consectetur dolore aut est. Non possimus odio cumque. Commodi odio modi natus et illo facilis.",
+                                    "position": 2,
+                                    "mandatory": 0,
+                                    "icon": null,
+                                    "questionType": "App\\MultiQuestion",
+                                    "type": "SELECT",
+                                    "other": 1,
+                                    "options": [
+                                        "update",
+                                        "aut",
+                                        "neque",
+                                        "dadsad",
+                                        "dadsad"
+                                    ]
+                                },
+                                "4": {
+                                    "id": 4,
+                                    "title": "Earum aperiam beatae alias quisquam quod. Praesentium repellat impedit officiis non qui nihil dolor. Quasi voluptatem sed eligendi dolorem mollitia. Quibusdam accusamus quia omnis repellat quidem.",
+                                    "description": "Maxime assumenda veritatis et ipsa rerum nisi sit consectetur. Veniam consequuntur eius tempora dolorum aliquid. Quaerat unde doloribus minus eum voluptatem est.",
+                                    "position": 5,
+                                    "mandatory": 1,
+                                    "icon": null,
+                                    "questionType": "App\\MultiQuestion",
+                                    "type": "RADIO",
+                                    "other": 1,
+                                    "options": [
+                                        "et",
+                                        "eligendi",
+                                        "doloribus"
+                                    ]
+                                },
+                                "5": {
+                                    "id": 7,
+                                    "title": "prova",
+                                    "description": null,
+                                    "position": 6,
+                                    "mandatory": 0,
+                                    "icon": null,
+                                    "questionType": "App\\MultiQuestion",
+                                    "type": "CHECK",
+                                    "other": 0,
+                                    "options": [
+                                        "asdadsd",
+                                        "asdaddasd"
+                                    ]
+                                },
+                                "6": {
+                                    "id": 9,
+                                    "title": "prova",
+                                    "description": null,
+                                    "position": 7,
+                                    "mandatory": 0,
+                                    "icon": null,
+                                    "questionType": "App\\MultiQuestion",
+                                    "type": "CHECK",
+                                    "other": 0,
+                                    "options": [
+                                        "asdadsd",
+                                        "asdaddasd"
+                                    ]
+                                },
+                                "7": {
+                                    "id": 10,
+                                    "title": "prova",
+                                    "description": null,
+                                    "position": 8,
+                                    "mandatory": 0,
+                                    "icon": null,
+                                    "questionType": "App\\MultiQuestion",
+                                    "type": "CHECK",
+                                    "other": 0,
+                                    "options": [
+                                        "asdaddasd"
+                                    ]
+                                },
+                                "8": {
+                                    "id": 11,
+                                    "title": "prova",
+                                    "description": null,
+                                    "position": 9,
+                                    "mandatory": 0,
+                                    "icon": null,
+                                    "questionType": "App\\MultiQuestion",
+                                    "type": "CHECK",
+                                    "other": 0,
+                                    "options": [
+                                        "asdasd",
+                                        "asdasdasd"
+                                    ]
+                                },
+                                "9": {
+                                    "id": 13,
+                                    "title": "prova",
+                                    "description": null,
+                                    "position": 10,
+                                    "mandatory": 0,
+                                    "icon": null,
+                                    "questionType": "App\\MultiQuestion",
+                                    "type": "SELECT",
+                                    "other": 1,
+                                    "options": [
+                                        "asdasd",
+                                        "asdasdasd"
+                                    ]
+                                },
+                                "1": {
+                                    "id": 6,
+                                    "title": "prova",
+                                    "description": "asdadad",
+                                    "position": 11,
+                                    "mandatory": 0,
+                                    "icon": "http://apollo.test/rest/files/5f58a7e37176000020004863",
+                                    "questionType": "App\\InputQuestion",
+                                    "type": "TEXT",
+                                    "createDate": "2020-09-09T10:01:07.000000Z",
+                                    "questionGroup": "http://apollo.test/rest/surveys/3/question_groups/3",
+                                    "survey": "http://apollo.test/rest/surveys/3"
+                                },
+                                "10": {
+                                    "id": 14,
+                                    "title": "test",
+                                    "description": null,
+                                    "position": 13,
+                                    "mandatory": 0,
+                                    "icon": null,
+                                    "questionType": "App\\MultiQuestion",
+                                    "type": "SELECT",
+                                    "other": 0,
+                                    "options": [
+                                        "asdasd",
+                                        "asdasdasd",
+                                        "dadsad",
+                                        "dadsad"
+                                    ]
+                                },
+                                "2": {
+                                    "id": 7,
+                                    "title": "prova",
+                                    "description": "asdadad",
+                                    "position": 15,
+                                    "mandatory": 0,
+                                    "icon": "http://apollo.test/rest/files/5f58a8b07176000020004864",
+                                    "questionType": "App\\InputQuestion",
+                                    "type": "TEXT",
+                                    "createDate": "2020-09-09T10:04:32.000000Z",
+                                    "questionGroup": "http://apollo.test/rest/surveys/3/question_groups/3",
+                                    "survey": "http://apollo.test/rest/surveys/3"
+                                }
+                            }
+                        }
+                    </code>
+                </pre>
             </li>
             <li>
                 <h3>
@@ -1029,6 +1210,7 @@
                                 "position": 2,
                                 "mandatory": 0,
                                 "icon": null,
+                                "questionType": "App\\InputQuestion",
                                 "type": "TEXTAREA",
                                 "createDate": "2020-09-07T15:49:18.000000Z",
                                 "questionGroup": "http://apollo.test/rest/surveys/1/question_groups/1",
@@ -1151,6 +1333,7 @@
                                     "position": 5,
                                     "mandatory": 1,
                                     "icon": null,
+                                    "questionType": "App\\MultiQuestion",
                                     "type": "RADIO",
                                     "other": 1,
                                     "options": [
