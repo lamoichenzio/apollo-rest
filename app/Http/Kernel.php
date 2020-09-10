@@ -3,6 +3,7 @@
 namespace App\Http;
 
 use App\Http\Middleware\InputQuestionMiddleware;
+use App\Http\Middleware\MatrixQuestionInQuestionGroupMiddleware;
 use App\Http\Middleware\MultiQuestionMiddleware;
 use App\Http\Middleware\OptionInMultiQuestionMiddleware;
 use App\Http\Middleware\SurveyQuestionMiddleware;
@@ -71,6 +72,7 @@ class Kernel extends HttpKernel
         'qg.in.survey' => SurveyQuestionMiddleware::class,
         'inputquestion.in.qg' => InputQuestionMiddleware::class,
         'multiquestion.in.qg' => MultiQuestionMiddleware::class,
-        'option.in.question' => OptionInMultiQuestionMiddleware::class
+        'option.in.question' => OptionInMultiQuestionMiddleware::class,
+        'matrixquestion.in.qg' => MatrixQuestionInQuestionGroupMiddleware::class
     ];
 }

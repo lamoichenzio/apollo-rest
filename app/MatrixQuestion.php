@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 class MatrixQuestion extends Model
 {
@@ -27,5 +28,21 @@ class MatrixQuestion extends Model
     public function options()
     {
         return $this->morphMany(QuestionOption::class, 'question');
+    }
+
+    public function path()
+    {
+        return route('matrixQuestion.show', [$this->questionGroup->survey, $this->questionGroup, $this]);
+    }
+
+    public function delete()
+    {
+        DB::transaction(function () {
+            parent::delete();
+            QuestionOption::where([
+                ['question_id', $this->id],
+                ['question_type', MatrixQuestion::class]
+            ])->delete();
+        });
     }
 }

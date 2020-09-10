@@ -70,7 +70,7 @@ Route::group([
     Route::get('/{question_group}/questions', 'QuestionGroupController@listQuestions');
 });
 
-//INPUT QUESTION
+//INPUT QUESTIONS
 Route::group([
     'middleware' => ['api', 'qg.in.survey'],
     'prefix' => 'surveys/{survey}/question_groups/{question_group}/input_questions'
@@ -84,7 +84,7 @@ Route::group([
         ->middleware('inputquestion.in.qg');
 });
 
-//MULTI QUESTION
+//MULTI QUESTIONS
 Route::group([
     'middleware' => ['api', 'qg.in.survey'],
     'prefix' => 'surveys/{survey}/question_groups/{question_group}/multi_questions'
@@ -109,4 +109,14 @@ Route::group([
         ->middleware('multiquestion.in.qg', "option.in.question");
 });
 
-
+//MATRIX QUESTIONS
+Route::group([
+    'middleware' => ['api', 'qg.in.survey', 'matrixquestion.in.qg'],
+    'prefix' => '/surveys/{survey}/question_groups/{question_group}/matrix_questions'
+], function () {
+    Route::get('/{matrixQuestion}', 'MatrixQuestionController@show')
+        ->name('matrixQuestion.show');
+    Route::post('/', 'MatrixQuestionController@store');
+    Route::put('/{matrixQuestion}', 'MatrixQuestionController@update');
+    Route::delete('/{matrixQuestion}', 'MatrixQuestionController@destroy');
+});
