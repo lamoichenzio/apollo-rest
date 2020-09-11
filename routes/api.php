@@ -120,3 +120,25 @@ Route::group([
     Route::put('/{matrixQuestion}', 'MatrixQuestionController@update');
     Route::delete('/{matrixQuestion}', 'MatrixQuestionController@destroy');
 });
+
+//MATRIX QUESTION ELEMENTS
+Route::group([
+    'prefix' => 'surveys/{survey}/question_groups/{question_group}/matrix_questions/{matrixQuestion}/elements',
+    'middleware' => ['api', 'qg.in.survey', 'matrixquestion.in.qg', 'element.in.matrix']
+], function () {
+    Route::get('/', 'MatrixQuestionElementController@index');
+    Route::post('/', 'MatrixQuestionElementController@store')->middleware('can:create,App\MatrixQuestionElement');
+    Route::put('/{element}', 'MatrixQuestionElementController@update')->middleware('can:update,element');
+    Route::delete('/{element}', 'MatrixQuestionElementController@destroy')->middleware('can:delete,element');
+});
+
+//MATRIX QUESTION OPTIONS
+Route::group([
+    'prefix' => 'surveys/{survey}/question_groups/{question_group}/matrix_questions/{matrixQuestion}/options',
+    'middleware' => ['api', 'qg.in.survey', 'matrixquestion.in.qg', 'element.in.matrix']
+], function () {
+    Route::get('/', 'MatrixQuestionOptionController@index');
+    Route::post('/', 'MatrixQuestionOptionController@store')->middleware('can:create,App\QuestionOption');
+    Route::put('/{option}', 'MatrixQuestionOptionController@update')->middleware('can:update,option');
+    Route::delete('/{option}', 'MatrixQuestionOptionController@destroy')->middleware('can:delete,option');
+});

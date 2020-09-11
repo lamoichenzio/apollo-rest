@@ -2,7 +2,6 @@
 
 namespace App\Http\Resources\questions;
 
-use App\Enums\MatrixQuestionTypes;
 use App\MatrixQuestion;
 use App\Services\ImageFileService;
 use Illuminate\Http\Resources\Json\JsonResource;
@@ -25,12 +24,18 @@ class MatrixQuestionResource extends JsonResource
             'mandatory' => $this->mandatory,
             'icon' => $icon,
             'questionType' => MatrixQuestion::class,
-            'type' => MatrixQuestionTypes::types(),
-            'questionElements' => $this->elements->map(function ($element) {
-                return $element->title;
+            'type' => $this->type,
+            'elements' => $this->elements->map(function ($element) {
+                return [
+                    "id" => $element->id,
+                    "title" => $element->title
+                ];
             }),
             'options' => $this->options->map(function ($option) {
-                return $option->option;
+                return [
+                    "id" => $option->id,
+                    "option" => $option->option
+                ];
             }),
             'questionGroup' => $this->questionGroup->path(),
             'survey' => $this->questionGroup->survey->path()

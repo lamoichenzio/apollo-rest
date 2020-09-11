@@ -54,8 +54,7 @@ class MultiQuestionController extends Controller
      */
     public function show(Survey $survey, QuestionGroup $questionGroup, MultiQuestion $multiQuestion)
     {
-        $question = $survey->questionGroups->find($questionGroup)->multiQuestions->find($multiQuestion);
-        return MultiQuestionResource::make($question)->response();
+        return MultiQuestionResource::make($multiQuestion)->response();
     }
 
     /**
@@ -69,13 +68,12 @@ class MultiQuestionController extends Controller
      */
     public function update(MultiQuestionUpdateRequest $request, Survey $survey, QuestionGroup $questionGroup, MultiQuestion $multiQuestion)
     {
-        $question = $survey->questionGroups->find($questionGroup)->multiQuestions->find($multiQuestion);
         if ($icon = $request['icon'] && $request['icon'] != 'delete') {
-            $icon = ImageFileService::updateImageFile($question->icon, $request['icon']);
-            $question->icon = $icon->id;
+            $icon = ImageFileService::updateImageFile($multiQuestion->icon, $request['icon']);
+            $multiQuestion->icon = $icon->id;
         }
-        $this->service->update(
-            $question, $request->all(), $request['icon'] == 'delete', collect($request['options']));
+        $this->service->update($multiQuestion, $request->all(),
+            $request['icon'] == 'delete', collect($request['options']));
         return response()->json("", 204);
     }
 
@@ -90,9 +88,8 @@ class MultiQuestionController extends Controller
      */
     public function destroy(Survey $survey, QuestionGroup $questionGroup, MultiQuestion $multiQuestion)
     {
-        $question = $survey->questionGroups->find($questionGroup)->multiQuestions->find($multiQuestion);
-        $this->authorize('delete', $question);
-        $this->service->delete($question);
+        $this->authorize('delete', $multiQuestion);
+        $this->service->delete($multiQuestion);
         return response()->json("", 204);
     }
 
@@ -104,11 +101,13 @@ class MultiQuestionController extends Controller
      */
     public function listOptions(Survey $survey, QuestionGroup $questionGroup, MultiQuestion $multiQuestion)
     {
-        $question = $survey->questionGroups->find($questionGroup)->multiQuestions->find($multiQuestion);
-        $message = $question->options->map(function ($option) {
-            return $option->option;
+        $message = $multiQuestion->options->map(function ($option) {
+            return [
+                'id' => $option->id,
+                'option' => $option->option
+            ];
         });
-        return response()->json(['options' => $message]);
+        return response()->json(DataHelper::listDataResponse($message));
     }
 
     /**

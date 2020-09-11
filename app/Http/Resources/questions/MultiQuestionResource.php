@@ -28,7 +28,10 @@ class MultiQuestionResource extends JsonResource
             'type' => $this->type,
             'other' => $this->other,
             'options' => $this->options->map(function ($option) {
-                return $option->option;
+                return [
+                    "id" => $option->id,
+                    "option" => $option->option
+                ];
             })
         ];
     }

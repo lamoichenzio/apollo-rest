@@ -1337,10 +1337,19 @@
                                     "type": "RADIO",
                                     "other": 1,
                                     "options": [
-                                        "et",
-                                        "eligendi",
-                                        "doloribus"
-                                    ]
+                                        {
+                                            "id": 20,
+                                            "option": "incidunt"
+                                        },
+                                        {
+                                            "id": 21,
+                                            "option": "quaerat"
+                                        },
+                                        {
+                                            "id": 28,
+                                            "option": "test"
+                                        }
+                                    ],
                                 }
                             }
                         </code>
@@ -1365,7 +1374,7 @@
                                 "mandatory" &lt;true or false&gt;,
                                 "position" &lt;required & integer number&gt;,
                                 "type" &lt;required and must be one of ('CHECK', 'RADIO', 'SELECT')&gt;,
-                                "mandatory" &lt;true or false, if type is SELECT it must be false&gt;,
+                                "other" &lt;true or false default is false, if type is SELECT it must be false&gt;,
                                 "options" &lt;required & min 2&gt;:[
                                     &lt;list of options for the question&gt;
                                 ],
@@ -1405,7 +1414,7 @@
                                 "mandatory" &lt;not null if present & true or false&gt;,
                                 "position" &lt;not null if present & integer number&gt;,
                                 "type" &lt;not null if present and must be one of ('CHECK', 'RADIO', 'SELECT')&gt;,
-                                "mandatory" &lt;true or false, if type is SELECT it must be false&gt;,
+                                "other" &lt;true or false, if type is SELECT it must be false&gt;,
                                 "options" &lt;not null if present & min 2&gt;:[
                                     &lt;list of options for the question&gt;
                                 ],
@@ -1456,13 +1465,20 @@
                 <h4>Response Body</h4>
                 <pre>
                         <code>
-                           {
-                                "options": [
-                                    "update",
-                                    "aut",
-                                    "neque",
-                                    "dadsad",
-                                    "dadsad"
+                              {
+                                "data": [
+                                    {
+                                        "id": 7,
+                                        "option": "iure"
+                                    },
+                                    {
+                                        "id": 8,
+                                        "option": "autem"
+                                    },
+                                    {
+                                        "id": 9,
+                                        "option": "soluta"
+                                    }
                                 ]
                             }
                         </code>
@@ -1532,6 +1548,372 @@
                 </p>
                 <p>
                     <strong>NB:</strong> An option can be deleted only by the user that created the question or by an
+                    admin.
+                </p>
+                <h4>Response Body</h4>
+                <pre>
+                    <code>
+                        HTTP STATUS: 204
+                    </code>
+                </pre>
+            </li>
+        </ul>
+    </div>
+</section>
+<section id="matrix_questions">
+    <div class="section">
+        <h2>Matrix Questions (../surveys/{survey_id}/questions_groups/{question_group_id}/matrix_questions)</h2>
+        <ul>
+            <li>
+                <h3>GET
+                    <pre>/{question_id}</pre>
+                </h3>
+                <p>
+                    Returns information about a specific question of the selected survey.
+                </p>
+                <h4>Response Body</h4>
+                <pre>
+                        <code>
+                           {
+                            "data": {
+                                "title": "Et voluptatem nostrum perferendis maxime quos repudiandae. Ut delectus voluptatem accusamus. Eaque omnis cupiditate dolore.",
+                                "description": "Sit officiis deserunt non voluptatibus quibusdam quasi. Quidem voluptates eveniet ut minus est aut sint. Blanditiis magni officiis esse sint ipsa fugit. Impedit laborum sit cumque.",
+                                "position": 5,
+                                "mandatory": 1,
+                                "icon": null,
+                                "questionType": "App\\MatrixQuestion",
+                                "type": "CHECK",
+                                "elements": [
+                                    {
+                                        "id": 5,
+                                        "title": "Quia sint nesciunt labore dolore repellat magnam numquam est. Ut nulla optio nam odio quasi officia adipisci. Laudantium nostrum animi voluptatibus eaque neque."
+                                    },
+                                    {
+                                        "id": 6,
+                                        "title": "Magnam explicabo et sed sunt non. Quia et quibusdam blanditiis amet labore. Ducimus aperiam modi ab expedita. Consectetur architecto sapiente et eum nobis nostrum."
+                                    }
+                                ],
+                                "options": [
+                                    {
+                                        "id": 20,
+                                        "option": "incidunt"
+                                    },
+                                    {
+                                        "id": 21,
+                                        "option": "quaerat"
+                                    },
+                                    {
+                                        "id": 28,
+                                        "option": "test"
+                                    }
+                                ],
+                                "questionGroup": "http://apollo.test/rest/surveys/3/question_groups/3",
+                                "survey": "http://apollo.test/rest/surveys/3"
+                            }
+                        }
+                        </code>
+                    </pre>
+            </li>
+            <li>
+                <h3>
+                    POST
+                    <pre>/</pre>
+                </h3>
+                <p>Creates a new Matrix Question</p>
+                <p>
+                    <strong>NB:</strong> A question can be created only by the user that created the
+                    question group and the survey or by an admin.
+                </p>
+                <h4>Request Body</h4>
+                <pre>
+                        <code>
+                            {
+                                "title" &lt;required & max:255&gt;,
+                                "description",
+                                "mandatory" &lt;true or false&gt;,
+                                "position" &lt;required & integer number&gt;,
+                                "type" &lt;required and must be one of ('CHECK', 'RADIO')&gt;,
+                                "options" &lt;required & min 2&gt;:[
+                                    &lt;list of options for the question&gt;
+                                ],
+                                "elements" &lt;required & min 2&gt;:[
+                                    &lt;list of sub-questions for the question&gt;
+                                ],
+                                "icon" &lt;not null if present&gt;:{
+                                    "name" &lt;required with icon&gt;
+                                    "data" &lt;required with icon (base64 encoded image)&gt;
+                                }
+                            }
+                        </code>
+                    </pre>
+                <h4>Response Body</h4>
+                <pre>
+                        <code>
+                            {
+                                "self": "http://apollo.test/rest/surveys/3/question_groups/5/matrix_questions/3"
+                            }
+                        </code>
+                    </pre>
+            </li>
+            <li>
+                <h3>
+                    PUT
+                    <pre>/{question_id}</pre>
+                </h3>
+                <p>Update an existing Matrix Question. Only the sent parameters will be updated for the selected
+                    question.</p>
+                <p>
+                    <strong>NB:</strong> A question can be updated only by the user that created the question by an
+                    admin.
+                </p>
+                <h4>Request Body</h4>
+                <pre>
+                        <code>
+                            {
+                                "title" &lt;not null if present & max:255&gt;,
+                                "description",
+                                "mandatory" &lt;not null if present & true or false&gt;,
+                                "position" &lt;not null if present & integer number&gt;,
+                                "type" &lt;not null if present and must be one of ('CHECK', 'RADIO', 'SELECT')&gt;,
+                                "options" &lt;not null if present & min 2&gt;:[
+                                    &lt;list of options for the question&gt;
+                                ],
+                                "elements" &lt;not null if present & min 2&gt;:[
+                                    &lt;list of sub-questions for the question&gt;
+                                ],
+                                "icon" &lt;not null if present&gt;:{
+                                    "name" &lt;required with icon != delete&gt;
+                                    "data" &lt;required with icon (base64 encoded image) != delete&gt;
+                                } &lt;or "delete" to delete the existing icon if present&gt;
+                            }
+                        </code>
+                    </pre>
+                <h4>Response Body</h4>
+                <pre>
+                        <code>
+                            HTTP STATUS: 204
+                        </code>
+                    </pre>
+            </li>
+            <li>
+                <h3>DELETE
+                    <pre>/{question_id}</pre>
+                </h3>
+                <p>
+                    Delete a question.
+                </p>
+                <p>
+                    <strong>NB:</strong> A question can be deleted only by the user that created the question or by an
+                    admin.
+                </p>
+                <h4>Response Body</h4>
+                <pre>
+                    <code>
+                        HTTP STATUS: 204
+                    </code>
+                </pre>
+            </li>
+        </ul>
+    </div>
+    <div class="section">
+        <h3>OPTIONS ../matrix_questions/{id}/options</h3>
+        <ul>
+            <li>
+                <h3>GET
+                    <pre>/</pre>
+                </h3>
+                <p>
+                    Returns all the options for a given question.
+                </p>
+                <h4>Response Body</h4>
+                <pre>
+                        <code>
+                              {
+                                "data": [
+                                    {
+                                        "id": 7,
+                                        "option": "iure"
+                                    },
+                                    {
+                                        "id": 8,
+                                        "option": "autem"
+                                    },
+                                    {
+                                        "id": 9,
+                                        "option": "soluta"
+                                    }
+                                ]
+                            }
+                        </code>
+                    </pre>
+            </li>
+            <li>
+                <h3>
+                    POST
+                    <pre>/</pre>
+                </h3>
+                <p>Creates a new option for the given question.</p>
+                <p>
+                    <strong>NB:</strong> An option can be created only by the user that created the question or by an
+                    admin.
+                </p>
+                <h4>Request Body</h4>
+                <pre>
+                        <code>
+                            {
+                                "option" &lt;required&gt;: ...
+                            }
+                        </code>
+                    </pre>
+                <h4>Response Body</h4>
+                <p>
+                    Returns the id of the updated question.
+                </p>
+                <pre>
+                        <code>
+                            {
+                                "self": "http://apollo.test/rest/surveys/3/question_groups/5/matrix_questions/3"
+                            }
+                        </code>
+                    </pre>
+            </li>
+            <li>
+                <h3>
+                    PUT
+                    <pre>/{option_id}</pre>
+                </h3>
+                <p>Update an existing option.</p>
+                <p>
+                    <strong>NB:</strong> An option can be updated only by the user that created the question by an
+                    admin.
+                </p>
+                <h4>Request Body</h4>
+                <pre>
+                        <code>
+                            {
+                                "option" &lt;required&gt;,
+                            }
+                        </code>
+                    </pre>
+                <h4>Response Body</h4>
+                <pre>
+                        <code>
+                            HTTP STATUS: 204
+                        </code>
+                    </pre>
+            </li>
+            <li>
+                <h3>DELETE
+                    <pre>/{option_id}</pre>
+                </h3>
+                <p>
+                    Delete an option.
+                </p>
+                <p>
+                    <strong>NB:</strong> An option can be deleted only by the user that created the question or by an
+                    admin.
+                </p>
+                <h4>Response Body</h4>
+                <pre>
+                    <code>
+                        HTTP STATUS: 204
+                    </code>
+                </pre>
+            </li>
+        </ul>
+    </div>
+    <div class="section">
+        <h3>ELEMENTS ../matrix_questions/{id}/elements</h3>
+        <ul>
+            <li>
+                <h3>GET
+                    <pre>/</pre>
+                </h3>
+                <p>
+                    Returns all the elements (sub-questions) for a given question.
+                </p>
+                <h4>Response Body</h4>
+                <pre>
+                        <code>
+                              {
+                                "data": [
+                                    {
+                                        "id": 1,
+                                        "title": "Voluptatum laboriosam repellat architecto eveniet dicta consectetur voluptates. Totam soluta est est voluptatem nobis eos eveniet ullam. Aut sequi dolorum quisquam voluptate eum ut."
+                                    },
+                                    {
+                                        "id": 2,
+                                        "title": "Quae ipsam maiores voluptatem exercitationem labore molestiae. Adipisci voluptates accusantium doloribus. Odit sapiente enim pariatur culpa dolores. Non quis quod totam consequuntur velit soluta."
+                                    }
+                                ]
+                            }
+                        </code>
+                    </pre>
+            </li>
+            <li>
+                <h3>
+                    POST
+                    <pre>/</pre>
+                </h3>
+                <p>Creates a new element for the given question.</p>
+                <p>
+                    <strong>NB:</strong> An element can be created only by the user that created the question or by an
+                    admin.
+                </p>
+                <h4>Request Body</h4>
+                <pre>
+                        <code>
+                            {
+                                "title" &lt;required&gt;: ...
+                            }
+                        </code>
+                    </pre>
+                <h4>Response Body</h4>
+                <p>
+                    Returns the id of the updated question.
+                </p>
+                <pre>
+                        <code>
+                            {
+                                "self": "http://apollo.test/rest/surveys/3/question_groups/5/matrix_questions/3"
+                            }
+                        </code>
+                    </pre>
+            </li>
+            <li>
+                <h3>
+                    PUT
+                    <pre>/{option_id}</pre>
+                </h3>
+                <p>Update an existing element.</p>
+                <p>
+                    <strong>NB:</strong> An element can be updated only by the user that created the question by an
+                    admin.
+                </p>
+                <h4>Request Body</h4>
+                <pre>
+                        <code>
+                            {
+                                "element" &lt;required&gt;,
+                            }
+                        </code>
+                    </pre>
+                <h4>Response Body</h4>
+                <pre>
+                        <code>
+                            HTTP STATUS: 204
+                        </code>
+                    </pre>
+            </li>
+            <li>
+                <h3>DELETE
+                    <pre>/{option_id}</pre>
+                </h3>
+                <p>
+                    Delete an element.
+                </p>
+                <p>
+                    <strong>NB:</strong> An element can be deleted only by the user that created the question or by an
                     admin.
                 </p>
                 <h4>Response Body</h4>

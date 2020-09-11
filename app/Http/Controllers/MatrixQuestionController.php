@@ -70,7 +70,8 @@ class MatrixQuestionController extends Controller
             $icon = ImageFileService::updateImageFile($matrixQuestion->icon, $icon);
             $matrixQuestion->icon = $icon->id;
         }
-        $this->service->update($matrixQuestion, $request->all(), $request['icon'] == 'delete', $request['elements'], $request['options']);
+        $this->service->update($matrixQuestion, $request->all(),
+            $request['icon'] == 'delete', collect($request['elements']), collect($request['options']));
         return response()->json("", 204);
     }
 
