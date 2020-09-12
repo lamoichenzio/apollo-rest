@@ -18,6 +18,7 @@ class QuestionGroupResource extends JsonResource
             'id' => $this->id,
             'title' => $this->title,
             'description' => $this->description,
+            'questions' => $this->questions(),
             'createDate' => $this->created_at,
             'survey' => $this->survey->path()
         ];

@@ -4,8 +4,8 @@ namespace App;
 
 
 use App\Helpers\DataHelper;
-use App\Http\Resources\MatrixQuestionResource;
 use App\Http\Resources\questions\InputQuestionResource;
+use App\Http\Resources\questions\MatrixQuestionResource;
 use App\Http\Resources\questions\MultiQuestionResource;
 use Illuminate\Database\Eloquent\Model;
 
