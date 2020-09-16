@@ -15,6 +15,12 @@ class CreateInvitationEmailsTable extends Migration
     {
         Schema::create('invitation_emails', function (Blueprint $table) {
             $table->id();
+            $table->text('email');
+            $table->foreignId('invitation_pool_id')
+                ->references('id')
+                ->on('invitation_pools')
+                ->cascadeOnDelete()
+                ->cascadeOnUpdate();
             $table->timestamps();
         });
     }

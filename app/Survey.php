@@ -27,4 +27,9 @@ class Survey extends Model
     {
         return route('survey.show', $this);
     }
+
+    public function invitationPool()
+    {
+        return $this->hasOne(InvitationPool::class);
+    }
 }

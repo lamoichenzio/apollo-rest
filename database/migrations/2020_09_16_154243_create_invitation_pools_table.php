@@ -15,6 +15,12 @@ class CreateInvitationPoolsTable extends Migration
     {
         Schema::create('invitation_pools', function (Blueprint $table) {
             $table->id();
+            $table->text('password');
+            $table->foreignId('survey_id')
+                ->references('id')
+                ->on('surveys')
+                ->cascadeOnDelete()
+                ->cascadeOnUpdate();
             $table->timestamps();
         });
     }

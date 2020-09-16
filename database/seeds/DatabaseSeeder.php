@@ -1,5 +1,6 @@
 <?php
 
+use App\InvitationPool;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -17,5 +18,6 @@ class DatabaseSeeder extends Seeder
         $this->call(InputQuestionSeeder::class);
         $this->call(MultiQuestionSeeder::class);
         $this->call(MatrixQuestionSeeder::class);
+        $this->call(InvitationPoolSeeder::class);
     }
 }

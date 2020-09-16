@@ -142,3 +142,14 @@ Route::group([
     Route::put('/{option}', 'MatrixQuestionOptionController@update')->middleware('can:update,option');
     Route::delete('/{option}', 'MatrixQuestionOptionController@destroy')->middleware('can:delete,option');
 });
+
+//INVITATION POOL
+Route::group([
+    'prefix' => 'surveys/{survey}/invitation_pools',
+    'middleware' => ['api', 'invitation_pool.in.survey']
+], function () {
+    Route::get('/{invitationPool}', 'InvitationPoolController@show');
+    Route::post('/', 'InvitationPoolController@store')->middleware('can:create,App\InvitationPool');
+    Route::put('/{invitationPool}', 'InvitationPoolController@update')->middleware('can:update,invitationPool');
+    Route::delete('/{invitationPool}', 'InvitationPoolController@destroy')->middleware('can:delete,invitationPool');
+});
