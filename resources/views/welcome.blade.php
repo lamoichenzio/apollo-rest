@@ -96,6 +96,7 @@
             <ul>
                 <li><a href="#input_questions">Input Questions</a></li>
                 <li><a href="#multi_questions">Multi Questions</a></li>
+                <li><a href="#matrix_questions">Matrix Questions</a></li>
             </ul>
         </li>
     </ul>
@@ -1914,6 +1915,202 @@
                 </p>
                 <p>
                     <strong>NB:</strong> An element can be deleted only by the user that created the question or by an
+                    admin.
+                </p>
+                <h4>Response Body</h4>
+                <pre>
+                    <code>
+                        HTTP STATUS: 204
+                    </code>
+                </pre>
+            </li>
+        </ul>
+    </div>
+</section>
+<section id="invitation_pools">
+    <div class="section">
+        <h2>Invitation Pools (../surveys/{survey_id}/invitation_pools)</h2>
+        <ul>
+            <li>
+                <h3>GET
+                    <pre>/{invitation_pool_id}</pre>
+                </h3>
+                <p>
+                    Returns information about the invitation pool of the selected survey.
+                </p>
+                <h4>Response Body</h4>
+                <pre>
+                        <code>
+                           {
+                            "password": "0~&i#?#,<*7.|{Nfn",
+                            "emails": [
+                                {
+                                    "id": 1,
+                                    "email": "abosco@hotmail.com"
+                                },
+                                {
+                                    "id": 2,
+                                    "email": "mitchell.janelle@metz.com"
+                                },
+                                {
+                                    "id": 3,
+                                    "email": "larry74@gmail.com"
+                                }
+                            ]
+                        }
+                        </code>
+                    </pre>
+            </li>
+            <li>
+                <h3>
+                    POST
+                    <pre>/</pre>
+                </h3>
+                <p>Creates a new Invitation Pool</p>
+                <p>
+                    <strong>NB:</strong> The Invitation Pool can be created only by the user that created the
+                    survey or by an admin.
+                </p>
+                <h4>Request Body</h4>
+                <pre>
+                        <code>
+                            {
+                                "password" &lt;required&gt;,
+                                "emails" &lt;required&gt;:[
+                                    &lt;list of emails&gt;
+                                ],
+                            }
+                        </code>
+                    </pre>
+                <h4>Response Body</h4>
+                <pre>
+                        <code>
+                          {
+                            "self": "http://apollo.test/rest/surveys/3/invitation_pools/4"
+                            }
+                        </code>
+                    </pre>
+            </li>
+            <li>
+                <h3>
+                    PUT
+                    <pre>/{invitation_pool_id}</pre>
+                </h3>
+                <p>Update an existing Invitation Pool.</p>
+                <p>
+                    <strong>NB:</strong> An invitation pool can be updated only by the user that created the survey or
+                    by an
+                    admin.
+                </p>
+                <h4>Request Body</h4>
+                <pre>
+                        <code>
+                            {
+                                "password" &lt;not null if present&gt;,
+                                "emails" &lt;not null if present&gt;:[
+                                    &lt;list of emails&gt;
+                                ],
+                            }
+                        </code>
+                    </pre>
+                <h4>Response Body</h4>
+                <pre>
+                        <code>
+                            HTTP STATUS: 204
+                        </code>
+                    </pre>
+            </li>
+            <li>
+                <h3>DELETE
+                    <pre>/{invitation_pool_id}</pre>
+                </h3>
+                <p>
+                    Delete an invitation pool.
+                </p>
+                <p>
+                    <strong>NB:</strong>The invitation pool can be deleted only by the user that created the survey or
+                    by an
+                    admin.
+                </p>
+                <h4>Response Body</h4>
+                <pre>
+                    <code>
+                        HTTP STATUS: 204
+                    </code>
+                </pre>
+            </li>
+        </ul>
+    </div>
+    <div class="section">
+        <h3>EMAILS ../invitation_pools/{id}/emails</h3>
+        <ul>
+            <li>
+                <h3>
+                    POST
+                    <pre>/</pre>
+                </h3>
+                <p>Creates a new email for the given invitation pool.</p>
+                <p>
+                    <strong>NB:</strong> An email can be created only by the user that created the invitation pool or by
+                    an
+                    admin.
+                </p>
+                <h4>Request Body</h4>
+                <pre>
+                        <code>
+                            {
+                                "email" &lt;required&gt;: ...
+                            }
+                        </code>
+                    </pre>
+                <h4>Response Body</h4>
+                <p>
+                    Returns the id of the updated invitation pool.
+                </p>
+                <pre>
+                        <code>
+                         {
+                            "self": "http://apollo.test/rest/surveys/3/invitation_pools/4"
+                        }
+                        </code>
+                    </pre>
+            </li>
+            <li>
+                <h3>
+                    PUT
+                    <pre>/{email_id}</pre>
+                </h3>
+                <p>Update an existing email.</p>
+                <p>
+                    <strong>NB:</strong> An email can be updated only by the user that created the invitation pool or by
+                    an
+                    admin.
+                </p>
+                <h4>Request Body</h4>
+                <pre>
+                        <code>
+                            {
+                                "email" &lt;required&gt;,
+                            }
+                        </code>
+                    </pre>
+                <h4>Response Body</h4>
+                <pre>
+                        <code>
+                            HTTP STATUS: 204
+                        </code>
+                    </pre>
+            </li>
+            <li>
+                <h3>DELETE
+                    <pre>/{email_id}</pre>
+                </h3>
+                <p>
+                    Delete an email.
+                </p>
+                <p>
+                    <strong>NB:</strong> An email can be deleted only by the user that created the invitation pool or by
+                    an
                     admin.
                 </p>
                 <h4>Response Body</h4>
