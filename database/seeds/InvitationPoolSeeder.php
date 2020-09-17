@@ -13,7 +13,7 @@ class InvitationPoolSeeder extends Seeder
     {
         factory(App\InvitationPool::class)->create(['survey_id' => 3])
             ->each(function ($pool) {
-                factory(App\InvitationEmails::class, 3)->create(['invitation_pool_id' => $pool->id]);
+                factory(App\InvitationEmail::class, 3)->create(['invitation_pool_id' => $pool->id]);
             });
     }
 }

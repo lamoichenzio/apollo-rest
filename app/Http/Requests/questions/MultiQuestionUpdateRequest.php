@@ -36,7 +36,8 @@ class MultiQuestionUpdateRequest extends FormRequest
             'type' => 'sometimes|required|' . Rule::in(MultiQuestionTypes::types()),
             'position' => 'sometimes|required|numeric',
             'other' => ['boolean', new QuestionOtherRule()],
-            'options' => 'sometimes|required|array|min:2'
+            'options' => 'sometimes|required|array|min:2',
+            'options.*' => 'sometimes|required|distinct',
         ];
     }
 }

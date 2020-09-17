@@ -146,10 +146,19 @@ Route::group([
 //INVITATION POOL
 Route::group([
     'prefix' => 'surveys/{survey}/invitation_pools',
-    'middleware' => ['api', 'invitation_pool.in.survey']
+    'middleware' => ['api', 'invitation_pool.in.survey', 'email.in.invitation_pool']
 ], function () {
-    Route::get('/{invitationPool}', 'InvitationPoolController@show');
-    Route::post('/', 'InvitationPoolController@store')->middleware('can:create,App\InvitationPool');
-    Route::put('/{invitationPool}', 'InvitationPoolController@update')->middleware('can:update,invitationPool');
-    Route::delete('/{invitationPool}', 'InvitationPoolController@destroy')->middleware('can:delete,invitationPool');
+    Route::get('/{invitationPool}', 'InvitationPoolController@show')->name('invitationPool.show');
+    Route::post('/', 'InvitationPoolController@store')
+        ->middleware('can:create,App\InvitationPool');
+    Route::put('/{invitationPool}', 'InvitationPoolController@update')
+        ->middleware('can:update,invitationPool');
+    Route::delete('/{invitationPool}', 'InvitationPoolController@destroy')
+        ->middleware('can:delete,invitationPool');
+    Route::post('/{invitationPool}/emails', 'InvitationPoolController@storeEmail')
+        ->middleware('can:create,\App\InvitationEmail');
+    Route::put('/{invitationPool}/emails/{email}', 'InvitationPoolController@updateEmail')
+        ->middleware('can:update,email');
+    Route::delete('/{invitationPool}/emails/{email}', 'InvitationPoolController@deleteEmail')
+        ->middleware('can:delete,email');
 });

@@ -3,6 +3,7 @@
 namespace App\Http;
 
 use App\Http\Middleware\ElementInMatrixQuestionMiddleware;
+use App\Http\Middleware\EmailInInvitationPool;
 use App\Http\Middleware\InputQuestionMiddleware;
 use App\Http\Middleware\InvitationPoolInSurvey;
 use App\Http\Middleware\MatrixQuestionInQuestionGroupMiddleware;
@@ -77,6 +78,7 @@ class Kernel extends HttpKernel
         'option.in.question' => OptionInMultiQuestionMiddleware::class,
         'matrixquestion.in.qg' => MatrixQuestionInQuestionGroupMiddleware::class,
         'element.in.matrix' => ElementInMatrixQuestionMiddleware::class,
-        'invitation_pool.in.survey' => InvitationPoolInSurvey::class
+        'invitation_pool.in.survey' => InvitationPoolInSurvey::class,
+        'email.in.invitation_pool' => EmailInInvitationPool::class
     ];
 }

@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class InvitationEmails extends Model
+class InvitationEmail extends Model
 {
     protected $fillable = ['email'];
 

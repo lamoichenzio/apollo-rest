@@ -4,7 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 
-class InvitationPoolInSurvey
+class EmailInInvitationPool
 {
     /**
      * Handle an incoming request.
@@ -15,11 +15,12 @@ class InvitationPoolInSurvey
      */
     public function handle($request, Closure $next)
     {
-        $survey = request()->route('survey');
-        $invitationPool = request()->route('invitationPool');
-        if ($survey && $invitationPool && $survey->id != $invitationPool->survey->id) {
-            return response()->json(['error' => 'Invitation Pool not in Survey'], 422);
+        $email = $request->route('email');
+        $invitationPool = $request->route('invitationPool');
+        if ($email && $invitationPool && $email->invitationPool->id != $invitationPool->id) {
+            return response()->json(['error' => 'Email not in Invitation Pool'], 422);
         }
+
         return $next($request);
     }
 }

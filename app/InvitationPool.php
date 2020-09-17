@@ -15,6 +15,11 @@ class InvitationPool extends Model
 
     public function emails()
     {
-        return $this->hasMany(InvitationEmails::class);
+        return $this->hasMany(InvitationEmail::class);
+    }
+
+    public function path()
+    {
+        return route('invitationPool.show', [$this->survey, $this]);
     }
 }

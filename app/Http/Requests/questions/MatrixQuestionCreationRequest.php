@@ -35,7 +35,10 @@ class MatrixQuestionCreationRequest extends FormRequest
             'type' => 'required|' . Rule::in(MatrixQuestionTypes::types()),
             'position' => 'required|numeric',
             'options' => 'required|array|min:2',
-            'elements' => 'required|array|min:2'
+            'options.*' => 'required|distinct',
+            'elements' => 'required|array|min:2',
+            'elements.*' => 'required|distinct',
+
         ];
     }
 }

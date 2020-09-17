@@ -35,7 +35,10 @@ class MatrixQuestionUpdateRequest extends FormRequest
             'type' => 'sometimes|required|' . Rule::in(MatrixQuestionTypes::types()),
             'position' => 'sometimes|required|numeric',
             'options' => 'sometimes|required|array|min:2',
-            'elements' => 'sometimes|required|array|min:2'
+            'options.*' => 'sometimes|required|distinct',
+            'elements' => 'sometimes|required|array|min:2',
+            'elements.*' => 'sometimes|required|distinct',
+
         ];
     }
 }
