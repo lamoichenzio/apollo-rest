@@ -162,3 +162,14 @@ Route::group([
     Route::delete('/{invitationPool}/emails/{email}', 'InvitationPoolController@deleteEmail')
         ->middleware('can:delete,email');
 });
+
+//SURVEY ANSWER
+Route::group([
+    'prefix' => '/surveys/{survey_id}/answers',
+    'middleware' => ['api', 'answer.in.survey']
+], function () {
+    Route::get('/', 'SurveyAnswerController@index');
+    Route::get('/{surveyAnswer}', 'SurveyAnswerController@show')
+        ->name('surveyAnswer.show');
+    Route::post('/', 'SurveyAnswerController@store');
+});
