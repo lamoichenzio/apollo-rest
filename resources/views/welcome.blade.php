@@ -804,6 +804,31 @@
                 </code>
             </pre>
             </li>
+            <li>
+                <h3>
+                    <b>POST</b>
+                    <pre>/publish</pre>
+                </h3>
+                <p>
+                    Publish a private survey and sends invitation emails.
+                </p>
+                <h4>Request Body</h4>
+                <pre>
+                <code>
+                    {
+                        "surveyUrl" required: &lt;link to the survey for the users&gt;,
+                    }
+                </code>
+            </pre>
+                <h4>Response Body</h4>
+                <pre>
+                <code>
+                    {
+                        "message": "Survey activated"
+                    }
+                </code>
+            </pre>
+            </li>
         </ul>
     </div>
 </section>
