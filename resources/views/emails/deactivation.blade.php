@@ -2,11 +2,11 @@
 <body>
 <h1>Apollo</h1>
 <p>
-    Your survey <strong>{{$survey->name}}</strong> has been deactivated!
+    {{__('email.your_survey')}} <strong>{{$survey->name}}</strong> {{__('email.survey_deactivated')}}!
 </p>
 <br>
 <small>
-    Best regards, Apollo Team
+    {{__('email.regards')}}, Apollo Team
 </small>
 </body>
 </html>

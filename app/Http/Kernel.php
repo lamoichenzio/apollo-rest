@@ -10,6 +10,7 @@ use App\Http\Middleware\InvitationPoolInSurvey;
 use App\Http\Middleware\MatrixQuestionInQuestionGroupMiddleware;
 use App\Http\Middleware\MultiQuestionMiddleware;
 use App\Http\Middleware\OptionInMultiQuestionMiddleware;
+use App\Http\Middleware\SurveyActivationVerification;
 use App\Http\Middleware\SurveyQuestionMiddleware;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
@@ -82,5 +83,6 @@ class Kernel extends HttpKernel
         'invitation_pool.in.survey' => InvitationPoolInSurvey::class,
         'email.in.invitation_pool' => EmailInInvitationPool::class,
         'answer.in.survey' => AnswerInSurvey::class,
+        'survey.activation.verification' => SurveyActivationVerification::class
     ];
 }

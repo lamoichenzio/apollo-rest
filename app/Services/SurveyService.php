@@ -7,7 +7,10 @@ namespace App\Services;
 use App\Helpers\DataHelper;
 use App\ImageFile;
 use App\Mail\SurveyActivation;
+use App\Mail\SurveyInvitation;
 use App\Survey;
+use Illuminate\Support\Facades\Crypt;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 
 class SurveyService
@@ -73,19 +76,34 @@ class SurveyService
 
     public function activateSurveys(string $start_date, string $end_date)
     {
-        Survey
-            ::where('start_date', $start_date)
-            ->orWhere('end_date', $end_date)
-            ->get()->each(
-                function ($survey) use ($end_date, $start_date) {
-                    if ($survey->start_date->toDateString() == $start_date && !$survey->active) {
-                        $survey->update(['active' => true]);
-                    } elseif ($survey->end_date->toDateString() == $end_date && $survey->active) {
-                        $survey->update(['active' => false]);
+        DB::transaction(function () use ($end_date, $start_date) {
+            Survey
+                ::where('start_date', $start_date)
+                ->orWhere('end_date', $end_date)
+                ->get()
+                ->each(
+                    function ($survey) use ($end_date, $start_date) {
+                        if ($survey->start_date->toDateString() == $start_date && !$survey->active) {
+                            $survey->update(['active' => true]);
+                        } elseif ($survey->end_date->toDateString() == $end_date && $survey->active) {
+                            $survey->update(['active' => false]);
+                        }
+                        Mail::to($survey->user)->send(new SurveyActivation($survey));
                     }
-                    Mail::to($survey->user)->send(new SurveyActivation($survey));
-                }
-            );
+                );
+        });
+    }
+
+    public function publish(Survey $survey, string $surveyUrl)
+    {
+        DB::transaction(function () use ($surveyUrl, $survey) {
+            $survey->update(['active' => true]);
+            $invitationPool = $survey->invitationPool;
+            $password = Crypt::decryptString($invitationPool->password);
+            $invitationPool->emails->each(function ($email) use ($password, $surveyUrl, $survey) {
+                Mail::to($email)->send(new SurveyInvitation($survey, $password, $surveyUrl));
+            });
+        });
     }
 
 }

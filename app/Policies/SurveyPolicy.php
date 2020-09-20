@@ -34,4 +34,9 @@ class SurveyPolicy
         return $survey->user->id === $user->id || $user->isAdmin();
     }
 
+    public function publish(User $user, Survey $survey)
+    {
+        return $survey->user->id === $user->id || $user->isAdmin();
+    }
+
 }

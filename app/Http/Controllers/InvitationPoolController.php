@@ -11,7 +11,7 @@ use App\InvitationPool;
 use App\Services\InvitationPoolService;
 use App\Survey;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Crypt;
 
 class InvitationPoolController extends Controller
 {
@@ -33,7 +33,7 @@ class InvitationPoolController extends Controller
      */
     public function store(InvitationPoolCreationRequest $request, Survey $survey)
     {
-        $request['password'] = Hash::make($request['password']);
+        $request['password'] = Crypt::encryptString($request['password']);
         $invitationPool = new InvitationPool($request->all());
         $message = $this->service->create($invitationPool, $survey, collect($request['emails']));
         return response()->json($message, 201);
@@ -62,7 +62,7 @@ class InvitationPoolController extends Controller
     public function update(InvitationPoolUpdateRequest $request, Survey $survey, InvitationPool $invitationPool)
     {
         if ($request['password']) {
-            $request['password'] = Hash::make($request['password']);
+            $request['password'] = Crypt::encryptString($request['password']);
         }
         $this->service->update($invitationPool, $request->all(), collect($request['emails']));
         return response()->json("", 204);

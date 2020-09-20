@@ -9,6 +9,7 @@ use App\Services\ImageFileService;
 use App\Services\SurveyService;
 use App\Survey;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Validation\Rule;
 
@@ -111,6 +112,10 @@ class SurveyController extends Controller
         return response()->json("", 204);
     }
 
+    /**
+     * Return the number of surveys stored
+     * @return JsonResponse
+     */
     public function count()
     {
         $params = \request()->validate([
@@ -121,6 +126,21 @@ class SurveyController extends Controller
         return response()->json(
             $this->surveyService->count($params)
         );
+    }
+
+    /**
+     * Publish a private survey and sends email to the invitation pool
+     * @param Request $request
+     * @param Survey $survey
+     * @return JsonResponse
+     */
+    public function publish(Request $request, Survey $survey)
+    {
+        $request->validate([
+            'surveyUrl' => 'required|string|url'
+        ]);
+        $this->surveyService->publish($survey, $request['surveyUrl']);
+        return response()->json(['message' => 'Survey published']);
     }
 
 }

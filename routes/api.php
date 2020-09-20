@@ -55,6 +55,10 @@ Route::group([
     Route::put('/{survey}', 'SurveyController@update')->name('survey.update');
     Route::delete('/{survey}', 'SurveyController@destroy')->name('survey.destroy');
     Route::post('/count', 'SurveyController@count')->name('survey.countAll');
+    Route::post('/{survey}/publish', 'SurveyController@publish')
+        ->name('survey.publish')
+        ->middleware('survey.activation.verification')
+        ->middleware('can:publish,survey');
 });
 
 //QUESTION GROUP

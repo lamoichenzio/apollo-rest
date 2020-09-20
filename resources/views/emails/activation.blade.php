@@ -2,14 +2,14 @@
 <body>
 <h1>Apollo</h1>
 <p>
-    Your survey <strong>{{$survey->name}}</strong> has been activated.
+    {{__('email.your_survey')}} <strong>{{$survey->name}}</strong> {{__('email.survey_activated')}}.
     @if($survey->end_date)
-        And will be active until <strong>{{$survey->end_date}}</strong>!
+        {{__('email.survey_active_until', ['end_date' => $survey->end_date])}}
     @endif
 </p>
 <br>
 <small>
-    Best regards, Apollo Team
+    {{__('email.regards')}}, Apollo Team
 </small>
 </body>
 </html>
