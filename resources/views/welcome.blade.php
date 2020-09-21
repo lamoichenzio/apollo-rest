@@ -960,174 +960,130 @@
                 <h4>Response</h4>
                 <pre>
                     <code>
-                        {
-                            "data": {
-                                "0": {
-                                    "id": 5,
-                                    "title": "prova",
-                                    "description": "asdadad",
-                                    "position": 1,
-                                    "mandatory": 0,
-                                    "icon": "http://apollo.test/rest/files/5f57aeaebf5b000060007cb2",
-                                    "questionType": "App\\InputQuestion",
-                                    "type": "TEXT",
-                                    "createDate": "2020-09-08T16:17:50.000000Z",
-                                    "questionGroup": "http://apollo.test/rest/surveys/3/question_groups/3",
-                                    "survey": "http://apollo.test/rest/surveys/3"
-                                },
-                                "3": {
-                                    "id": 3,
-                                    "title": "Ad omnis numquam eum dolor facere nam est. Ut sit rem sapiente tenetur quia omnis atque consequatur. Ea quos corporis itaque. Itaque quas fugit facere enim illo asperiores voluptatem.",
-                                    "description": "Aut unde consectetur dolore aut est. Non possimus odio cumque. Commodi odio modi natus et illo facilis.",
-                                    "position": 2,
-                                    "mandatory": 0,
-                                    "icon": null,
-                                    "questionType": "App\\MultiQuestion",
-                                    "type": "SELECT",
-                                    "other": 1,
-                                    "options": [
-                                        "update",
-                                        "aut",
-                                        "neque",
-                                        "dadsad",
-                                        "dadsad"
-                                    ]
-                                },
-                                "4": {
-                                    "id": 4,
-                                    "title": "Earum aperiam beatae alias quisquam quod. Praesentium repellat impedit officiis non qui nihil dolor. Quasi voluptatem sed eligendi dolorem mollitia. Quibusdam accusamus quia omnis repellat quidem.",
-                                    "description": "Maxime assumenda veritatis et ipsa rerum nisi sit consectetur. Veniam consequuntur eius tempora dolorum aliquid. Quaerat unde doloribus minus eum voluptatem est.",
-                                    "position": 5,
-                                    "mandatory": 1,
-                                    "icon": null,
-                                    "questionType": "App\\MultiQuestion",
-                                    "type": "RADIO",
-                                    "other": 1,
-                                    "options": [
-                                        "et",
-                                        "eligendi",
-                                        "doloribus"
-                                    ]
-                                },
-                                "5": {
-                                    "id": 7,
-                                    "title": "prova",
-                                    "description": null,
-                                    "position": 6,
-                                    "mandatory": 0,
-                                    "icon": null,
-                                    "questionType": "App\\MultiQuestion",
-                                    "type": "CHECK",
-                                    "other": 0,
-                                    "options": [
-                                        "asdadsd",
-                                        "asdaddasd"
-                                    ]
-                                },
-                                "6": {
-                                    "id": 9,
-                                    "title": "prova",
-                                    "description": null,
-                                    "position": 7,
-                                    "mandatory": 0,
-                                    "icon": null,
-                                    "questionType": "App\\MultiQuestion",
-                                    "type": "CHECK",
-                                    "other": 0,
-                                    "options": [
-                                        "asdadsd",
-                                        "asdaddasd"
-                                    ]
-                                },
-                                "7": {
-                                    "id": 10,
-                                    "title": "prova",
-                                    "description": null,
-                                    "position": 8,
-                                    "mandatory": 0,
-                                    "icon": null,
-                                    "questionType": "App\\MultiQuestion",
-                                    "type": "CHECK",
-                                    "other": 0,
-                                    "options": [
-                                        "asdaddasd"
-                                    ]
-                                },
-                                "8": {
-                                    "id": 11,
-                                    "title": "prova",
-                                    "description": null,
-                                    "position": 9,
-                                    "mandatory": 0,
-                                    "icon": null,
-                                    "questionType": "App\\MultiQuestion",
-                                    "type": "CHECK",
-                                    "other": 0,
-                                    "options": [
-                                        "asdasd",
-                                        "asdasdasd"
-                                    ]
-                                },
-                                "9": {
-                                    "id": 13,
-                                    "title": "prova",
-                                    "description": null,
-                                    "position": 10,
-                                    "mandatory": 0,
-                                    "icon": null,
-                                    "questionType": "App\\MultiQuestion",
-                                    "type": "SELECT",
-                                    "other": 1,
-                                    "options": [
-                                        "asdasd",
-                                        "asdasdasd"
-                                    ]
-                                },
-                                "1": {
-                                    "id": 6,
-                                    "title": "prova",
-                                    "description": "asdadad",
-                                    "position": 11,
-                                    "mandatory": 0,
-                                    "icon": "http://apollo.test/rest/files/5f58a7e37176000020004863",
-                                    "questionType": "App\\InputQuestion",
-                                    "type": "TEXT",
-                                    "createDate": "2020-09-09T10:01:07.000000Z",
-                                    "questionGroup": "http://apollo.test/rest/surveys/3/question_groups/3",
-                                    "survey": "http://apollo.test/rest/surveys/3"
-                                },
-                                "10": {
-                                    "id": 14,
-                                    "title": "test",
-                                    "description": null,
-                                    "position": 13,
-                                    "mandatory": 0,
-                                    "icon": null,
-                                    "questionType": "App\\MultiQuestion",
-                                    "type": "SELECT",
-                                    "other": 0,
-                                    "options": [
-                                        "asdasd",
-                                        "asdasdasd",
-                                        "dadsad",
-                                        "dadsad"
-                                    ]
-                                },
-                                "2": {
-                                    "id": 7,
-                                    "title": "prova",
-                                    "description": "asdadad",
-                                    "position": 15,
-                                    "mandatory": 0,
-                                    "icon": "http://apollo.test/rest/files/5f58a8b07176000020004864",
-                                    "questionType": "App\\InputQuestion",
-                                    "type": "TEXT",
-                                    "createDate": "2020-09-09T10:04:32.000000Z",
-                                    "questionGroup": "http://apollo.test/rest/surveys/3/question_groups/3",
-                                    "survey": "http://apollo.test/rest/surveys/3"
-                                }
+                       {
+                        "data": [
+                            {
+                                "id": 4,
+                                "title": "Sint praesentium sunt ex dolores optio suscipit. Aut sequi sed dolor beatae. Quaerat consequatur sit velit magni. Neque non praesentium nisi omnis ea consequatur error.",
+                                "description": "Qui iure consectetur qui explicabo quod. Quisquam eos culpa impedit dolor tenetur amet molestiae. Culpa nemo harum magnam dolor nostrum qui cupiditate.",
+                                "position": 0,
+                                "mandatory": 0,
+                                "icon": null,
+                                "questionType": "App\\MultiQuestion",
+                                "type": "SELECT",
+                                "other": 0,
+                                "options": [
+                                    {
+                                        "id": 10,
+                                        "option": "aut"
+                                    },
+                                    {
+                                        "id": 11,
+                                        "option": "et"
+                                    },
+                                    {
+                                        "id": 12,
+                                        "option": "nam"
+                                    }
+                                ]
+                            },
+                            {
+                                "title": "Sequi autem accusantium omnis. Qui quod et iste amet. Iste ut vel beatae ab eius. Nisi ducimus sint quo. In alias sit sunt suscipit. Repudiandae ea vero ut occaecati sed libero similique sequi.",
+                                "description": "Vero iusto ab minima sit saepe. Incidunt ratione ut aut ut quasi ut in. Odit soluta id sit iste quis rerum animi.",
+                                "position": 1,
+                                "mandatory": 1,
+                                "icon": null,
+                                "questionType": "App\\MatrixQuestion",
+                                "type": "RADIO",
+                                "elements": [
+                                    {
+                                        "id": 7,
+                                        "title": "Suscipit maiores et voluptas pariatur veritatis tempora. Illo quo dolorem rerum sed maiores in architecto. Dolorem molestias quia et temporibus suscipit sed laudantium."
+                                    },
+                                    {
+                                        "id": 8,
+                                        "title": "Consequatur aliquam ut qui. Et nam provident saepe libero magni error. Quae ad illo et est molestiae nemo tenetur."
+                                    }
+                                ],
+                                "options": [
+                                    {
+                                        "id": 22,
+                                        "option": "qui"
+                                    },
+                                    {
+                                        "id": 23,
+                                        "option": "id"
+                                    },
+                                    {
+                                        "id": 24,
+                                        "option": "eius"
+                                    }
+                                ],
+                                "questionGroup": "http://apollo.test/rest/surveys/3/question_groups/3",
+                                "survey": "http://apollo.test/rest/surveys/3"
+                            },
+                            {
+                                "id": 3,
+                                "title": "Reiciendis veritatis impedit reprehenderit aut. Est officiis sunt aspernatur eius cumque ad sed dolore. Dolor id at deleniti velit autem sint.",
+                                "description": "Facilis quia iure omnis qui non. Quae aliquid assumenda ipsum quos distinctio quod. Amet quisquam autem dolorem doloremque. Esse ipsa expedita et velit nam.",
+                                "position": 3,
+                                "mandatory": 1,
+                                "icon": null,
+                                "questionType": "App\\MultiQuestion",
+                                "type": "CHECK",
+                                "other": 1,
+                                "options": [
+                                    {
+                                        "id": 7,
+                                        "option": "ratione"
+                                    },
+                                    {
+                                        "id": 8,
+                                        "option": "illo"
+                                    },
+                                    {
+                                        "id": 9,
+                                        "option": "itaque"
+                                    }
+                                ]
+                            },
+                            {
+                                "title": "Blanditiis deleniti qui atque facere voluptas adipisci id. Veritatis voluptas iusto et at explicabo aut. Excepturi laudantium fuga molestias qui ut. Quibusdam expedita nihil odit cupiditate voluptas.",
+                                "description": "Consectetur at dignissimos commodi hic aut. Ut architecto tenetur autem asperiores quia omnis. Harum ea sed vitae. Et non tenetur voluptas magnam aut.",
+                                "position": 7,
+                                "mandatory": 1,
+                                "icon": null,
+                                "questionType": "App\\MatrixQuestion",
+                                "type": "RADIO",
+                                "elements": [
+                                    {
+                                        "id": 5,
+                                        "title": "Harum aliquam voluptatem et et ab ea perferendis. Animi quia repellendus ab sit culpa aut inventore. Repellat dolorem qui harum et voluptas eos et eaque. Quis quia neque odio autem consequatur."
+                                    },
+                                    {
+                                        "id": 6,
+                                        "title": "Iure et iusto officia vel adipisci. Et numquam beatae voluptate dolor adipisci voluptatem nisi. Repellendus illo iste in eos. Suscipit maiores facere nemo sint earum et eum et."
+                                    }
+                                ],
+                                "options": [
+                                    {
+                                        "id": 19,
+                                        "option": "suscipit"
+                                    },
+                                    {
+                                        "id": 20,
+                                        "option": "voluptates"
+                                    },
+                                    {
+                                        "id": 21,
+                                        "option": "aut"
+                                    }
+                                ],
+                                "questionGroup": "http://apollo.test/rest/surveys/3/question_groups/3",
+                                "survey": "http://apollo.test/rest/surveys/3"
                             }
-                        }
+                        ]
+                    }
                     </code>
                 </pre>
             </li>

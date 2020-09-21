@@ -3,7 +3,6 @@
 namespace App;
 
 
-use App\Helpers\DataHelper;
 use App\Http\Resources\questions\InputQuestionResource;
 use App\Http\Resources\questions\MatrixQuestionResource;
 use App\Http\Resources\questions\MultiQuestionResource;
@@ -44,6 +43,9 @@ class QuestionGroup extends Model
         $multiQuestions = MultiQuestionResource::collection($this->multiQuestions)->collection;
         $matrixQuestions = MatrixQuestionResource::collection($this->matrixQuestions)->collection;
         $questions = collect([$inputQuestions, $multiQuestions, $matrixQuestions]);
-        return DataHelper::listDataResponse($questions->collapse()->sortBy('position')->all());
+        $questionsSorted = $questions->collapse()->sortBy('position')->all();
+        return [
+            'data' => array_values($questionsSorted)
+        ];
     }
 }
