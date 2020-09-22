@@ -28,6 +28,10 @@ class SurveyService
             ImageFile::destroy($survey->icon);
             $survey->icon = null;
         }
+        if (key_exists('active', $data) && $data['active'] == false) {
+            $survey->active = false;
+        }
+
         $survey->update($data);
     }
 
@@ -94,15 +98,18 @@ class SurveyService
         });
     }
 
-    public function publish(Survey $survey, string $surveyUrl)
+    public function publish(Survey $survey, string $surveyUrl = null)
     {
         DB::transaction(function () use ($surveyUrl, $survey) {
-            $survey->update(['active' => true]);
-            $invitationPool = $survey->invitationPool;
-            $password = Crypt::decryptString($invitationPool->password);
-            $invitationPool->emails->each(function ($email) use ($password, $surveyUrl, $survey) {
-                Mail::to($email)->send(new SurveyInvitation($survey, $password, $surveyUrl));
-            });
+            $survey->active = true;
+            $survey->update();
+            if ($survey->secret) {
+                $invitationPool = $survey->invitationPool;
+                $password = Crypt::decryptString($invitationPool->password);
+                $invitationPool->emails->each(function ($email) use ($password, $surveyUrl, $survey) {
+                    Mail::to($email)->send(new SurveyInvitation($survey, $password, $surveyUrl));
+                });
+            }
         });
     }
 

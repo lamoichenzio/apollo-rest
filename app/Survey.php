@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Survey extends Model
 {
-    protected $fillable = ['name', 'description', 'active', 'secret', 'start_date', 'end_date'];
+    protected $fillable = ['name', 'description', 'secret', 'start_date', 'end_date'];
     protected $casts = [
         'start_date' => 'date',
         'end_date' => 'date'

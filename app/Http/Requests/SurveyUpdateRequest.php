@@ -27,13 +27,12 @@ class SurveyUpdateRequest extends FormRequest
         return [
             'name' => 'sometimes|required|string',
             'secret' => 'boolean',
-            'active' => 'boolean',
             'start_date' => 'date|after:today',
             'end_date' => 'date|after:start_date',
+            'active' => 'boolean',
             'icon' => 'sometimes|required',
             'icon.name' => 'sometimes|required_with:icon|required_unless:icon,delete|string',
             'icon.data' => 'sometimes|required_with:icon|required_unless:icon,delete|base64image|base64max:5000',
-            'url_id' => 'required_if:active,true|url'
         ];
     }
 }

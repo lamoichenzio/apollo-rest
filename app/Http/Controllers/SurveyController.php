@@ -58,6 +58,7 @@ class SurveyController extends Controller
     public function store(SurveyCreationRequest $request)
     {
         $survey = new Survey($request->all());
+        $survey->url_id = uniqid();
 
         //Create icon
         if ($icon = $request['icon']) {
@@ -137,7 +138,9 @@ class SurveyController extends Controller
     public function publish(Request $request, Survey $survey)
     {
         $request->validate([
-            'surveyUrl' => 'required|string|url'
+            'surveyUrl' => 'string|url|' . Rule::requiredIf(function () use ($survey) {
+                    return $survey->secret;
+                })
         ]);
         $this->surveyService->publish($survey, $request['surveyUrl']);
         return response()->json(['message' => 'Survey published']);

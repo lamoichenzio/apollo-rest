@@ -712,14 +712,12 @@
                         "name" &lt;required&gt; : "prova",
                         "description": "blablabla",
                         "secret" &lt;boolean&gt; : false,
-                        "active" &lt;boolean&gt; : true,
                         "icon" &lt;not empty if present&gt;: {
                             "name" &lt;required if icon is present&gt;: "icon",
                             "data" &lt;required if icon is present&gt;: &lt;Base64 encoded file&gt;
                         },
                         "start_date" &lt;must be greater than the actual date&gt; : "25-08-2020",
                         "end_date" &lt;must be greater than start_date&gt; : "26-08-2020",
-                        "url_id" &lt;must be present if the active field is true&gt; : "http://apollo.test/asdds"
                     }
                 </code>
             </pre>
@@ -755,6 +753,7 @@
                     <li>"delete" to only delete the current file</li>
                 </ul>
                 <p>
+                    and the attribute &lt;active&gt; that can be set to false to disable a survey.
                     All the attributes are not mandatory, only the ones sent will be updated for the survey.
                 </p>
                 <h4>Response</h4>
@@ -813,13 +812,13 @@
                     <pre>/publish</pre>
                 </h3>
                 <p>
-                    Publish a private survey and sends invitation emails.
+                    Publish a survey and sends invitation emails if is private.
                 </p>
                 <h4>Request Body</h4>
                 <pre>
                 <code>
                     {
-                        "surveyUrl" required: &lt;link to the survey for the users&gt;,
+                        "surveyUrl" required if the survey is private: &lt;link to the survey for the users&gt;,
                     }
                 </code>
             </pre>

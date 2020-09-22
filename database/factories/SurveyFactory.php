@@ -13,7 +13,7 @@ $factory->define(Survey::class, function (Faker $faker) {
         'active' => $faker->boolean,
         'start_date' => $faker->date(),
         'end_date' => $faker->date(),
-        'url_id' => $faker->url,
+        'url_id' => $faker->uuid,
         'user_id' => 1
     ];
 });

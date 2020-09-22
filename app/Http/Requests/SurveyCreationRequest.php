@@ -26,13 +26,11 @@ class SurveyCreationRequest extends FormRequest
         return [
             'name' => 'required|string',
             'secret' => 'boolean',
-            'active' => 'boolean',
             'start_date' => 'date|after:today',
             'end_date' => 'date|after:start_date',
             'icon' => 'sometimes|required',
             'icon.name' => 'required_with:icon|string',
             'icon.data' => 'required_with:icon|base64image|base64max:5000',
-            'url_id' => 'required_if:active,true|url'
         ];
     }
 }

@@ -17,7 +17,7 @@ class InvitationPoolInSurvey
     {
         $survey = request()->route('survey');
         $invitationPool = request()->route('invitationPool');
-        if ($survey && $invitationPool && $survey->id != $invitationPool->survey->id) {
+        if ($survey && $invitationPool && $survey->private && $survey->id != $invitationPool->survey->id) {
             return response()->json(['error' => 'Invitation Pool not in Survey'], 422);
         }
         return $next($request);
