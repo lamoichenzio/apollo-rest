@@ -99,6 +99,9 @@
                 <li><a href="#matrix_questions">Matrix Questions</a></li>
             </ul>
         </li>
+        <li>
+            <a href="#invitation_pools">Invitation Pool</a>
+        </li>
     </ul>
 </nav>
 
