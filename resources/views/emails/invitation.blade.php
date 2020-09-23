@@ -6,7 +6,7 @@
     <br>{{__('email.click_link')}}<br>
 </p>
 <h3>{{$survey->name}}</h3>
-<a href="{{$surveyUrl}}">{{$surveyUrl}}</a>
+<a href="{{$surveyUrl.'/'.$survey->url_id}}">{{$survey->url_id.'/'.$surveyUrl}}</a>
 <p>{{__('email.confirm')}}</p>
 <p>
     Password: <b>{{$password}}</b>

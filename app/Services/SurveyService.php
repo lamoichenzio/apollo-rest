@@ -28,10 +28,6 @@ class SurveyService
             ImageFile::destroy($survey->icon);
             $survey->icon = null;
         }
-        if (key_exists('active', $data) && $data['active'] == false) {
-            $survey->active = false;
-        }
-
         $survey->update($data);
     }
 
@@ -88,9 +84,10 @@ class SurveyService
                 ->each(
                     function ($survey) use ($end_date, $start_date) {
                         if ($survey->start_date->toDateString() == $start_date && !$survey->active) {
-                            $survey->update(['active' => true]);
+                            $this->publish($survey, "");
                         } elseif ($survey->end_date->toDateString() == $end_date && $survey->active) {
-                            $survey->update(['active' => false]);
+                            $survey->active = false;
+                            $survey->update();
                         }
                         Mail::to($survey->user)->send(new SurveyActivation($survey));
                     }
@@ -101,14 +98,19 @@ class SurveyService
     public function publish(Survey $survey, string $surveyUrl = null)
     {
         DB::transaction(function () use ($surveyUrl, $survey) {
-            $survey->active = true;
-            $survey->update();
             if ($survey->secret) {
-                $invitationPool = $survey->invitationPool;
-                $password = Crypt::decryptString($invitationPool->password);
-                $invitationPool->emails->each(function ($email) use ($password, $surveyUrl, $survey) {
-                    Mail::to($email)->send(new SurveyInvitation($survey, $password, $surveyUrl));
-                });
+                if ($survey->invitationPool) {
+                    $survey->active = true;
+                    $survey->update();
+                    $invitationPool = $survey->invitationPool;
+                    $password = Crypt::decryptString($invitationPool->password);
+                    $invitationPool->emails->each(function ($email) use ($password, $surveyUrl, $survey) {
+                        Mail::to($email)->send(new SurveyInvitation($survey, $password, $surveyUrl));
+                    });
+                }
+            } else {
+                $survey->active = true;
+                $survey->update();
             }
         });
     }

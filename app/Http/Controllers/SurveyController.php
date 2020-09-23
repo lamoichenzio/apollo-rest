@@ -91,10 +91,17 @@ class SurveyController extends Controller
      */
     public function update(SurveyUpdateRequest $request, Survey $survey)
     {
+        //UPDATE ICON
         if ($request['icon'] && $request['icon'] != 'delete') {
             $image = ImageFileService::updateImageFile($survey->icon, $request['icon']);
             $survey->icon = $image->id;
         }
+
+        //DEACTIVATE SURVEY IF NEEDED
+        if ($request->has('active') && $request['active'] == false) {
+            $survey->active = false;
+        }
+
         $this->surveyService->updateSurvey($survey, $request->all(), $request['icon'] == 'delete');
         return response()->json("", 204);
     }
