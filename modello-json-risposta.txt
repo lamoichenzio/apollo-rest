@@ -1,0 +1,37 @@
+{
+    email
+     <obbligatoria se sondaggio è privato>: <email utente>,
+    answers <obbligatorio>: [
+       <lista di possibili elementi>
+       {
+			question_id: <id domanda>
+			question_type: <tipo domanda>
+			answer: <risposta singola>
+       },
+       {
+			question_id: <id domanda>
+			question_type: <tipo domanda>,
+			answers: [<lista di risposte>]
+       },
+       {
+			question_id: <id domanda>
+			question_type: <tipo domanda>,
+			answer_pair:[
+			<array coppie domanda-risposta per matrix> 
+			{ 
+				element: <domanda matrix>,
+				answer: <risposta singola>
+			}, ...]
+       },
+       {
+			question_id: <id domanda>
+			question_type: <tipo domanda>,
+			answers_pair: [
+			{
+				element: <domanda matrix>,
+				answers:  [lista risposte multiple]
+			}, ...]  
+       }
+}
+
+

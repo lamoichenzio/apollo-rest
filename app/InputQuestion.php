@@ -22,4 +22,9 @@ class InputQuestion extends Model
             ]
         );
     }
+
+    public function answers()
+    {
+        return $this->morphMany(SingleAnswer::class, 'question');
+    }
 }

@@ -32,4 +32,9 @@ class Survey extends Model
     {
         return $this->hasOne(InvitationPool::class);
     }
+
+    public function answers()
+    {
+        return $this->hasMany(SurveyAnswer::class);
+    }
 }

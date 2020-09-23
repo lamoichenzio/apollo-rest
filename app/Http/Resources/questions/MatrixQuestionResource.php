@@ -18,6 +18,7 @@ class MatrixQuestionResource extends JsonResource
     {
         $icon = ImageFileService::getImageFilePath($this->icon);
         return [
+            'id' => $this->id,
             'title' => $this->title,
             'description' => $this->description,
             'position' => $this->position,

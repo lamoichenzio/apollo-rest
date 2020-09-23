@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class SurveyAnswer extends Model
 {
-    protected $fillable = ['email', 'totAnswers'];
+    protected $fillable = ['email'];
 
     public function survey()
     {
@@ -15,7 +15,7 @@ class SurveyAnswer extends Model
 
     public function singleAnswers()
     {
-        return $this->morphMany(SingleAnswer::class, 'question');
+        return $this->hasMany(SingleAnswer::class);
     }
 
     public function multiAnswers()

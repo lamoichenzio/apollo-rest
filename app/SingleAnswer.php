@@ -7,10 +7,15 @@ use Illuminate\Database\Eloquent\Model;
 class SingleAnswer extends Model
 {
 
-    protected $fillable = ['answer'];
+    protected $fillable = ['answer', 'question_type', 'question_id', 'survey_answer_id'];
 
     public function question()
     {
-        $this->morphTo();
+        return $this->morphTo();
+    }
+
+    public function surveyAnswer()
+    {
+        return $this->belongsTo(SurveyAnswer::class);
     }
 }

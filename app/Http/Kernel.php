@@ -3,6 +3,7 @@
 namespace App\Http;
 
 use App\Http\Middleware\AnswerInSurvey;
+use App\Http\Middleware\AnswerValidator;
 use App\Http\Middleware\ElementInMatrixQuestionMiddleware;
 use App\Http\Middleware\EmailInInvitationPool;
 use App\Http\Middleware\InputQuestionMiddleware;
@@ -83,6 +84,7 @@ class Kernel extends HttpKernel
         'invitation_pool.in.survey' => InvitationPoolInSurvey::class,
         'email.in.invitation_pool' => EmailInInvitationPool::class,
         'answer.in.survey' => AnswerInSurvey::class,
-        'survey.activation.verification' => SurveyActivationVerification::class
+        'survey.activation.verification' => SurveyActivationVerification::class,
+        'answer.validator' => AnswerValidator::class
     ];
 }
