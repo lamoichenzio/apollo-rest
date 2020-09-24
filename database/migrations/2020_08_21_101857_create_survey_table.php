@@ -22,7 +22,7 @@ class CreateSurveyTable extends Migration
             $table->boolean('active')->default(false);
             $table->date('start_date')->nullable();
             $table->date('end_date')->nullable();
-            $table->text('url_id')->unique();
+            $table->string('url_id')->unique();
             $table->unsignedBigInteger('user_id');
             $table->timestamps();
 
