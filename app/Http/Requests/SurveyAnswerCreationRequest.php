@@ -5,6 +5,7 @@ namespace App\Http\Requests;
 use App\InputQuestion;
 use App\MatrixQuestion;
 use App\MultiQuestion;
+use App\Rules\RequiredAnswer;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
@@ -32,12 +33,15 @@ class SurveyAnswerCreationRequest extends FormRequest
                     $survey = request('survey');
                     return $survey->secret;
                 }),
-            'answers' => 'required|array',
+            'answers' => ['required', 'array', new RequiredAnswer()],
             'answers.*.question_id' => 'required',
             'answers.*.question_type' => 'required|' . Rule::in([
                     InputQuestion::class, MultiQuestion::class, MatrixQuestion::class]),
-            'answers.*.answer' => 'string|required_without_all:answers.*.answers,answers.*.answer_pair,answers.*.answers_pair',
-            'answers.*.answers' => 'string|required_without_all:answers.*.answer,answers.*.answer_pair,answers.*.answers_pair',
+            'answers.*.answer' => [
+                'string',
+                'required_without_all:answers.*.answers,answers.*.answer_pair,answers.*.answers_pair'],
+            'answers.*.answers' => 'array|required_without_all:answers.*.answer,answers.*.answer_pair,answers.*.answers_pair',
+            'answers.*.answers.*' => 'sometimes|required|string',
             'answers.*.answer_pair' => 'string|required_without_all:answers.*.answers,answers.*.answer,answers.*.answers_pair',
             'answers.*.answers_pair' => 'string|required_without_all:answers.*.answers,answers.*.answer_pair,answers.*.answer',
         ];

@@ -17,7 +17,7 @@ class CreateMultiAnswerElementsTable extends Migration
             $table->id();
             $table->text('answer');
             $table->unsignedBigInteger('answer_group_id');
-            $table->unsignedBigInteger('answer_group_type');
+            $table->text('answer_group_type');
             $table->timestamps();
         });
     }

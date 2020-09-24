@@ -4,6 +4,8 @@
 namespace App\Services;
 
 
+use App\MultiAnswer;
+use App\MultiAnswerElement;
 use App\Survey;
 use App\SurveyAnswer;
 use Illuminate\Support\Collection;
@@ -48,7 +50,11 @@ class SurveyAnswerService
 
     private function createMultiAnswer(SurveyAnswer $surveyAnswer, $answer)
     {
-        // TODO
+        $multiAnswer = new MultiAnswer(['multi_question_id' => $answer['question_id']]);
+        $surveyAnswer->multiAnswers()->save($multiAnswer);
+        foreach ($answer['answers'] as $element) {
+            $multiAnswer->answers()->save(new MultiAnswerElement(['answer' => $element]));
+        }
     }
 
     private function createSingleMatrixAnswer(SurveyAnswer $surveyAnswer, $answer)

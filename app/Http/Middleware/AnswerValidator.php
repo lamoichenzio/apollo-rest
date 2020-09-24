@@ -24,6 +24,7 @@ class AnswerValidator
         }
         foreach ($request['answers'] as $answer) {
             $question_type = $answer['question_type'];
+
             if ($question_type == InputQuestion::class || ($question_type == MultiQuestion::class
                     && key_exists('answer', $answer))) {
                 $response = $this->singleAnswerValidator($survey, $answer);
@@ -31,7 +32,13 @@ class AnswerValidator
                     return response()->json(['error' => $response['message']], 422);
                 }
             }
-            // TODO validare multi questions
+
+            if ($question_type == MultiQuestion::class && key_exists('answers', $answer)) {
+                $response = $this->multiAnswerValidator($survey, $answer);
+                if (!$response['status']) {
+                    return response()->json(['error' => $response['message']], 422);
+                }
+            }
 
             // TODO validare matrix questions
         }
@@ -50,15 +57,31 @@ class AnswerValidator
         }
         if ($question == null) {
             $message['status'] = false;
-            $message['message'] = 'Question not found';
+            $message['message'] = 'Question ' . $question->id . ' of type ' . $answer['question_type'] . ' not found';
         } elseif ($question->questionGroup->survey->id != $survey->id) {
             $message['status'] = false;
-            $message['message'] = 'Question not belonging to Survey';
-            return $message;
-        } elseif (get_class($question) == MultiQuestion::class && $question->type == MultiQuestionTypes::$CHECK) {
+            $message['message'] = 'Question ' . $question->id . ' of type ' . $answer['question_type'] . ' not belonging to Survey';
+        } elseif ((get_class($question) == MultiQuestion::class &&
+                $question->type == MultiQuestionTypes::$CHECK) || !key_exists('answer', $answer)) {
             $message['status'] = false;
-            $message['message'] = 'Question type not coherent with answer field';
-            return $message;
+            $message['message'] = 'Question ' . $question->id . ' of type ' . $answer['question_type'] . ' not coherent with answer field';
+        }
+        return $message;
+    }
+
+    private function multiAnswerValidator($survey, $answer)
+    {
+        $message = ['status' => true, 'message' => ''];
+        $question = MultiQuestion::find($answer['question_id']);
+        if (!$question) {
+            $message['status'] = false;
+            $message['message'] = 'Question ' . $question->id . ' of type ' . $answer['question_type'] . ' not found';
+        } elseif ($question->questionGroup->survey->id != $survey->id) {
+            $message['status'] = false;
+            $message['message'] = 'Question ' . $question->id . ' of type ' . $answer['question_type'] . ' not belonging to Survey';
+        } elseif ($question->type != MultiQuestionTypes::$CHECK) {
+            $message['status'] = false;
+            $message['message'] = 'Question ' . $question->id . ' of type ' . $answer['question_type'] . ' not coherent with answer field';
         }
         return $message;
     }

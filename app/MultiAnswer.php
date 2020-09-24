@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class MultiAnswer extends Model
 {
+    protected $fillable = ['multi_question_id'];
+
     public function surveyAnswer()
     {
         return $this->belongsTo(SurveyAnswer::class);
