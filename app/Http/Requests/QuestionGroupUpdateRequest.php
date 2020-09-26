@@ -13,7 +13,7 @@ class QuestionGroupUpdateRequest extends FormRequest
      */
     public function authorize()
     {
-        $questionGroup = $this->route('questionGroup');
+        $questionGroup = $this->route('question_group');
         return $questionGroup && $this->user()->can('update', $questionGroup);
     }
 
