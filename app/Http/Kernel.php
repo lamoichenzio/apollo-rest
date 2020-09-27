@@ -85,6 +85,6 @@ class Kernel extends HttpKernel
         'email.in.invitation_pool' => EmailInInvitationPool::class,
         'answer.in.survey' => AnswerInSurvey::class,
         'survey.activation.verification' => SurveyActivationVerification::class,
-        'answer.validator' => AnswerValidator::class
+        'answer.validator' => AnswerValidator::class,
     ];
 }

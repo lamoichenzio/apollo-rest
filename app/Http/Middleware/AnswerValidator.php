@@ -74,7 +74,7 @@ class AnswerValidator
         }
         if ($question == null) {
             $message['status'] = false;
-            $message['message'] = 'Question ' . $question->id . ' of type ' . $answer['question_type'] . ' not found';
+            $message['message'] = 'Question ' . $answer['question_id'] . ' of type ' . $answer['question_type'] . ' not found';
         } elseif ($question->questionGroup->survey->id != $survey->id) {
             $message['status'] = false;
             $message['message'] = 'Question ' . $question->id . ' of type ' . $answer['question_type'] . ' not belonging to Survey';
@@ -92,7 +92,7 @@ class AnswerValidator
         $question = MultiQuestion::find($answer['question_id']);
         if (!$question) {
             $message['status'] = false;
-            $message['message'] = 'Question ' . $question->id . ' of type ' . $answer['question_type'] . ' not found';
+            $message['message'] = 'Question ' . $answer['question_id'] . ' of type ' . $answer['question_type'] . ' not found';
         } elseif ($question->questionGroup->survey->id != $survey->id) {
             $message['status'] = false;
             $message['message'] = 'Question ' . $question->id . ' of type ' . $answer['question_type'] . ' not belonging to Survey';
@@ -109,7 +109,7 @@ class AnswerValidator
         $question = MatrixQuestion::find($answer['question_id']);
         if (!$question) {
             $message['status'] = false;
-            $message['message'] = 'Question ' . $question->id . ' of type ' . $answer['question_type'] . ' not found';
+            $message['message'] = 'Question ' . $answer['question_id'] . ' of type ' . $answer['question_type'] . ' not found';
         } elseif ($question->questionGroup->survey->id != $survey->id) {
             $message['status'] = false;
             $message['message'] = 'Question ' . $question->id . ' of type ' . $answer['question_type'] . ' not belonging to Survey';
@@ -144,7 +144,7 @@ class AnswerValidator
         $question = MatrixQuestion::find($answer['question_id']);
         if (!$question) {
             $message['status'] = false;
-            $message['message'] = 'Question ' . $question->id . ' of type ' . $answer['question_type'] . ' not found';
+            $message['message'] = 'Question ' . $answer['question_id'] . ' of type ' . $answer['question_type'] . ' not found';
         } elseif ($question->questionGroup->survey->id != $survey->id) {
             $message['status'] = false;
             $message['message'] = 'Question ' . $question->id . ' of type ' . $answer['question_type'] . ' not belonging to Survey';

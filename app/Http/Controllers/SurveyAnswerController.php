@@ -6,6 +6,8 @@ use App\Http\Requests\SurveyAnswerCreationRequest;
 use App\Services\SurveyAnswerService;
 use App\Survey;
 use App\SurveyAnswer;
+use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Crypt;
 
 class SurveyAnswerController extends Controller
 {
@@ -37,6 +39,27 @@ class SurveyAnswerController extends Controller
      */
     public function store(SurveyAnswerCreationRequest $request, Survey $survey)
     {
+        if ($survey->secret) {
+            //PRIVATE SURVEY LOGIN AND VERIFICATION
+            $email = $request['email'];
+            if (SurveyAnswer::where([
+                        ['survey_id', $survey->id],
+                        ['email', $email]]
+                )->get()->count() > 0) {
+                return response()->json(['error' => 'Survey already responded by the user'], 422);
+            }
+
+            $invitationPool = $survey->invitationPool;
+            if (!$invitationPool->emails->contains('email', $email)) {
+                return response()->json(['error' => 'User not allowed to access the survey'], Response::HTTP_UNAUTHORIZED);
+            }
+
+            $password = $request['password'];
+            if (Crypt::decryptString($invitationPool->password) != $password) {
+                return \response()->json(['error' => 'Wrong password'], 401);
+            }
+        }
+
         $surveyAnswer = new SurveyAnswer($request->all());
         $this->service->create($survey, $surveyAnswer, collect($request['answers']));
         return response()->json(['message' => 'created'], 201);

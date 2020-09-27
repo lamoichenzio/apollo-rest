@@ -33,6 +33,10 @@ class SurveyAnswerCreationRequest extends FormRequest
                     $survey = request('survey');
                     return $survey->secret;
                 }),
+            'password' => ['string', Rule::requiredIf(function () {
+                $survey = request('survey');
+                return $survey->secret;
+            })],
             'answers' => ['required', 'array', new RequiredAnswer()],
             'answers.*.question_id' => 'required',
             'answers.*.question_type' => 'required|' . Rule::in([
