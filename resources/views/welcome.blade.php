@@ -1916,7 +1916,7 @@
                 <pre>
                         <code>
                            {
-                            "password": "0~&i#?#,<*7.|{Nfn",
+                            "password": "pippo",
                             "emails": [
                                 {
                                     "id": 1,
