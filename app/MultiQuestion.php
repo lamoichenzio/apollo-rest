@@ -9,7 +9,6 @@ class MultiQuestion extends Model
 {
     protected $fillable = [
         'title',
-        'description',
         'position',
         'mandatory',
         'type',

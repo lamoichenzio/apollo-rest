@@ -16,7 +16,6 @@ class CreateMultiQuestionsTable extends Migration
         Schema::create('multi_questions', function (Blueprint $table) {
             $table->id();
             $table->text('title');
-            $table->text('description')->nullable();
             $table->integer('position');
             $table->boolean('mandatory')->default(false);
             $table->binary('icon')->nullable();

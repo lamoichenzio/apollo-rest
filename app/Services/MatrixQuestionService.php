@@ -53,11 +53,13 @@ class MatrixQuestionService
         DB::transaction(function () use ($question, $data, $elements, $options) {
             $question->update($data);
             if ($elements) {
+                $question->deleteElements();
                 $elements->each(function ($element) use ($question) {
                     $question->elements()->save(new MatrixQuestionElement(['title' => $element]));
                 });
             }
             if ($options) {
+                $question->deleteOptions();
                 $options->each(function ($option) use ($question) {
                     $question->options()->save(new QuestionOption(['option' => $option]));
                 });

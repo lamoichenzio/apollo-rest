@@ -17,7 +17,6 @@ class CreateInputQuestionsTable extends Migration
 
             $table->id();
             $table->text('title');
-            $table->text('description')->nullable();
             $table->integer('position');
             $table->boolean('mandatory')->default(false);
             $table->binary('icon')->nullable();

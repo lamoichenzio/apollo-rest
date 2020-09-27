@@ -8,7 +8,6 @@ use Faker\Generator as Faker;
 $factory->define(MatrixQuestion::class, function (Faker $faker) {
     return [
         'title' => $faker->text,
-        'description' => $faker->text,
         'position' => $faker->numberBetween(0, 10),
         'mandatory' => $faker->boolean,
         'type' => $faker->randomElement(\App\Enums\MatrixQuestionTypes::types()),

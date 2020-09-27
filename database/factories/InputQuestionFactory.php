@@ -8,7 +8,6 @@ use Faker\Generator as Faker;
 $factory->define(InputQuestion::class, function (Faker $faker) {
     return [
         'title' => $faker->text,
-        'description' => $faker->paragraph,
         'mandatory' => $faker->boolean,
         'position' => $faker->numberBetween(0, 10),
         'type' => $faker->randomElement(\App\Enums\InputQuestionTypes::types()),

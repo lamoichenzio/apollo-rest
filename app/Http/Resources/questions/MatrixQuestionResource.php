@@ -35,7 +35,7 @@ class MatrixQuestionResource extends JsonResource
             'options' => $this->options->map(function ($option) {
                 return [
                     "id" => $option->id,
-                    "option" => $option->option
+                    "value" => $option->option
                 ];
             }),
             'questionGroup' => $this->questionGroup->path(),

@@ -9,7 +9,6 @@ class MatrixQuestion extends Model
 {
     protected $fillable = [
         'title',
-        'description',
         'position',
         'mandatory',
         'type'
@@ -39,10 +38,20 @@ class MatrixQuestion extends Model
     {
         DB::transaction(function () {
             parent::delete();
-            QuestionOption::where([
-                ['question_id', $this->id],
-                ['question_type', MatrixQuestion::class]
-            ])->delete();
+            $this->deleteOptions();
         });
+    }
+
+    public function deleteOptions()
+    {
+        QuestionOption::where([
+            ['question_id', $this->id],
+            ['question_type', MatrixQuestion::class]
+        ])->delete();
+    }
+
+    public function deleteElements()
+    {
+        MatrixQuestionElement::where('matrix_question_id', $this->id)->delete();
     }
 }
