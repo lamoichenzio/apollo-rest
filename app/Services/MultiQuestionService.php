@@ -40,6 +40,7 @@ class MultiQuestionService
                 $question->id = null;
             }
             if ($options) {
+                $question->deleteOptions();
                 $options->each(function ($option) use ($question) {
                     $question->options()->save(new QuestionOption(['option' => $option]));
                 });

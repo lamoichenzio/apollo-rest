@@ -41,11 +41,16 @@ class MultiQuestion extends Model
         DB::transaction(function () {
             $del = parent::delete();
             if ($del) {
-                QuestionOption::where([
-                    ['question_id', $this->id],
-                    ['question_type', MultiQuestion::class]
-                ])->delete();
+                $this->deleteOptions();
             }
         });
+    }
+
+    public function deleteOptions()
+    {
+        QuestionOption::where([
+            ['question_id', $this->id],
+            ['question_type', MultiQuestion::class]
+        ])->delete();
     }
 }
