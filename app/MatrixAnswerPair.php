@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class MatrixAnswerPair extends Model
 {
-    protected $fillable = ['answer'];
+    protected $fillable = ['answer', 'element_id'];
 
     public function element()
     {

@@ -15,7 +15,7 @@ class CreateMultiMatrixAnswerPairsTable extends Migration
     {
         Schema::create('multi_matrix_answer_pairs', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('matrix_answer_id')
+            $table->foreignId('multi_matrix_answer_id')
                 ->references('id')
                 ->on('multi_matrix_answers')
                 ->cascadeOnDelete()

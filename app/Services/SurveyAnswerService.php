@@ -6,6 +6,7 @@ namespace App\Services;
 
 use App\MultiAnswer;
 use App\MultiAnswerElement;
+use App\SingleMatrixAnswer;
 use App\Survey;
 use App\SurveyAnswer;
 use Illuminate\Support\Collection;
@@ -59,7 +60,14 @@ class SurveyAnswerService
 
     private function createSingleMatrixAnswer(SurveyAnswer $surveyAnswer, $answer)
     {
-        // TODO
+        $matrixAnswer = new SingleMatrixAnswer(['matrix_question_id' => $answer['question_id']]);
+        $surveyAnswer->singleChoiceMatrixAnswers()->save($matrixAnswer);
+        foreach ($answer['answer_pair'] as $pair) {
+            $matrixAnswer->pairs()->create([
+                'element_id' => $pair['element'],
+                'answer' => $pair['answer']
+            ]);
+        }
     }
 
     private function createMultiMatrixAnswer(SurveyAnswer $surveyAnswer, $answer)

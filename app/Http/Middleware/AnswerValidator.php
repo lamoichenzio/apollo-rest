@@ -2,8 +2,11 @@
 
 namespace App\Http\Middleware;
 
+use App\Enums\MatrixQuestionTypes;
 use App\Enums\MultiQuestionTypes;
 use App\InputQuestion;
+use App\MatrixQuestion;
+use App\MatrixQuestionElement;
 use App\MultiQuestion;
 use Closure;
 
@@ -19,12 +22,13 @@ class AnswerValidator
     public function handle($request, Closure $next)
     {
         $survey = $request->route('survey');
+
         if (!$survey->active) {
             return response()->json(['error' => 'The survey is not active'], 422);
         }
+
         foreach ($request['answers'] as $answer) {
             $question_type = $answer['question_type'];
-
             if ($question_type == InputQuestion::class || ($question_type == MultiQuestion::class
                     && key_exists('answer', $answer))) {
                 $response = $this->singleAnswerValidator($survey, $answer);
@@ -40,7 +44,14 @@ class AnswerValidator
                 }
             }
 
-            // TODO validare matrix questions
+            if ($question_type == MatrixQuestion::class && key_exists('answer_pair', $answer)) {
+                $response = $this->singleMatrixAnswerValidator($survey, $answer);
+                if (!$response['status']) {
+                    return response()->json(['error' => $response['message']], 422);
+                }
+            }
+
+            // TODO validare multi matrix answer
         }
         return $next($request);
     }
@@ -82,6 +93,37 @@ class AnswerValidator
         } elseif ($question->type != MultiQuestionTypes::$CHECK) {
             $message['status'] = false;
             $message['message'] = 'Question ' . $question->id . ' of type ' . $answer['question_type'] . ' not coherent with answer field';
+        }
+        return $message;
+    }
+
+    private function singleMatrixAnswerValidator($survey, $answer)
+    {
+        $message = ['status' => true, 'message' => ''];
+        $question = MatrixQuestion::find($answer['question_id']);
+        if (!$question) {
+            $message['status'] = false;
+            $message['message'] = 'Question ' . $question->id . ' of type ' . $answer['question_type'] . ' not found';
+        } elseif ($question->questionGroup->survey->id != $survey->id) {
+            $message['status'] = false;
+            $message['message'] = 'Question ' . $question->id . ' of type ' . $answer['question_type'] . ' not belonging to Survey';
+        } elseif ($question->type != MatrixQuestionTypes::$RADIO) {
+            $message['status'] = false;
+            $message['message'] = 'Question ' . $question->id . ' of type ' . $answer['question_type'] . ' not coherent with answer field';
+        } else {
+
+            // VALIDATION OF MATRIX ELEMENTS
+            foreach ($answer['answer_pair'] as $pair) {
+                $element = MatrixQuestionElement::find($pair['element']);
+                if (!$element) {
+                    $message['status'] = false;
+                    $message['message'] = 'Matrix element ' . $pair['element'] . ' of single matrix ' . $question->id . ' not found';
+                } elseif ($element->matrixQuestion->id != $question->id) {
+                    $message['status'] = false;
+                    $message['message'] = 'Matrix element' . $pair['element'] . ' not belonging to single matrix' . $question->id;
+                }
+            }
+
         }
         return $message;
     }

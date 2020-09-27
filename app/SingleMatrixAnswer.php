@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class SingleMatrixAnswer extends Model
 {
+    protected $fillable = ['matrix_question_id'];
+
     public function surveyAnswers()
     {
         return $this->belongsTo(SurveyAnswer::class);
