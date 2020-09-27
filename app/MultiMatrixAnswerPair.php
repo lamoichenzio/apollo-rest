@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class MultiMatrixAnswerPair extends Model
 {
+    protected $fillable = ['element_id'];
+
     public function multiMatrixAnswer()
     {
         return $this->belongsTo(MultiMatrixAnswer::class);

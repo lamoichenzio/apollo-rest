@@ -29,6 +29,7 @@ class AnswerValidator
 
         foreach ($request['answers'] as $answer) {
             $question_type = $answer['question_type'];
+
             if ($question_type == InputQuestion::class || ($question_type == MultiQuestion::class
                     && key_exists('answer', $answer))) {
                 $response = $this->singleAnswerValidator($survey, $answer);
@@ -51,7 +52,12 @@ class AnswerValidator
                 }
             }
 
-            // TODO validare multi matrix answer
+            if ($question_type == MatrixQuestion::class && key_exists('answers_pair', $answer)) {
+                $response = $this->multiMatrixAnswerValidator($survey, $answer);
+                if (!$response['status']) {
+                    return response()->json(['error' => $response['message']], 422);
+                }
+            }
         }
         return $next($request);
     }
@@ -111,19 +117,45 @@ class AnswerValidator
             $message['status'] = false;
             $message['message'] = 'Question ' . $question->id . ' of type ' . $answer['question_type'] . ' not coherent with answer field';
         } else {
-
             // VALIDATION OF MATRIX ELEMENTS
             foreach ($answer['answer_pair'] as $pair) {
-                $element = MatrixQuestionElement::find($pair['element']);
-                if (!$element) {
-                    $message['status'] = false;
-                    $message['message'] = 'Matrix element ' . $pair['element'] . ' of single matrix ' . $question->id . ' not found';
-                } elseif ($element->matrixQuestion->id != $question->id) {
-                    $message['status'] = false;
-                    $message['message'] = 'Matrix element' . $pair['element'] . ' not belonging to single matrix' . $question->id;
-                }
+                $message = $this->matrixElementValidator($pair['element'], $question, $message);
             }
+        }
+        return $message;
+    }
 
+    private function matrixElementValidator($element_id, $question, $message)
+    {
+        $element = MatrixQuestionElement::find($element_id);
+        if (!$element) {
+            $message['status'] = false;
+            $message['message'] = 'Matrix element ' . $element_id . ' of single matrix ' . $question->id . ' not found';
+        } elseif ($element->matrixQuestion->id != $question->id) {
+            $message['status'] = false;
+            $message['message'] = 'Matrix element' . $element_id . ' not belonging to single matrix' . $question->id;
+        }
+        return $message;
+    }
+
+    private function multiMatrixAnswerValidator($survey, $answer)
+    {
+        $message = ['status' => true, 'message' => ''];
+        $question = MatrixQuestion::find($answer['question_id']);
+        if (!$question) {
+            $message['status'] = false;
+            $message['message'] = 'Question ' . $question->id . ' of type ' . $answer['question_type'] . ' not found';
+        } elseif ($question->questionGroup->survey->id != $survey->id) {
+            $message['status'] = false;
+            $message['message'] = 'Question ' . $question->id . ' of type ' . $answer['question_type'] . ' not belonging to Survey';
+        } elseif ($question->type != MatrixQuestionTypes::$CHECK) {
+            $message['status'] = false;
+            $message['message'] = 'Question ' . $question->id . ' of type ' . $answer['question_type'] . ' not coherent with answer field';
+        } else {
+            // VALIDATION OF MATRIX ELEMENTS
+            foreach ($answer['answers_pair'] as $pair) {
+                $message = $this->matrixElementValidator($pair['element'], $question, $message);
+            }
         }
         return $message;
     }

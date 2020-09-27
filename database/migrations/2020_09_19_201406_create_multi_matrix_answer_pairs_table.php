@@ -25,11 +25,11 @@ class CreateMultiMatrixAnswerPairsTable extends Migration
                 ->on('matrix_question_elements')
                 ->cascadeOnDelete()
                 ->cascadeOnUpdate();
-            $table->foreignId('multi_answer_id')
-                ->references('id')
-                ->on('multi_answers')
-                ->cascadeOnUpdate()
-                ->cascadeOnDelete();
+//            $table->foreignId('multi_answer_id')
+//                ->references('id')
+//                ->on('multi_answers')
+//                ->cascadeOnUpdate()
+//                ->cascadeOnDelete();
             $table->timestamps();
         });
     }

@@ -6,6 +6,8 @@ namespace App\Services;
 
 use App\MultiAnswer;
 use App\MultiAnswerElement;
+use App\MultiMatrixAnswer;
+use App\MultiMatrixAnswerPair;
 use App\SingleMatrixAnswer;
 use App\Survey;
 use App\SurveyAnswer;
@@ -72,6 +74,14 @@ class SurveyAnswerService
 
     private function createMultiMatrixAnswer(SurveyAnswer $surveyAnswer, $answer)
     {
-        // TODO
+        $matrixAnswer = new MultiMatrixAnswer(['matrix_question_id' => $answer['question_id']]);
+        $surveyAnswer->multiChoiceMatrixAnswers()->save($matrixAnswer);
+        foreach ($answer['answers_pair'] as $pair) {
+            $singleAnswer = new MultiMatrixAnswerPair(['element_id' => $pair['element']]);
+            $matrixAnswer->answers()->save($singleAnswer);
+            foreach ($pair['answers'] as $pair_answer) {
+                $singleAnswer->answers()->create(['answer' => $pair_answer]);
+            }
+        }
     }
 }

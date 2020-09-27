@@ -45,7 +45,10 @@ class SurveyAnswerCreationRequest extends FormRequest
             'answers.*.answer_pair' => 'array|required_without_all:answers.*.answers,answers.*.answer,answers.*.answers_pair',
             'answers.*.answer_pair.*.element' => 'required|exists:matrix_question_elements,id',
             'answers.*.answer_pair.*.answer' => 'required|string',
-            'answers.*.answers_pair' => 'string|required_without_all:answers.*.answers,answers.*.answer_pair,answers.*.answer',
+            'answers.*.answers_pair' => 'array|required_without_all:answers.*.answers,answers.*.answer_pair,answers.*.answer',
+            'answers.*.answers_pair.*.element' => 'required|exists:matrix_question_elements,id',
+            'answers.*.answers_pair.*.answers' => 'required|array',
+            'answers.*.answers_pair.*.answers:*' => 'string',
         ];
     }
 }
