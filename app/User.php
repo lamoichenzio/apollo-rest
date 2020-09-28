@@ -2,14 +2,15 @@
 
 namespace App;
 
-use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Jenssegers\Mongodb\Eloquent\HybridRelations;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 
 class User extends Authenticatable implements JWTSubject
 {
     use Notifiable;
+    use HybridRelations;
 
     /**
      * The attributes that are mass assignable.
@@ -17,7 +18,7 @@ class User extends Authenticatable implements JWTSubject
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'username', 'email', 'password', 'firstname', 'lastname'
     ];
 
     /**
@@ -26,16 +27,7 @@ class User extends Authenticatable implements JWTSubject
      * @var array
      */
     protected $hidden = [
-        'password', 'remember_token',
-    ];
-
-    /**
-     * The attributes that should be cast to native types.
-     *
-     * @var array
-     */
-    protected $casts = [
-        'email_verified_at' => 'datetime',
+        'password',
     ];
 
     public function getJWTIdentifier()
@@ -48,7 +40,30 @@ class User extends Authenticatable implements JWTSubject
         return [];
     }
 
-    public function role(){
-        return $this->hasOne(Role::class);
+    public function role()
+    {
+        return $this->belongsTo(Role::class);
     }
+
+    public function path()
+    {
+        return route('user.show', $this);
+    }
+
+    public function isAdmin()
+    {
+        return $this->role == Role::getAdminRole();
+    }
+
+    public function surveys()
+    {
+        return $this->hasMany(Survey::class);
+    }
+
+    public function avatar()
+    {
+        return $this->hasOne(ImageFile::class);
+    }
+
+
 }

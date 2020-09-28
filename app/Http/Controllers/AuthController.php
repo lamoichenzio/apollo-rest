@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\UserResource;
 use Illuminate\Http\JsonResponse;
 
 class AuthController extends Controller
@@ -25,11 +26,10 @@ class AuthController extends Controller
     {
         $credentials = request()->validate(
             [
-                'email'=>'required|email',
-                'password'=>'required'
+                'email' => 'required|email',
+                'password' => 'required'
             ]
         );
-
         if (!$token = auth()->attempt($credentials)) {
             return response()->json(['error' => 'Unauthorized'], 401);
         }
@@ -38,13 +38,30 @@ class AuthController extends Controller
     }
 
     /**
-     * Get the authenticated User.
+     * Get the token array structure.
+     *
+     * @param string $token
      *
      * @return JsonResponse
      */
+    protected function respondWithToken($token)
+    {
+        return response()->json([
+            'access_token' => $token,
+            'token_type' => 'bearer',
+            'expires_in' => auth()->factory()->getTTL() * 60,
+            'user' => new UserResource(auth()->user())
+        ]);
+    }
+
+    /**
+     * Get the authenticated UserResource.
+     *
+     * @return UserResource
+     */
     public function profile()
     {
-        return response()->json(auth()->user());
+        return new UserResource(auth()->user());
     }
 
     /**
@@ -67,22 +84,6 @@ class AuthController extends Controller
     public function refresh()
     {
         return $this->respondWithToken(auth()->refresh());
-    }
-
-    /**
-     * Get the token array structure.
-     *
-     * @param string $token
-     *
-     * @return JsonResponse
-     */
-    protected function respondWithToken($token)
-    {
-        return response()->json([
-            'access_token' => $token,
-            'token_type' => 'bearer',
-            'expires_in' => auth()->factory()->getTTL() * 60
-        ]);
     }
 
 }

@@ -2,6 +2,17 @@
 
 namespace App\Http;
 
+use App\Http\Middleware\AnswerInSurvey;
+use App\Http\Middleware\AnswerValidator;
+use App\Http\Middleware\ElementInMatrixQuestionMiddleware;
+use App\Http\Middleware\EmailInInvitationPool;
+use App\Http\Middleware\InputQuestionMiddleware;
+use App\Http\Middleware\InvitationPoolInSurvey;
+use App\Http\Middleware\MatrixQuestionInQuestionGroupMiddleware;
+use App\Http\Middleware\MultiQuestionMiddleware;
+use App\Http\Middleware\OptionInMultiQuestionMiddleware;
+use App\Http\Middleware\SurveyActivationVerification;
+use App\Http\Middleware\SurveyQuestionMiddleware;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
 class Kernel extends HttpKernel
@@ -20,7 +31,7 @@ class Kernel extends HttpKernel
         \App\Http\Middleware\CheckForMaintenanceMode::class,
         \Illuminate\Foundation\Http\Middleware\ValidatePostSize::class,
         \App\Http\Middleware\TrimStrings::class,
-        \Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull::class,
+        \Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull::class
     ];
 
     /**
@@ -30,6 +41,7 @@ class Kernel extends HttpKernel
      */
     protected $middlewareGroups = [
         'web' => [
+            \Fruitcake\Cors\HandleCors::class,
             \App\Http\Middleware\EncryptCookies::class,
             \Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse::class,
             \Illuminate\Session\Middleware\StartSession::class,
@@ -63,5 +75,16 @@ class Kernel extends HttpKernel
         'signed' => \Illuminate\Routing\Middleware\ValidateSignature::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
+        'qg.in.survey' => SurveyQuestionMiddleware::class,
+        'inputquestion.in.qg' => InputQuestionMiddleware::class,
+        'multiquestion.in.qg' => MultiQuestionMiddleware::class,
+        'option.in.question' => OptionInMultiQuestionMiddleware::class,
+        'matrixquestion.in.qg' => MatrixQuestionInQuestionGroupMiddleware::class,
+        'element.in.matrix' => ElementInMatrixQuestionMiddleware::class,
+        'invitation_pool.in.survey' => InvitationPoolInSurvey::class,
+        'email.in.invitation_pool' => EmailInInvitationPool::class,
+        'answer.in.survey' => AnswerInSurvey::class,
+        'survey.activation.verification' => SurveyActivationVerification::class,
+        'answer.validator' => AnswerValidator::class,
     ];
 }
