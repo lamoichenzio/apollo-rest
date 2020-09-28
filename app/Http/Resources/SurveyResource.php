@@ -30,7 +30,7 @@ class SurveyResource extends JsonResource
             'questionGroups' => $this->questionGroups->map(function ($questionGroup) {
                 return $questionGroup->path();
             }),
-            'invitationPool' => $this->invitationPool,
+            'invitationPool' => new InvitationPoolResource($this->invitationPool),
             'createDate' => $this->created_at,
         ];
     }

@@ -3,6 +3,7 @@
 namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Support\Facades\Crypt;
 
 class InvitationPoolResource extends JsonResource
 {
@@ -15,7 +16,7 @@ class InvitationPoolResource extends JsonResource
     public function toArray($request)
     {
         return [
-            'password' => $this->password,
+            'password' => Crypt::decryptString($this->password),
             'emails' => $this->emails->map(function ($email) {
                 return ['id' => $email->id, 'email' => $email->email];
             })

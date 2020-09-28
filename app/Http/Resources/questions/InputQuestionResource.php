@@ -20,7 +20,6 @@ class InputQuestionResource extends JsonResource
         return [
             'id' => $this->id,
             'title' => $this->title,
-            'description' => $this->description,
             'position' => $this->position,
             'mandatory' => $this->mandatory,
             'icon' => $image,

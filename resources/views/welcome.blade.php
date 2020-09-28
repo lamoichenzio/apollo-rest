@@ -102,6 +102,9 @@
         <li>
             <a href="#invitation_pools">Invitation Pool</a>
         </li>
+        <li>
+            <a href="#answers">Survey Answers</a>
+        </li>
     </ul>
 </nav>
 
@@ -2093,6 +2096,279 @@
                         HTTP STATUS: 204
                     </code>
                 </pre>
+            </li>
+        </ul>
+    </div>
+</section>
+<section id="answers">
+    <div class="section">
+        <h2>Survey Answers (../surveys/{survey_id}/answers)</h2>
+        <ul>
+            <li>
+                <h3>GET
+                    <pre>/?pag_size=&lt;pagSize&gt;&order=&lt;email or totAnswers&gt;&order_dir=&lt;asc or desc&gt;</pre>
+                </h3>
+                <p>
+                    Returns all the answers of this specific survey.
+                </p>
+                <p>
+                    This endpoint can be used only be the user that created the survey or by an admin.
+                </p>
+                <h4>Request Params</h4>
+                <ul>
+                    <li>
+                        <pre>pag_size</pre>
+                        Dimension of the page for the paginated query
+                    </li>
+                    <li>
+                        <pre>order</pre>
+                        Order field (must be one of email or totAnswers) (required if order_dir is present)
+                    </li>
+                    <li>
+                        <pre>order_dir</pre>
+                        Order direction (asc or desc) (required if order is present)
+                    </li>
+                </ul>
+                <h4>Response Body</h4>
+                <p>
+                    This is a response for a paginated query. For a normal query response consider only the "data"
+                    attribute of the message
+                </p>
+                <pre>
+                        <code>
+{
+    "data": [
+        {
+            "id": 6,
+            "email": "giordano.daloisio@gmail.com",
+            "totAnswers": 5,
+            "survey": "http://apollo.test/rest/surveys/2",
+            "answers": [
+                {
+                    "id": 5,
+                    "question": "http://apollo.test/rest/surveys/2/question_groups/5/matrix_questions/6",
+                    "answer_pair": [
+                        {
+                            "element": "pippo",
+                            "answer": "ezio"
+                        },
+                        {
+                            "element": "pluto",
+                            "answer": "greggio"
+                        },
+                        {
+                            "element": "baudo",
+                            "answer": "regna"
+                        }
+                    ]
+                },
+                {
+                    "id": 5,
+                    "question": "http://apollo.test/rest/surveys/2/question_groups/5/matrix_questions/5",
+                    "answers_pair": [
+                        {
+                            "element": "asdasddddd",
+                            "answers": [
+                                "2",
+                                "3"
+                            ]
+                        },
+                        {
+                            "element": "asdasdsadasdsad",
+                            "answers": [
+                                "3"
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "id": 10,
+                    "question": "http://apollo.test/rest/surveys/2/question_groups/5/input_questions/5",
+                    "answer": "asdasdas"
+                },
+                {
+                    "id": 11,
+                    "question": "http://apollo.test/rest/surveys/2/question_groups/5/multi_questions/6",
+                    "answer": "pippo"
+                },
+                {
+                    "id": 1,
+                    "question": "http://apollo.test/rest/surveys/2/question_groups/5/multi_questions/5",
+                    "answers": [
+                        "asdas",
+                        "asdasd"
+                    ]
+                }
+            ]
+        }
+    ],
+    "links": {
+        "first": "http://apollo.test/rest/surveys/2/answers?pag_size=2&page=1",
+        "last": "http://apollo.test/rest/surveys/2/answers?pag_size=2&page=1",
+        "prev": null,
+        "next": null
+    },
+    "meta": {
+        "current_page": 1,
+        "from": 1,
+        "last_page": 1,
+        "path": "http://apollo.test/rest/surveys/2/answers",
+        "per_page": 2,
+        "to": 1,
+        "total": 1
+    }
+}
+                        </code>
+                    </pre>
+            </li>
+            <li>
+                <h3>GET
+                    <pre>/{survey_answer_id}</pre>
+                </h3>
+                <p>
+                    Returns information about an answer.
+                </p>
+                <p>
+                    This endpoint can be used only be the user that created the survey or by an admin.
+                </p>
+                <h4>Response Body</h4>
+
+                <pre>
+                    <code>
+{
+    "data": {
+        "id": 6,
+        "email": "giordano.daloisio@gmail.com",
+        "totAnswers": 5,
+        "survey": "http://apollo.test/rest/surveys/2",
+        "answers": [
+            {
+                "id": 5,
+                "question": "http://apollo.test/rest/surveys/2/question_groups/5/matrix_questions/6",
+                "answer_pair": [
+                    {
+                        "element": "pippo",
+                        "answer": "viva"
+                    },
+                    {
+                        "element": "baudo",
+                        "answer": "ezio"
+                    },
+                    {
+                        "element": "puzza",
+                        "answer": "greggio"
+                    }
+                ]
+            },
+            {
+                "id": 5,
+                "question": "http://apollo.test/rest/surveys/2/question_groups/5/matrix_questions/5",
+                "answers_pair": [
+                    {
+                        "element": "asdasddddd",
+                        "answers": [
+                            "2",
+                            "3"
+                        ]
+                    },
+                    {
+                        "element": "asdasdsadasdsad",
+                        "answers": [
+                            "3"
+                        ]
+                    }
+                ]
+            },
+            {
+                "id": 10,
+                "question": "http://apollo.test/rest/surveys/2/question_groups/5/input_questions/5",
+                "answer": "asdasdas"
+            },
+            {
+                "id": 11,
+                "question": "http://apollo.test/rest/surveys/2/question_groups/5/multi_questions/6",
+                "answer": "pippo"
+            },
+            {
+                "id": 1,
+                "question": "http://apollo.test/rest/surveys/2/question_groups/5/multi_questions/5",
+                "answers": [
+                    "asdas",
+                    "asdasd"
+                ]
+            }
+        ]
+    }
+}
+                    </code>
+                </pre>
+            </li>
+            <li>
+                <h3>
+                    POST
+                    <pre>/</pre>
+                </h3>
+                <p>Creates a new answer for the survey</p>
+                <p>
+                    <strong>NB:</strong>
+                <ul>
+                    <li>This endpoint do not require authentication</li>
+                    <li>For private surveys the user must provide his email and the password to answer the survey
+                        and can answer only one time to the survey.
+                    </li>
+                </ul>
+                </p>
+                <h4>Request Body</h4>
+                <pre>
+                        <code>
+{
+    email &lt;required if survey is private&gt;: &lt;user email&gt;,
+	password &lt;required if survey is private&gt;: &lt; password inserted by the user to answer the survey&gt;
+    answers &lt;required&gt;: [
+       {
+            &lt;all these fields are required&gt;
+			question_id: &lt;question_id&gt;
+			question_type: &lt;App\InputQuestion or App\MultiQuestion if question is of type SELECT or RADIO&gt;
+			answer: &lt;single answer&gt;
+       },
+       {
+            &lt;all these fields are required&gt;
+			question_id: &lt;question_id&gt;
+			question_type: &lt;App\MultiQuestion if question is of type CHECK&gt;,
+			answers: [&lt;answers list&gt;]
+       },
+       {
+            &lt;all these fields are required&gt;
+			question_id: &lt;question_id&gt;
+			question_type:  &lt;App\MatrixQuestion if question is of type RADIO&gt;,
+			answer_pair:[
+			{
+				element: &lt;id of matrix sub-question&gt;,
+				answer: &lt;single answer&gt;
+			}, ...]
+       },
+       {
+            &lt;all these fields are required&gt;
+			question_id: &lt;question_id&gt;
+			question_type: &lt;App\MatrixQuestion if question is of type CHECK&gt;,
+			answers_pair: [
+			{
+				element: &lt;id of matrix sub-question&gt;,
+				answers:  [&lt;list of answers&gt;]
+			}, ...]
+       }
+}
+
+                        </code>
+                    </pre>
+                <h4>Response Body</h4>
+                <pre>
+                        <code>
+{
+    "self": "apollo.test/rest/surveys/2/answers/6"
+}
+                        </code>
+                    </pre>
             </li>
         </ul>
     </div>

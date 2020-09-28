@@ -13,7 +13,7 @@ class SingleMatrixAnswer extends Model
         return $this->belongsTo(SurveyAnswer::class);
     }
 
-    public function question()
+    public function matrixQuestion()
     {
         return $this->belongsTo(MatrixQuestion::class);
     }

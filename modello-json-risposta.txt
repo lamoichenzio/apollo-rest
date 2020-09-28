@@ -19,7 +19,7 @@
 			answer_pair:[
 			<array coppie domanda-risposta per matrix> 
 			{ 
-				element: <domanda matrix>,
+				element: <id domanda matrix>,
 				answer: <risposta singola>
 			}, ...]
        },
@@ -28,7 +28,7 @@
 			question_type: <tipo domanda>,
 			answers_pair: [
 			{
-				element: <domanda matrix>,
+				element: <id domanda matrix>,
 				answers:  [lista risposte multiple]
 			}, ...]  
        }

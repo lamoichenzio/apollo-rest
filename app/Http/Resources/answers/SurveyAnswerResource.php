@@ -15,16 +15,15 @@ class SurveyAnswerResource extends JsonResource
     public function toArray($request)
     {
         return [
+            'id' => $this->id,
             'email' => $this->email,
             'totAnswers' => $this->totAnswers,
-            'inputQuestionAnswers' => $this->inputQuestionAnswers->map(function ($answer) {
-                return $answer->path();
-            }),
-//            'singleChoiceMultiAnswers',
-//            'multiChoiceMultiAnswers',
-//            'singleChoiceMatrixAnswers',
-//            'multiChoiceMatrixAnswers',
-            'survey' => $this->survey->path()
+            'survey' => $this->survey->path(),
+//            'inputAnswers' => SingleAnswerResource::collection($this->singleAnswers),
+//            'multiAnswers' => MultiAnswerResource::collection($this->multiAnswers),
+//            'singleMatrixAnswers' => SingleMatrixAnswerResource::collection($this->singleChoiceMatrixAnswers),
+//            'multiMatrixAnswers' => MultiMatrixAnswerResource::collection($this->multiChoiceMatrixAnswers)
+            'answers' => $this->answers()
         ];
     }
 }

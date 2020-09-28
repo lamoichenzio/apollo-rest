@@ -172,8 +172,8 @@ Route::group([
     'prefix' => '/surveys/{survey}/answers',
     'middleware' => ['api', 'answer.in.survey']
 ], function () {
-    Route::get('/', 'SurveyAnswerController@index');
+    Route::get('/', 'SurveyAnswerController@index')->middleware('can:viewAny,App\\SurveyAnswer');
     Route::get('/{surveyAnswer}', 'SurveyAnswerController@show')
-        ->name('surveyAnswer.show');
+        ->name('surveyAnswer.show')->middleware('can:view,surveyAnswer');
     Route::post('/', 'SurveyAnswerController@store')->middleware('answer.validator');
 });

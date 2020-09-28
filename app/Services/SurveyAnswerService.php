@@ -4,6 +4,7 @@
 namespace App\Services;
 
 
+use App\Helpers\DataHelper;
 use App\MultiAnswer;
 use App\MultiAnswerElement;
 use App\MultiMatrixAnswer;
@@ -40,6 +41,7 @@ class SurveyAnswerService
                 + count($surveyAnswer->multiAnswers) + count($surveyAnswer->singleChoiceMatrixAnswers) + count($surveyAnswer->multiChoiceMatrixAnswers);
             $surveyAnswer->update();
         });
+        return DataHelper::creationDataResponse($surveyAnswer);
     }
 
     private function createSingleAnswer(SurveyAnswer $surveyAnswer, $answer)
@@ -83,5 +85,17 @@ class SurveyAnswerService
                 $singleAnswer->answers()->create(['answer' => $pair_answer]);
             }
         }
+    }
+
+    public function getAll(Survey $survey, int $pag_size = null, string $order = null, string $orderDir = null)
+    {
+        $query = SurveyAnswer::where('survey_id', $survey->id);
+        if ($order != null && $orderDir != null) {
+            $query = $query->orderBy($order, $orderDir);
+        }
+        if ($pag_size) {
+            return $query->paginate($pag_size)->withQueryString();
+        }
+        return $query->get();
     }
 }

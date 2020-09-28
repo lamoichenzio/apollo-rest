@@ -13,7 +13,7 @@ class MultiAnswer extends Model
         return $this->belongsTo(SurveyAnswer::class);
     }
 
-    public function question()
+    public function multiQuestion()
     {
         return $this->belongsTo(MultiQuestion::class);
     }
