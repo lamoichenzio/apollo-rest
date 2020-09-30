@@ -22,4 +22,11 @@ class InvitationPool extends Model
     {
         return route('invitationPool.show', [$this->survey, $this]);
     }
+
+    public function deleteEmails()
+    {
+        $this->emails->each(function ($email) {
+            $email->delete();
+        });
+    }
 }

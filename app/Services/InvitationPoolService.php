@@ -41,9 +41,12 @@ class InvitationPoolService
     {
         DB::transaction(function () use ($emails, $data, $pool) {
             $pool->update($data);
-            $emails->each(function ($email) use ($pool) {
-                $pool->emails()->save(new InvitationEmail(['email' => $email]));
-            });
+            if ($emails) {
+                $pool->deleteEmails();
+                $emails->each(function ($email) use ($pool) {
+                    $pool->emails()->save(new InvitationEmail(['email' => $email]));
+                });
+            }
         });
     }
 
