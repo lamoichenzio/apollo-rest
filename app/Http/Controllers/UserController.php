@@ -62,7 +62,7 @@ class UserController extends Controller
         $user = new User($request->all());
         if ($fileData = $request['avatar']) {
             $file = ImageFileService::createImageFile($fileData);
-            $user->id = $file->id;
+            $user->avatar = $file->id;
         }
         $data = $this->userService->createStandardUser($user);
         return response()->json(

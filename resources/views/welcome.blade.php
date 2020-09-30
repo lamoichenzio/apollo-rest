@@ -319,7 +319,7 @@
                                 "email": "junior00@example.org",
                                 "firstname": "Bennett",
                                 "lastname": "Homenick",
-                                "avatar": "http://apollo.test/rest/file/5f4020549c1a0000f10017f1",
+                                "avatar": null,
                                 "role": {
                                     "name": "STANDARD",
                                     "description": "Standard Role",
@@ -362,7 +362,7 @@
                                 "email": "junior00@example.org",
                                 "firstname": "Bennett",
                                 "lastname": "Homenick",
-                                "avatar": "http://apollo.test/rest/file/5f4020549c1a0000f10017f1",
+                                "avatar": null,
                                 "role": {
                                     "name": "STANDARD",
                                     "description": "Standard Role",
@@ -390,27 +390,28 @@
                     <b>Response Body:</b>
                     <pre>
                     <code>
-                      {
-                        "data": {
-                            "id": 2,
-                            "username": "aliza.schumm",
-                            "email": "junior00@example.org",
-                            "firstname": "Bennett",
-                            "lastname": "Homenick",
-                            "avatar": "http://apollo.test/rest/file/5f4020549c1a0000f10017f1",
-                            "role": {
-                                "name": "STANDARD",
-                                "description": "Standard Role",
-                                "created_at": "2020-08-21T11:09:17.000000Z",
-                                "updated_at": "2020-08-21T11:09:17.000000Z"
-                            },
-                            "surveys": [
-                                "http://apollo.test/rest/survey/3",
-                                "http://apollo.test/rest/survey/11",
-                                "http://apollo.test/rest/survey/12"
-                            ]
-                        }
-                      }
+{
+    "data": {
+        "id": 4,
+        "username": "pippo",
+        "email": "pippo@pluto.it",
+        "firstname": null,
+        "lastname": null,
+        "avatar": {
+            "id": "5f74eefca75000005f005fcb",
+            "name": "test.png",
+            "data": "http://apollo.test/images/1601498875$test.png"
+        },
+        "role": {
+            "name": "STANDARD",
+            "description": "Standard Role",
+            "created_at": "2020-09-27T16:21:21.000000Z",
+            "updated_at": "2020-09-27T16:21:21.000000Z"
+        },
+        "surveys": [],
+        "createDate": "2020-09-30T20:47:56.000000Z"
+    }
+}
                     </code>
                 </pre>
                 </div>
@@ -432,7 +433,7 @@
                         "lastname": &lt;lastname&gt;,
                         "avatar": {
                             "name": &lt;filename&gt;,
-                            "data": &lt;filedata&gt;
+                            "data": &lt;base64fileData&gt;
                         }
                       }
                     </code>
@@ -473,7 +474,7 @@
                         "email"(not_blank_if_present): &lt;email&gt;,
                         "firstname": &lt;firstname&gt;,
                         "lastname": &lt;lastname&gt;,
-                        "avatar": &lt;new object representing the file or "delete" to only delete the current icon&gt;
+                        "avatar": &lt;not null if present | new object representing the file or "delete" to only delete the current icon&gt;
                       }
                     </code>
                 </pre>
@@ -642,7 +643,11 @@
                                 "id": 11,
                                 "name": "test",
                                 "description": "adadasdasdasd",
-                                "icon": "http://apollo.test/rest/file/5f401e009c1a0000f10017ef",
+                                "icon": {
+                                    "id": "5f74eefca75000005f005fcb",
+                                    "name": "test.png",
+                                    "data": "http://apollo.test/images/1601498875$test.png"
+                                },
                                 "secret": 0,
                                 "active": 0,
                                 "start_date": null,
@@ -655,7 +660,11 @@
                                 "id": 12,
                                 "name": "prova",
                                 "description": null,
-                                "icon": "http://apollo.test/rest/file/5f401e059c1a0000f10017f0",
+                                "icon": {
+                                    "id": "5f74eefca75000005f005fcb",
+                                    "name": "icon.png",
+                                    "data": "http://apollo.test/images/1601498875$icon.png"
+                                },
                                 "secret": 1,
                                 "active": 0,
                                 "start_date": "2020-06-20T00:00:00.000000Z",
@@ -815,7 +824,7 @@
                     <pre>/publish</pre>
                 </h3>
                 <p>
-                    Publish a survey and sends invitation emails if is private.
+                    Publish a survey and sends invitation emails if the survey is private.
                 </p>
                 <h4>Request Body</h4>
                 <pre>
