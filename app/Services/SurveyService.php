@@ -34,7 +34,7 @@ class SurveyService
     public function deleteSurvey(Survey $survey)
     {
         if ($survey->icon) {
-            ImageFile::destroy($survey->icon);
+            ImageFileService::deleteFile($survey->icon);
         }
         $survey->delete();
     }

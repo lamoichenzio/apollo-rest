@@ -44,7 +44,7 @@ class InputQuestionService
     public function delete(InputQuestion $question)
     {
         if ($question->icon) {
-            ImageFile::destroy($question->icon);
+            ImageFileService::deleteFile($question->icon);
         }
         $question->delete();
     }

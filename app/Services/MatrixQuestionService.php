@@ -74,7 +74,7 @@ class MatrixQuestionService
     public function delete(MatrixQuestion $question)
     {
         if ($question->icon) {
-            ImageFile::destroy($question->icon);
+            ImageFileService::deleteFile($question->icon);
         }
         $question->delete();
     }

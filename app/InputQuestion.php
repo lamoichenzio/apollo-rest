@@ -3,9 +3,12 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Jenssegers\Mongodb\Eloquent\HybridRelations;
 
 class InputQuestion extends Model
 {
+    use HybridRelations;
+
     protected $fillable = ['title', 'mandatory', 'type', 'position'];
 
     public function questionGroup()
@@ -26,5 +29,10 @@ class InputQuestion extends Model
     public function answers()
     {
         return $this->morphMany(SingleAnswer::class, 'question');
+    }
+
+    public function icon()
+    {
+        return $this->hasOne(ImageFile::class);
     }
 }

@@ -2,8 +2,9 @@
 
 namespace App\Http\Resources\questions;
 
+use App\Http\Resources\ImageFileResource;
+use App\ImageFile;
 use App\MatrixQuestion;
-use App\Services\ImageFileService;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class MatrixQuestionResource extends JsonResource
@@ -16,13 +17,14 @@ class MatrixQuestionResource extends JsonResource
      */
     public function toArray($request)
     {
-        $icon = ImageFileService::getImageFilePath($this->icon);
+        $image = null;
+        if ($this->icon) $image = ImageFileResource::make(ImageFile::find($this->icon));
         return [
             'id' => $this->id,
             'title' => $this->title,
             'position' => $this->position,
             'mandatory' => $this->mandatory,
-            'icon' => $icon,
+            'icon' => $image,
             'questionType' => MatrixQuestion::class,
             'type' => $this->type,
             'elements' => $this->elements->map(function ($element) {

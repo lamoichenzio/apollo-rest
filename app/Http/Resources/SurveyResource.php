@@ -2,7 +2,7 @@
 
 namespace App\Http\Resources;
 
-use App\Services\ImageFileService;
+use App\ImageFile;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class SurveyResource extends JsonResource
@@ -15,7 +15,8 @@ class SurveyResource extends JsonResource
      */
     public function toArray($request)
     {
-        $image = ImageFileService::getImageFilePath($this->icon);
+        $image = null;
+        if ($this->icon) $image = ImageFileResource::make(ImageFile::find($this->icon));
         return [
             'id' => $this->id,
             'name' => $this->name,

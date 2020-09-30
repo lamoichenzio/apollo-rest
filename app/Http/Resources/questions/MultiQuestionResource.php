@@ -2,8 +2,9 @@
 
 namespace App\Http\Resources\questions;
 
+use App\Http\Resources\ImageFileResource;
+use App\ImageFile;
 use App\MultiQuestion;
-use App\Services\ImageFileService;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class MultiQuestionResource extends JsonResource
@@ -16,13 +17,14 @@ class MultiQuestionResource extends JsonResource
      */
     public function toArray($request)
     {
-        $icon = ImageFileService::getImageFilePath($this->icon);
+        $image = null;
+        if ($this->icon) $image = ImageFileResource::make(ImageFile::find($this->icon));
         return [
             'id' => $this->id,
             'title' => $this->title,
             'position' => $this->position,
             'mandatory' => $this->mandatory,
-            'icon' => $icon,
+            'icon' => $image,
             'questionType' => MultiQuestion::class,
             'type' => $this->type,
             'other' => $this->other,

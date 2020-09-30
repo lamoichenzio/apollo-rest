@@ -2150,15 +2150,15 @@
                     "answer_pair": [
                         {
                             "element": "pippo",
-                            "answer": "ezio"
+                            "answer": "asdadadad"
                         },
                         {
                             "element": "pluto",
-                            "answer": "greggio"
+                            "answer": "asdadas"
                         },
                         {
-                            "element": "baudo",
-                            "answer": "regna"
+                            "element": "paperino",
+                            "answer": "asdasdasd"
                         }
                     ]
                 },
@@ -2248,15 +2248,15 @@
                 "answer_pair": [
                     {
                         "element": "pippo",
-                        "answer": "viva"
+                        "answer": "adaad"
                     },
                     {
-                        "element": "baudo",
-                        "answer": "ezio"
+                        "element": "pluto",
+                        "answer": "aasdasd"
                     },
                     {
-                        "element": "puzza",
-                        "answer": "greggio"
+                        "element": "paperino",
+                        "answer": "asdasdas"
                     }
                 ]
             },

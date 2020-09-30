@@ -23,15 +23,15 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-//        Validator::extend('image', function ($attribute, $value, $params, $validator) {
-//            $image = base64_decode($value);
+//        Validator::extend('images', function ($attribute, $value, $params, $validator) {
+//            $images = base64_decode($value);
 //            $f = finfo_open();
-//            $result = finfo_buffer($f, $image, FILEINFO_MIME_TYPE);
-//            return $result == 'image/png' || $result == 'image/jpg' || $result == 'image/jpeg';
+//            $result = finfo_buffer($f, $images, FILEINFO_MIME_TYPE);
+//            return $result == 'images/png' || $result == 'images/jpg' || $result == 'images/jpeg';
 //        });
 //
 //        Validator::extend('maxSizeMB', function ($attribute, $value, $params, $validator) {
-//            $image = base64_decode($value);
+//            $images = base64_decode($value);
 //
 //        });
     }

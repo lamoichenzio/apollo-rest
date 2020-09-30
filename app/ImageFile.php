@@ -12,7 +12,7 @@ class ImageFile extends Model
 
     public function path()
     {
-        return route('image.show', $this);
+        return route('images.show', $this);
     }
 
     public function user()

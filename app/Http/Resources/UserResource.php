@@ -2,7 +2,7 @@
 
 namespace App\Http\Resources;
 
-use App\Services\ImageFileService;
+use App\ImageFile;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class UserResource extends JsonResource
@@ -15,7 +15,8 @@ class UserResource extends JsonResource
      */
     public function toArray($request)
     {
-        $image = ImageFileService::getImageFilePath($this->avatar);
+        $image = null;
+        if ($this->avatar) $image = ImageFileResource::make(ImageFile::find($this->avatar));
         return [
             'id' => $this->id,
             'username' => $this->username,

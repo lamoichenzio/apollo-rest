@@ -70,7 +70,7 @@ class InputQuestionController extends Controller
     public function update(InputQuestionUpdateRequest $request, Survey $survey, QuestionGroup $questionGroup, InputQuestion $question)
     {
         if ($icon = $request['icon'] && $request['icon'] != 'delete') {
-            $icon = ImageFileService::updateImageFile($question->icon, $icon);
+            $icon = ImageFileService::updateImageFile($question->icon, $request['icon']);
             $question->icon = $icon->id;
         }
         $this->questionService->update($question, $request->all(), $request['icon'] == 'delete');

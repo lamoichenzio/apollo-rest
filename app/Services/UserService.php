@@ -32,7 +32,7 @@ class UserService
     public function deleteUser(User $user)
     {
         if ($user->avatar) {
-            ImageFile::destroy($user->avatar);
+            ImageFileService::deleteFile($user->avatar);
         }
         $user->delete();
     }

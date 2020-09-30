@@ -67,7 +67,7 @@ class MatrixQuestionController extends Controller
     public function update(MatrixQuestionUpdateRequest $request, Survey $survey, QuestionGroup $questionGroup, MatrixQuestion $matrixQuestion)
     {
         if ($icon = $request['icon'] && $request['icon'] != 'delete') {
-            $icon = ImageFileService::updateImageFile($matrixQuestion->icon, $icon);
+            $icon = ImageFileService::updateImageFile($matrixQuestion->icon, $request['icon']);
             $matrixQuestion->icon = $icon->id;
         }
         $this->service->update($matrixQuestion, $request->all(),

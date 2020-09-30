@@ -56,7 +56,7 @@ class MultiQuestionService
     public function delete(MultiQuestion $question)
     {
         if ($question->icon) {
-            ImageFile::destroy($question->icon);
+            ImageFileService::deleteFile($question->icon);
         }
         $question->delete();
     }

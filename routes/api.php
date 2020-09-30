@@ -41,7 +41,7 @@ Route::group([
     'middleware' => 'api',
     'prefix' => 'files'
 ], function () {
-    Route::get('/{image}', 'ImageFileController@show')->name('image.show');
+    Route::get('/{images}', 'ImageFileController@show')->name('images.show');
 });
 
 //SURVEY
