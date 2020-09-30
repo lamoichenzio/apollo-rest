@@ -16,6 +16,7 @@ class InvitationPoolResource extends JsonResource
     public function toArray($request)
     {
         return [
+            'id' => $this->id,
             'password' => Crypt::decryptString($this->password),
             'emails' => $this->emails->map(function ($email) {
                 return ['id' => $email->id, 'email' => $email->email];
