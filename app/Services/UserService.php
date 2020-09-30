@@ -5,7 +5,6 @@ namespace App\Services;
 
 
 use App\Helpers\DataHelper;
-use App\ImageFile;
 use App\Role;
 use App\User;
 use Illuminate\Http\Request;
@@ -23,7 +22,7 @@ class UserService
     public function updateUser(Request $request, User $user, bool $deleteFile)
     {
         if ($deleteFile && $user->avatar) {
-            ImageFile::destroy($user->avatar);
+            ImageFileService::deleteFile($user->avatar);
             $user->avatar = null;
         }
         $user->update($request->all());

@@ -5,7 +5,6 @@ namespace App\Services;
 
 
 use App\Helpers\DataHelper;
-use App\ImageFile;
 use App\MultiQuestion;
 use App\QuestionGroup;
 use App\QuestionOption;
@@ -36,7 +35,7 @@ class MultiQuestionService
     {
         DB::transaction(function () use ($data, $options, $deleteFile, $question) {
             if ($question->icon && $deleteFile) {
-                ImageFile::destroy($question->icon);
+                ImageFileService::deleteFile($question->icon);
                 $question->id = null;
             }
             if ($options) {

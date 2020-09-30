@@ -5,7 +5,6 @@ namespace App\Services;
 
 
 use App\Helpers\DataHelper;
-use App\ImageFile;
 use App\MatrixQuestion;
 use App\MatrixQuestionElement;
 use App\QuestionGroup;
@@ -47,7 +46,7 @@ class MatrixQuestionService
     public function update(MatrixQuestion $question, array $data, bool $deleteFile, Collection $elements = null, Collection $options = null)
     {
         if ($question->icon && $deleteFile) {
-            ImageFile::destroy($question->icon);
+            ImageFileService::deleteFile($question->icon());
             $question->icon = null;
         }
         DB::transaction(function () use ($question, $data, $elements, $options) {

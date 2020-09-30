@@ -5,7 +5,6 @@ namespace App\Services;
 
 
 use App\Helpers\DataHelper;
-use App\ImageFile;
 use App\Mail\SurveyActivation;
 use App\Mail\SurveyInvitation;
 use App\Survey;
@@ -25,7 +24,7 @@ class SurveyService
     public function updateSurvey(Survey $survey, $data, bool $deleteFile)
     {
         if ($deleteFile && $survey->icon) {
-            ImageFile::destroy($survey->icon);
+            ImageFileService::deleteFile($survey->icon());
             $survey->icon = null;
         }
         $survey->update($data);

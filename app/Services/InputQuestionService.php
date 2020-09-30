@@ -5,7 +5,6 @@ namespace App\Services;
 
 
 use App\Helpers\DataHelper;
-use App\ImageFile;
 use App\InputQuestion;
 use App\QuestionGroup;
 
@@ -31,7 +30,7 @@ class InputQuestionService
     public function update(InputQuestion $question, array $data, bool $deleteFile)
     {
         if ($deleteFile && $question->icon) {
-            ImageFile::destroy($question->icon);
+            ImageFileService::deleteFile($question->icon());
             $question->icon = null;
         }
         $question->update($data);
