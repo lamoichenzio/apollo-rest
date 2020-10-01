@@ -34,7 +34,7 @@ class ImageFileService
             File::delete(public_path($icon->data));
             $fileData['name'] = self::validateName($fileData['name']);
             $file = Image::make($fileData['data'])->save('images/' . $fileData['name']);
-            $icon->update(['name' => $fileData, 'data' => $file->basePath()]);
+            $icon->update(['name' => $fileData['name'], 'data' => $file->basePath()]);
         } else {
             $icon = self::createImageFile($fileData);
         }
