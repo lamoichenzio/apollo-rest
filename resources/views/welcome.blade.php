@@ -2169,6 +2169,11 @@
                         <pre>order_dir</pre>
                         Order direction (asc or desc) (required if order is present)
                     </li>
+                    <li>
+                        <pre>question_id & question_type</pre>
+                        Returns only the answers to the given question of the given type. They are both required to
+                        filter the result.
+                    </li>
                 </ul>
                 <h4>Response Body</h4>
                 <p>
@@ -2261,6 +2266,45 @@
 }
                         </code>
                     </pre>
+                <p>
+                    This is a response containing only the answers for a given question, also paginated:
+                <pre>
+                    <code>
+{
+    "data": [
+        {
+            "id": 6,
+            "email": "giordano.daloisio@gmail.com",
+            "totAnswers": 5,
+            "survey": "http://apollo.test/rest/surveys/2",
+            "answers": [
+                {
+                    "id": 11,
+                    "question": "http://apollo.test/rest/surveys/2/question_groups/5/multi_questions/6",
+                    "answer": "pippo"
+                }
+            ]
+        }
+    ],
+    "links": {
+        "first": "http://apollo.test/rest/surveys/2/answers?pag_size=2&question_id=6&question_type=App%5CMultiQuestion&page=1",
+        "last": "http://apollo.test/rest/surveys/2/answers?pag_size=2&question_id=6&question_type=App%5CMultiQuestion&page=1",
+        "prev": null,
+        "next": null
+    },
+    "meta": {
+        "current_page": 1,
+        "from": 1,
+        "last_page": 1,
+        "path": "http://apollo.test/rest/surveys/2/answers",
+        "per_page": 2,
+        "to": 1,
+        "total": 1
+    }
+}
+                    </code>
+                </pre>
+                </p>
             </li>
             <li>
                 <h3>GET
