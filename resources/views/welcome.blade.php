@@ -568,113 +568,142 @@
                 <p>If request has the pag_size attribute:</p>
                 <pre>
                 <code>
-                    {
-                        "data": [
-                            {
-                                "id": 1,
-                                "name": "eligendi",
-                                "description": "Voluptas atque vel fuga.",
-                                "icon": null,
-                                "secret": 0,
-                                "active": 1,
-                                "start_date": "2016-07-31T00:00:00.000000Z",
-                                "end_date": "1981-01-24T00:00:00.000000Z",
-                                "url_id": "http://schneider.com/sint-eum-numquam-doloremque-eaque-numquam-in-debitis.html",
-                                "user": "http://apollo.test/rest/user/1",
-                                "question_groups": [
-                                    "http://apollo.test/rest/questionGroup/1",
-                                    "http://apollo.test/rest/questionGroup/2"
-                                ]
-                            },
-                            {
-                                "id": 2,
-                                "name": "eius",
-                                "description": "Dolore aut aut magnam.",
-                                "icon": null,
-                                "secret": 0,
-                                "active": 1,
-                                "start_date": "2009-12-01T00:00:00.000000Z",
-                                "end_date": "2006-09-26T00:00:00.000000Z",
-                                "url_id": "http://www.koch.org/",
-                                "user": "http://apollo.test/rest/user/1",
-                                "question_groups": [
-                                    "http://apollo.test/rest/questionGroup/3",
-                                    "http://apollo.test/rest/questionGroup/4"
-                                ]
-                            }
-                        ],
-                        "links": {
-                            "first": "http://apollo.test/rest/survey?page=1",
-                            "last": "http://apollo.test/rest/survey?page=6",
-                            "prev": null,
-                            "next": "http://apollo.test/rest/survey?page=2"
-                        },
-                        "meta": {
-                            "current_page": 1,
-                            "from": 1,
-                            "last_page": 6,
-                            "path": "http://apollo.test/rest/survey",
-                            "per_page": "2",
-                            "to": 2,
-                            "total": 12
-                        }
-                    }
+{
+    "data": [
+        {
+            "id": 2,
+            "name": "ducimus",
+            "description": "Facilis a ut voluptatem quo fuga.",
+            "icon": null,
+            "secret": 1,
+            "active": 0,
+            "startDate": "2009-01-25T00:00:00.000000Z",
+            "endDate": "1975-10-21T00:00:00.000000Z",
+            "urlId": "ab4430dc-3170-3d9a-9bc5-bd2b5b6ef35d",
+            "user": "http://apollo.test/rest/users/1",
+            "questionGroups": [
+                "http://apollo.test/rest/surveys/2/question_groups/5"
+            ],
+            "invitationPool": null,
+            "createDate": "2020-09-27T16:21:21.000000Z"
+        },
+        {
+            "id": 3,
+            "name": "facere",
+            "description": "Veritatis reprehenderit id harum sapiente.",
+            "icon": null,
+            "secret": 0,
+            "active": 1,
+            "startDate": "1999-01-11T00:00:00.000000Z",
+            "endDate": "2018-11-21T00:00:00.000000Z",
+            "urlId": "c64a7548-3a31-353a-9df3-5ca9101f3df6",
+            "user": "http://apollo.test/rest/users/2",
+            "questionGroups": [
+                "http://apollo.test/rest/surveys/3/question_groups/3",
+                "http://apollo.test/rest/surveys/3/question_groups/4"
+            ],
+            "invitationPool": null,
+            "createDate": "2020-09-27T16:21:21.000000Z"
+        },
+        {
+            "id": 5,
+            "name": "prova",
+            "description": "blablabla",
+            "icon": {
+                "id": "5f75d608455b000061001f62",
+                "name": "pippo.png",
+                "data": "http://apollo.test/images/1601558129$pippo.png"
+            },
+            "secret": 0,
+            "active": 0,
+            "startDate": null,
+            "endDate": null,
+            "urlId": "5f75d607c9db9",
+            "user": "http://apollo.test/rest/users/1",
+            "questionGroups": [],
+            "invitationPool": null,
+            "createDate": "2020-10-01T13:13:44.000000Z"
+        }
+    ],
+    "links": {
+        "first": "http://apollo.test/rest/surveys?pag_size=5&page=1",
+        "last": "http://apollo.test/rest/surveys?pag_size=5&page=1",
+        "prev": null,
+        "next": null
+    },
+    "meta": {
+        "current_page": 1,
+        "from": 1,
+        "last_page": 1,
+        "path": "http://apollo.test/rest/surveys",
+        "per_page": 5,
+        "to": 3,
+        "total": 3
+    }
+}
                 </code>
             </pre>
                 <p>If request has one of the query attributes different from pag_size:</p>
                 <pre>
                 <code>
-                    {
-                        "data": [
-                            {
-                                "id": 3,
-                                "name": "excepturi",
-                                "description": "Qui vel et qui sapiente et et.",
-                                "icon": null,
-                                "secret": 0,
-                                "active": 1,
-                                "start_date": "2005-09-03T00:00:00.000000Z",
-                                "end_date": "1970-05-29T00:00:00.000000Z",
-                                "url_id": "http://www.batz.com/et-itaque-hic-sunt-autem-praesentium-magni",
-                                "user": "http://apollo.test/rest/user/2",
-                                "question_groups": []
-                            },
-                            {
-                                "id": 11,
-                                "name": "test",
-                                "description": "adadasdasdasd",
-                                "icon": {
-                                    "id": "5f74eefca75000005f005fcb",
-                                    "name": "test.png",
-                                    "data": "http://apollo.test/images/1601498875$test.png"
-                                },
-                                "secret": 0,
-                                "active": 0,
-                                "start_date": null,
-                                "end_date": null,
-                                "url_id": null,
-                                "user": "http://apollo.test/rest/user/2",
-                                "question_groups": []
-                            },
-                            {
-                                "id": 12,
-                                "name": "prova",
-                                "description": null,
-                                "icon": {
-                                    "id": "5f74eefca75000005f005fcb",
-                                    "name": "icon.png",
-                                    "data": "http://apollo.test/images/1601498875$icon.png"
-                                },
-                                "secret": 1,
-                                "active": 0,
-                                "start_date": "2020-06-20T00:00:00.000000Z",
-                                "end_date": null,
-                                "url_id": null,
-                                "user": "http://apollo.test/rest/user/2",
-                                "question_groups": []
-                            }
-                        ]
-                    }
+{
+    "data": [
+        {
+            "id": 2,
+            "name": "ducimus",
+            "description": "Facilis a ut voluptatem quo fuga.",
+            "icon": null,
+            "secret": 1,
+            "active": 0,
+            "startDate": "2009-01-25T00:00:00.000000Z",
+            "endDate": "1975-10-21T00:00:00.000000Z",
+            "urlId": "ab4430dc-3170-3d9a-9bc5-bd2b5b6ef35d",
+            "user": "http://apollo.test/rest/users/1",
+            "questionGroups": [
+                "http://apollo.test/rest/surveys/2/question_groups/5"
+            ],
+            "invitationPool": null,
+            "createDate": "2020-09-27T16:21:21.000000Z"
+        },
+        {
+            "id": 3,
+            "name": "facere",
+            "description": "Veritatis reprehenderit id harum sapiente.",
+            "icon": null,
+            "secret": 0,
+            "active": 1,
+            "startDate": "1999-01-11T00:00:00.000000Z",
+            "endDate": "2018-11-21T00:00:00.000000Z",
+            "urlId": "c64a7548-3a31-353a-9df3-5ca9101f3df6",
+            "user": "http://apollo.test/rest/users/2",
+            "questionGroups": [
+                "http://apollo.test/rest/surveys/3/question_groups/3",
+                "http://apollo.test/rest/surveys/3/question_groups/4"
+            ],
+            "invitationPool": null,
+            "createDate": "2020-09-27T16:21:21.000000Z"
+        },
+        {
+            "id": 5,
+            "name": "prova",
+            "description": "blablabla",
+            "icon": {
+                "id": "5f75d608455b000061001f62",
+                "name": "pippo.png",
+                "data": "http://apollo.test/images/1601558129$pippo.png"
+            },
+            "secret": 0,
+            "active": 0,
+            "startDate": null,
+            "endDate": null,
+            "urlId": "5f75d607c9db9",
+            "user": "http://apollo.test/rest/users/1",
+            "questionGroups": [],
+            "invitationPool": null,
+            "createDate": "2020-10-01T13:13:44.000000Z"
+        }
+    ]
+}
                 </code>
             </pre>
             </li>
@@ -687,24 +716,27 @@
                 <h4>Response Body</h4>
                 <pre>
                 <code>
-                    {
-                        "data": {
-                            "id": 1,
-                            "name": "eligendi",
-                            "description": "Voluptas atque vel fuga.",
-                            "icon": null,
-                            "secret": 0,
-                            "active": 1,
-                            "start_date": "2016-07-31T00:00:00.000000Z",
-                            "end_date": "1981-01-24T00:00:00.000000Z",
-                            "url_id": "http://schneider.com/sint-eum-numquam-doloremque-eaque-numquam-in-debitis.html",
-                            "user": "http://apollo.test/rest/user/1",
-                            "question_groups": [
-                                "http://apollo.test/rest/questionGroup/1",
-                                "http://apollo.test/rest/questionGroup/2"
-                            ]
-                        }
-                    }
+{
+    "data": {
+        "id": 5,
+        "name": "prova",
+        "description": "blablabla",
+        "icon": {
+            "id": "5f75d608455b000061001f62",
+            "name": "pippo.png",
+            "data": "http://apollo.test/images/1601558129$pippo.png"
+        },
+        "secret": 0,
+        "active": 0,
+        "startDate": null,
+        "endDate": null,
+        "urlId": "5f75d607c9db9",
+        "user": "http://apollo.test/rest/users/1",
+        "questionGroups": [],
+        "invitationPool": null,
+        "createDate": "2020-10-01T13:13:44.000000Z"
+    }
+}
                 </code>
             </pre>
             </li>
@@ -821,7 +853,7 @@
             <li>
                 <h3>
                     <b>POST</b>
-                    <pre>/publish</pre>
+                    <pre>{survey_id}/publish</pre>
                 </h3>
                 <p>
                     Publish a survey and sends invitation emails if the survey is private.
@@ -2115,10 +2147,10 @@
         <ul>
             <li>
                 <h3>GET
-                    <pre>/?pag_size=&lt;pagSize&gt;&order=&lt;email or totAnswers&gt;&order_dir=&lt;asc or desc&gt;</pre>
+                    <pre>/?pag_size=&lt;pagSize&gt;&order=&lt;email or totAnswers&gt;&order_dir=&lt;asc or desc&gt;&question_id=&lt;questionID&gt;&question_type=&lt;App\InputQuestion or App\MultiQuestion or App\MatrixQuestion&gt;</pre>
                 </h3>
                 <p>
-                    Returns all the answers of this specific survey.
+                    Returns all the answers of this specific survey eventually filtered by the question id.
                 </p>
                 <p>
                     This endpoint can be used only be the user that created the survey or by an admin.

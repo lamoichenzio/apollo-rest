@@ -33,12 +33,18 @@ class SurveyAnswerController extends Controller
         request()->validate([
             'order' => Rule::in(Schema::getColumnListing((new SurveyAnswer)->getTable())),
             'order_dir' => Rule::in(['asc', 'desc']),
-            'pag_size' => 'numeric'
+            'pag_size' => 'numeric',
+            'question_id' => 'required_with:question_type',
+            'question_type' => 'required_with:question_id'
         ]);
 
-        return SurveyAnswerResource::collection($this->service->getAll($survey,
-            request('pag_size'), request('order'), request('order_dir')))->response();
-
+        return SurveyAnswerResource::collection(
+            $this->service->getAll($survey,
+                request('pag_size'),
+                request('order'),
+                request('order_dir')
+            )
+        )->response();
     }
 
     /**
@@ -50,8 +56,9 @@ class SurveyAnswerController extends Controller
      */
     public function store(SurveyAnswerCreationRequest $request, Survey $survey)
     {
+        //PRIVATE SURVEY LOGIN AND VERIFICATION
         if ($survey->secret) {
-            //PRIVATE SURVEY LOGIN AND VERIFICATION
+            //CHECK IF THE USER HAS ALREADY ANSWERED TO THE SURVEY
             $email = $request['email'];
             if (SurveyAnswer::where([
                         ['survey_id', $survey->id],
@@ -60,11 +67,11 @@ class SurveyAnswerController extends Controller
                 return response()->json(['error' => 'Survey already responded by the user'], 422);
             }
 
+            //AUTHORIZE USER
             $invitationPool = $survey->invitationPool;
             if (!$invitationPool->emails->contains('email', $email)) {
                 return response()->json(['error' => 'User not allowed to access the survey'], Response::HTTP_UNAUTHORIZED);
             }
-
             $password = $request['password'];
             if (Crypt::decryptString($invitationPool->password) != $password) {
                 return \response()->json(['error' => 'Wrong password'], 401);
