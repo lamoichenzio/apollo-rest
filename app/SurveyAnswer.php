@@ -54,4 +54,9 @@ class SurveyAnswer extends Model
     {
         return $this->hasMany(MultiMatrixAnswer::class);
     }
+
+    public function path()
+    {
+        return route('surveyAnswer.show', [$this->survey, $this]);
+    }
 }
