@@ -28,9 +28,9 @@ class AnswerValidator
         }
 
         foreach ($request['answers'] as $answer) {
-            $question_type = $answer['question_type'];
+            $questionType = $answer['questionType'];
 
-            if ($question_type == InputQuestion::class || ($question_type == MultiQuestion::class
+            if ($questionType == InputQuestion::class || ($questionType == MultiQuestion::class
                     && key_exists('answer', $answer))) {
                 $response = $this->singleAnswerValidator($survey, $answer);
                 if (!$response['status']) {
@@ -38,21 +38,21 @@ class AnswerValidator
                 }
             }
 
-            if ($question_type == MultiQuestion::class && key_exists('answers', $answer)) {
+            if ($questionType == MultiQuestion::class && key_exists('answers', $answer)) {
                 $response = $this->multiAnswerValidator($survey, $answer);
                 if (!$response['status']) {
                     return response()->json(['error' => $response['message']], 422);
                 }
             }
 
-            if ($question_type == MatrixQuestion::class && key_exists('answer_pair', $answer)) {
+            if ($questionType == MatrixQuestion::class && key_exists('answerPair', $answer)) {
                 $response = $this->singleMatrixAnswerValidator($survey, $answer);
                 if (!$response['status']) {
                     return response()->json(['error' => $response['message']], 422);
                 }
             }
 
-            if ($question_type == MatrixQuestion::class && key_exists('answers_pair', $answer)) {
+            if ($questionType == MatrixQuestion::class && key_exists('answersPair', $answer)) {
                 $response = $this->multiMatrixAnswerValidator($survey, $answer);
                 if (!$response['status']) {
                     return response()->json(['error' => $response['message']], 422);
@@ -66,22 +66,22 @@ class AnswerValidator
     {
         $question = null;
         $message = ['status' => true, 'message' => ""];
-        if ($answer['question_type'] == InputQuestion::class) {
-            $question = InputQuestion::find($answer['question_id']);
+        if ($answer['questionType'] == InputQuestion::class) {
+            $question = InputQuestion::find($answer['questionId']);
         }
-        if ($answer['question_type'] == MultiQuestion::class) {
-            $question = MultiQuestion::find($answer['question_id']);
+        if ($answer['questionType'] == MultiQuestion::class) {
+            $question = MultiQuestion::find($answer['questionId']);
         }
         if ($question == null) {
             $message['status'] = false;
-            $message['message'] = 'Question ' . $answer['question_id'] . ' of type ' . $answer['question_type'] . ' not found';
+            $message['message'] = 'Question ' . $answer['questionId'] . ' of type ' . $answer['questionType'] . ' not found';
         } elseif ($question->questionGroup->survey->id != $survey->id) {
             $message['status'] = false;
-            $message['message'] = 'Question ' . $question->id . ' of type ' . $answer['question_type'] . ' not belonging to Survey';
+            $message['message'] = 'Question ' . $question->id . ' of type ' . $answer['questionType'] . ' not belonging to Survey';
         } elseif ((get_class($question) == MultiQuestion::class &&
                 $question->type == MultiQuestionTypes::$CHECK) || !key_exists('answer', $answer)) {
             $message['status'] = false;
-            $message['message'] = 'Question ' . $question->id . ' of type ' . $answer['question_type'] . ' not coherent with answer field';
+            $message['message'] = 'Question ' . $question->id . ' of type ' . $answer['questionType'] . ' not coherent with answer field';
         }
         return $message;
     }
@@ -89,16 +89,16 @@ class AnswerValidator
     private function multiAnswerValidator($survey, $answer)
     {
         $message = ['status' => true, 'message' => ''];
-        $question = MultiQuestion::find($answer['question_id']);
+        $question = MultiQuestion::find($answer['questionId']);
         if (!$question) {
             $message['status'] = false;
-            $message['message'] = 'Question ' . $answer['question_id'] . ' of type ' . $answer['question_type'] . ' not found';
+            $message['message'] = 'Question ' . $answer['questionId'] . ' of type ' . $answer['questionType'] . ' not found';
         } elseif ($question->questionGroup->survey->id != $survey->id) {
             $message['status'] = false;
-            $message['message'] = 'Question ' . $question->id . ' of type ' . $answer['question_type'] . ' not belonging to Survey';
+            $message['message'] = 'Question ' . $question->id . ' of type ' . $answer['questionType'] . ' not belonging to Survey';
         } elseif ($question->type != MultiQuestionTypes::$CHECK) {
             $message['status'] = false;
-            $message['message'] = 'Question ' . $question->id . ' of type ' . $answer['question_type'] . ' not coherent with answer field';
+            $message['message'] = 'Question ' . $question->id . ' of type ' . $answer['questionType'] . ' not coherent with answer field';
         }
         return $message;
     }
@@ -106,19 +106,19 @@ class AnswerValidator
     private function singleMatrixAnswerValidator($survey, $answer)
     {
         $message = ['status' => true, 'message' => ''];
-        $question = MatrixQuestion::find($answer['question_id']);
+        $question = MatrixQuestion::find($answer['questionId']);
         if (!$question) {
             $message['status'] = false;
-            $message['message'] = 'Question ' . $answer['question_id'] . ' of type ' . $answer['question_type'] . ' not found';
+            $message['message'] = 'Question ' . $answer['questionId'] . ' of type ' . $answer['questionType'] . ' not found';
         } elseif ($question->questionGroup->survey->id != $survey->id) {
             $message['status'] = false;
-            $message['message'] = 'Question ' . $question->id . ' of type ' . $answer['question_type'] . ' not belonging to Survey';
+            $message['message'] = 'Question ' . $question->id . ' of type ' . $answer['questionType'] . ' not belonging to Survey';
         } elseif ($question->type != MatrixQuestionTypes::$RADIO) {
             $message['status'] = false;
-            $message['message'] = 'Question ' . $question->id . ' of type ' . $answer['question_type'] . ' not coherent with answer field';
+            $message['message'] = 'Question ' . $question->id . ' of type ' . $answer['questionType'] . ' not coherent with answer field';
         } else {
             // VALIDATION OF MATRIX ELEMENTS
-            foreach ($answer['answer_pair'] as $pair) {
+            foreach ($answer['answerPair'] as $pair) {
                 $message = $this->matrixElementValidator($pair['element'], $question, $message);
             }
         }
@@ -141,19 +141,19 @@ class AnswerValidator
     private function multiMatrixAnswerValidator($survey, $answer)
     {
         $message = ['status' => true, 'message' => ''];
-        $question = MatrixQuestion::find($answer['question_id']);
+        $question = MatrixQuestion::find($answer['questionId']);
         if (!$question) {
             $message['status'] = false;
-            $message['message'] = 'Question ' . $answer['question_id'] . ' of type ' . $answer['question_type'] . ' not found';
+            $message['message'] = 'Question ' . $answer['questionId'] . ' of type ' . $answer['questionType'] . ' not found';
         } elseif ($question->questionGroup->survey->id != $survey->id) {
             $message['status'] = false;
-            $message['message'] = 'Question ' . $question->id . ' of type ' . $answer['question_type'] . ' not belonging to Survey';
+            $message['message'] = 'Question ' . $question->id . ' of type ' . $answer['questionType'] . ' not belonging to Survey';
         } elseif ($question->type != MatrixQuestionTypes::$CHECK) {
             $message['status'] = false;
-            $message['message'] = 'Question ' . $question->id . ' of type ' . $answer['question_type'] . ' not coherent with answer field';
+            $message['message'] = 'Question ' . $question->id . ' of type ' . $answer['questionType'] . ' not coherent with answer field';
         } else {
             // VALIDATION OF MATRIX ELEMENTS
-            foreach ($answer['answers_pair'] as $pair) {
+            foreach ($answer['answersPair'] as $pair) {
                 $message = $this->matrixElementValidator($pair['element'], $question, $message);
             }
         }
