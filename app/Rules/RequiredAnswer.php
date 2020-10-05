@@ -34,23 +34,23 @@ class RequiredAnswer implements Rule
     {
         foreach ($value as $answer) {
             $this->answer = $answer;
-            if ($answer['question_type'] == InputQuestion::class && !key_exists('answer', $answer)) {
+            if ($answer['questionType'] == InputQuestion::class && !key_exists('answer', $answer)) {
                 return false;
             }
-            if ($answer['question_type'] == MultiQuestion::class) {
-                $question = MultiQuestion::find($answer['question_id']);
+            if ($answer['questionType'] == MultiQuestion::class) {
+                $question = MultiQuestion::find($answer['questionId']);
                 if ($question && $question->type != MultiQuestionTypes::$CHECK && !key_exists('answer', $answer)) {
                     return false;
                 } elseif ($question && $question->type == MultiQuestionTypes::$CHECK && !key_exists('answers', $answer)) {
                     return false;
                 }
             }
-            if ($answer['question_type'] == MatrixQuestion::class) {
-                $question = MatrixQuestion::find($answer['question_id']);
-                if ($question && $question->type == MatrixQuestionTypes::$RADIO && !key_exists('answer_pair', $answer)) {
+            if ($answer['questionType'] == MatrixQuestion::class) {
+                $question = MatrixQuestion::find($answer['questionId']);
+                if ($question && $question->type == MatrixQuestionTypes::$RADIO && !key_exists('answerPair', $answer)) {
                     return false;
                 }
-                if ($question && $question->type == MatrixQuestionTypes::$CHECK && !key_exists('answers_pair', $answer)) {
+                if ($question && $question->type == MatrixQuestionTypes::$CHECK && !key_exists('answersPair', $answer)) {
                     return false;
                 }
             }
@@ -65,6 +65,6 @@ class RequiredAnswer implements Rule
      */
     public function message()
     {
-        return 'Question ' . $this->answer['question_id'] . ' of type ' . $this->answer['question_type'] . ' not coherent with answer field';
+        return 'Question ' . $this->answer['questionId'] . ' of type ' . $this->answer['questionType'] . ' not coherent with answer field';
     }
 }
