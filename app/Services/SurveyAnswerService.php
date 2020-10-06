@@ -48,14 +48,14 @@ class SurveyAnswerService
     {
         $surveyAnswer->singleAnswers()->create([
             'answer' => $answer['answer'],
-            'question_id' => $answer['question_id'],
-            'question_type' => $answer['question_type']
+            'question_id' => $answer['questionId'],
+            'question_type' => $answer['questionType']
         ]);
     }
 
     private function createMultiAnswer(SurveyAnswer $surveyAnswer, $answer)
     {
-        $multiAnswer = new MultiAnswer(['multi_question_id' => $answer['question_id']]);
+        $multiAnswer = new MultiAnswer(['multi_question_id' => $answer['questionId']]);
         $surveyAnswer->multiAnswers()->save($multiAnswer);
         foreach ($answer['answers'] as $element) {
             $multiAnswer->answers()->save(new MultiAnswerElement(['answer' => $element]));
@@ -64,9 +64,9 @@ class SurveyAnswerService
 
     private function createSingleMatrixAnswer(SurveyAnswer $surveyAnswer, $answer)
     {
-        $matrixAnswer = new SingleMatrixAnswer(['matrix_question_id' => $answer['question_id']]);
+        $matrixAnswer = new SingleMatrixAnswer(['matrix_question_id' => $answer['questionId']]);
         $surveyAnswer->singleChoiceMatrixAnswers()->save($matrixAnswer);
-        foreach ($answer['answer_pair'] as $pair) {
+        foreach ($answer['answerPair'] as $pair) {
             $matrixAnswer->pairs()->create([
                 'element_id' => $pair['element'],
                 'answer' => $pair['answer']
@@ -76,9 +76,9 @@ class SurveyAnswerService
 
     private function createMultiMatrixAnswer(SurveyAnswer $surveyAnswer, $answer)
     {
-        $matrixAnswer = new MultiMatrixAnswer(['matrix_question_id' => $answer['question_id']]);
+        $matrixAnswer = new MultiMatrixAnswer(['matrix_question_id' => $answer['questionId']]);
         $surveyAnswer->multiChoiceMatrixAnswers()->save($matrixAnswer);
-        foreach ($answer['answers_pair'] as $pair) {
+        foreach ($answer['answersPair'] as $pair) {
             $singleAnswer = new MultiMatrixAnswerPair(['element_id' => $pair['element']]);
             $matrixAnswer->answers()->save($singleAnswer);
             foreach ($pair['answers'] as $pair_answer) {
@@ -89,7 +89,7 @@ class SurveyAnswerService
 
     public function getAll(Survey $survey, int $pag_size = null, string $order = null, string $orderDir = null)
     {
-        $query = SurveyAnswer::where('survey_id', $survey->id);
+        $query = SurveyAnswer::where('surveyId', $survey->id);
         if ($order != null && $orderDir != null) {
             $query = $query->orderBy($order, $orderDir);
         }
