@@ -70,11 +70,13 @@ class SurveyAnswerResource extends JsonResource
             'email' => $this->email,
             'totAnswers' => $this->totAnswers,
             'survey' => $this->survey->path(),
+            'createDate' => $this->created_at,
 //            'inputAnswers' => SingleAnswerResource::collection($this->singleAnswers),
 //            'multiAnswers' => MultiAnswerResource::collection($this->multiAnswers),
 //            'singleMatrixAnswers' => SingleMatrixAnswerResource::collection($this->singleChoiceMatrixAnswers),
 //            'multiMatrixAnswers' => MultiMatrixAnswerResource::collection($this->multiChoiceMatrixAnswers)
-            'answers' => $answers
+            'answers' => $answers,
+
         ];
     }
 }
