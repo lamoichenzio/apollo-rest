@@ -30,10 +30,10 @@ class SurveyAnswerService
                 if (key_exists('answers', $answer)) {
                     $this->createMultiAnswer($surveyAnswer, $answer);
                 }
-                if (key_exists('answer_pair', $answer)) {
+                if (key_exists('answerPair', $answer)) {
                     $this->createSingleMatrixAnswer($surveyAnswer, $answer);
                 }
-                if (key_exists('answers_pair', $answer)) {
+                if (key_exists('answersPair', $answer)) {
                     $this->createMultiMatrixAnswer($surveyAnswer, $answer);
                 }
             });
