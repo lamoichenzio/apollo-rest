@@ -89,7 +89,7 @@ class SurveyAnswerService
 
     public function getAll(Survey $survey, int $pag_size = null, string $order = null, string $orderDir = null)
     {
-        $query = SurveyAnswer::where('surveyId', $survey->id);
+        $query = SurveyAnswer::where('survey_id', $survey->id);
         if ($order != null && $orderDir != null) {
             $query = $query->orderBy($order, $orderDir);
         }
