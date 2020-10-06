@@ -17,7 +17,7 @@ class SingleMatrixAnswerResource extends JsonResource
         return [
             'id' => $this->id,
             'question' => $this->matrixQuestion->path(),
-            'answer_pair' => $this->pairs->map(function ($pair) {
+            'answerPair' => $this->pairs->map(function ($pair) {
                 return ['element' => $pair->element->title,
                     'answer' => $pair->answer];
             })
