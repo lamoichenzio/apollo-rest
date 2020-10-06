@@ -17,7 +17,7 @@ class MultiMatrixAnswerResource extends JsonResource
         return [
             'id' => $this->id,
             'question' => $this->matrixQuestion->path(),
-            'answers_pair' => $this->answers->map(function ($pair) {
+            'answersPair' => $this->answers->map(function ($pair) {
                 return [
                     'element' => $pair->element->title,
                     'answers' => $pair->answers->map(function ($answer) {
