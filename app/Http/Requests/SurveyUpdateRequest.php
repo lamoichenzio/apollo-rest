@@ -27,8 +27,8 @@ class SurveyUpdateRequest extends FormRequest
         return [
             'name' => 'sometimes|required|string',
             'secret' => 'boolean',
-            'start_date' => 'date|after:today',
-            'end_date' => 'date|after:start_date',
+            'startDate' => 'date|after:today',
+            'endDate' => 'date|after:start_date',
             'active' => 'boolean',
             'icon' => 'sometimes|required',
             'icon.name' => 'sometimes|required_with:icon|required_unless:icon,delete|string',

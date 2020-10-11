@@ -58,6 +58,8 @@ class SurveyController extends Controller
     public function store(SurveyCreationRequest $request)
     {
         $survey = new Survey($request->all());
+        $survey->start_date = request('startDate');
+        $survey->end_date = request('endDate');
         $survey->url_id = uniqid();
 
         //Create icon
@@ -100,6 +102,12 @@ class SurveyController extends Controller
         //DEACTIVATE SURVEY IF NEEDED
         if ($request->has('active') && $request['active'] == false) {
             $survey->active = false;
+        }
+        if ($request->has('startDate')) {
+            $survey->start_date = $request['startDate'];
+        }
+        if ($request->has('endDate')) {
+            $survey->end_date = $request['endDate'];
         }
 
         $this->surveyService->updateSurvey($survey, $request->all(), $request['icon'] == 'delete');
