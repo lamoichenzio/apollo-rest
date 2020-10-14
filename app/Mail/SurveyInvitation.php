@@ -26,7 +26,7 @@ class SurveyInvitation extends Mailable
     {
         $this->survey = $survey;
         $this->password = $password;
-        $this->surveyUrl = $surveyUrl;
+        $this->surveyUrl = rtrim($surveyUrl, '/');
     }
 
     /**

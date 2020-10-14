@@ -20,7 +20,7 @@ class SurveyController extends Controller
     public function __construct(SurveyService $service)
     {
         $this->surveyService = $service;
-        $this->middleware('auth:api');
+        $this->middleware('auth:api', ['except' => ['show']]);
     }
 
     /**

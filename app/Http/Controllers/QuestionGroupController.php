@@ -19,7 +19,7 @@ class QuestionGroupController extends Controller
     public function __construct(QuestionGroupService $service)
     {
         $this->questionGroupService = $service;
-        $this->middleware('auth:api');
+        $this->middleware('auth:api', ['except' => ['index', 'show']]);
     }
 
     /**
