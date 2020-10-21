@@ -63,6 +63,7 @@ class ImageFileService
 
     public static function deleteFile($file)
     {
+        $file = ImageFile::find($file);
         File::delete('public/' . $file->data);
         ImageFile::destroy($file);
     }
